@@ -1,0 +1,60 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wooden Wonders</title>
+    <link rel="stylesheet" href="{% static 'css/common/base.css' %}">
+    <script src="https://kit.fontawesome.com/9c26499af3.js" crossorigin="anonymous"></script>
+    {% block styles %}
+    {% endblock %}
+</head>
+<body>
+<div class="container">
+    <div class="content">
+        <nav>
+            <a href="{% url 'home' %}"><img src="{% static 'images/lumberjack-icon.png' %}" alt="lumberjack icon"
+                                            class="navbar-icon"></a>
+            <ul>
+                <li>
+                    <a href="{% url 'home' %}">Home</a>
+                </li>
+                <li>
+                    <a href="{% url 'home' %}">Products</a>
+                </li>
+                <li>
+                    <a href="{% url 'home' %}">Blog</a>
+                </li>
+                <li>
+                    <a href="{% url 'home' %}">Contacts</a>
+                </li>
+            </ul>
+
+            <div class="action-menu">
+                <ul>
+                    <li>
+                        <a href="{% url 'home' %}"><i class="fa-solid fa-user"></i></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'home' %}"><i class="fa-solid fa-cart-shopping"></i></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'home' %}"><i class="fa-solid fa-heart"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+
+        <footer>
+
+        </footer>
+    </div>
+</div>
+</body>
+</html>

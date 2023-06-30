@@ -1,0 +1,11 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/common/home.css' %}">
+{% endblock %}
+{% block content %}
+    {% for product in object_list %}
+        <p>{{ product.name }}</p>
+    {% endfor %}
+{% endblock %}
