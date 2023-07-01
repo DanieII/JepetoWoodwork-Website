@@ -1,27 +1,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
-body {
+:root {
+    --max-width: 1300px;
+    --light: #E9E4D0;
+    --dark-wood: #504037;
+    --caramel: #B18857;
+}
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+body {
     background-color: #E9E4D0;
     font-family: 'Poppins', sans-serif;
 }
 
-.container {
+.nav-wrapper {
+    background-color: var(--caramel);
     display: flex;
     justify-content: center;
 }
 
-.content {
-    max-width: 960px;
-    width: 100%;
-}
-
 nav {
+    max-width: var(--max-width);
+    width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
+    max-height: 100px;
 }
 
 .navbar-icon {
@@ -41,5 +50,81 @@ nav ul li {
 
 nav ul li a {
     text-decoration: none;
-    color: #504037;
+    color: var(--light);
+}
+
+nav ul li a:hover {
+    color: var(--dark-wood);
+    transition: color 0.2s ease-in;
+}
+
+.action-menu i {
+    font-size: 17px;
+}
+
+.navigation-menu a {
+    font-size: large;
+    text-transform: uppercase;
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+}
+
+.hamburger:hover .bar {
+    background-color: var(--dark-wood);
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: var(--light);
+}
+
+@media screen and (max-width: 767px) {
+    .hamburger {
+        display: block;
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    .navigation-menu {
+        position: fixed;
+        left: -100%;
+        top: 100px;
+        flex-direction: column;
+        background-color: var(--caramel);
+        width: 100%;
+        text-align: center;
+        transition: 0.2s;
+        padding: 0;
+        margin: 0;
+    }
+
+    .navigation-menu.active {
+        left: 0;
+    }
+
+    nav {
+        justify-content: space-around;
+    }
+
+    .navbar-icon {
+        transform: translate(10%, -1%);
+    }
 }

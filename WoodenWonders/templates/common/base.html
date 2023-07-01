@@ -5,56 +5,64 @@
 <head>
     <meta charset="UTF-8">
     <title>Wooden Wonders</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/common/base.css' %}">
     <script src="https://kit.fontawesome.com/9c26499af3.js" crossorigin="anonymous"></script>
     {% block styles %}
     {% endblock %}
+    <style>
+        nav img:hover {
+            content: url("{% static 'images/lumberjack-icon.png' %}");
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-    <div class="content">
-        <nav>
-            <a href="{% url 'home' %}"><img src="{% static 'images/lumberjack-icon.png' %}" alt="lumberjack icon"
-                                            class="navbar-icon"></a>
-            <ul>
-                <li>
-                    <a href="{% url 'home' %}">Home</a>
-                </li>
-                <li>
-                    <a href="{% url 'home' %}">Products</a>
-                </li>
-                <li>
-                    <a href="{% url 'home' %}">Blog</a>
-                </li>
-                <li>
-                    <a href="{% url 'home' %}">Contacts</a>
-                </li>
-            </ul>
+<div class="nav-wrapper">
+    <nav>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <a href="{% url 'home' %}"><img src="{% static 'images/light-lumberjack-icon.png' %}" alt="lumberjack icon"
+                                        class="navbar-icon"></a>
+        <ul class="navigation-menu">
+            <li>
+                <a href="{% url 'home' %}">Home</a>
+            </li>
+            <li>
+                <a href="{% url 'home' %}">Products</a>
+            </li>
+            <li>
+                <a href="{% url 'home' %}">Blog</a>
+            </li>
+            <li>
+                <a href="{% url 'home' %}">Contacts</a>
+            </li>
+        </ul>
 
-            <div class="action-menu">
-                <ul>
-                    <li>
-                        <a href="{% url 'home' %}"><i class="fa-solid fa-user"></i></a>
-                    </li>
-                    <li>
-                        <a href="{% url 'home' %}"><i class="fa-solid fa-cart-shopping"></i></a>
-                    </li>
-                    <li>
-                        <a href="{% url 'home' %}"><i class="fa-solid fa-heart"></i></a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-
-        <main>
-            {% block content %}
-            {% endblock %}
-        </main>
-
-        <footer>
-
-        </footer>
-    </div>
+        <ul class="action-menu">
+            <li>
+                <a href="{% url 'home' %}"><i class="fa-solid fa-user"></i></a>
+            </li>
+            <li>
+                <a href="{% url 'home' %}"><i class="fa-solid fa-cart-shopping"></i></a>
+            </li>
+            <li>
+                <a href="{% url 'home' %}"><i class="fa-solid fa-heart"></i></a>
+            </li>
+        </ul>
+    </nav>
 </div>
+
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
+
+<footer>
+
+</footer>
+<script src="{% static 'javascript/dropdown-menu.js' %}"></script>
 </body>
 </html>
