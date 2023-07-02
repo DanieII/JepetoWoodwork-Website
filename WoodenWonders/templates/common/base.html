@@ -4,14 +4,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Wooden Wonders</title>
+    <title>
+        {% block title %}
+            Wooden Wonders
+        {% endblock %}
+    </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/common/base.css' %}">
     <script src="https://kit.fontawesome.com/9c26499af3.js" crossorigin="anonymous"></script>
     {% block styles %}
     {% endblock %}
     <style>
-        nav img:hover {
+        .lumberjack-icon:hover {
             content: url("{% static 'images/lumberjack-icon.png' %}");
         }
     </style>
@@ -24,14 +28,16 @@
             <span class="bar"></span>
             <span class="bar"></span>
         </div>
-        <a href="{% url 'home' %}"><img src="{% static 'images/light-lumberjack-icon.png' %}" alt="lumberjack icon"
-                                        class="navbar-icon"></a>
+        <a href="{% url 'home' %}">
+            <img src="{% static 'images/light-lumberjack-icon.png' %}" alt="lumberjack icon"
+                 class="navbar-icon lumberjack-icon">
+        </a>
         <ul class="navigation-menu">
             <li>
                 <a href="{% url 'home' %}">Home</a>
             </li>
             <li>
-                <a href="{% url 'home' %}">Products</a>
+                <a href="{% url 'all_products' %}">Products</a>
             </li>
             <li>
                 <a href="{% url 'home' %}">Blog</a>
@@ -55,14 +61,39 @@
     </nav>
 </div>
 
-<main>
-    {% block content %}
-    {% endblock %}
-</main>
+<div class="main-wrapper">
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</div>
 
-<footer>
+<div class="footer-wrapper">
+    <footer>
+        <a href="{% url 'home' %}">
+            <img src="{% static 'images/light-lumberjack-icon.png' %}" alt="lumberjack icon"
+                 class="lumberjack-icon">
+        </a>
+        <ul>
+            <li>
+                <a href="{% url 'home' %}">Home</a>
+            </li>
+            <li>
+                <a href="{% url 'home' %}">Products</a>
+            </li>
+            <li>
+                <a href="{% url 'home' %}">Blog</a>
+            </li>
+            <li>
+                <a href="{% url 'home' %}">Contacts</a>
+            </li>
+        </ul>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d375345.9071371374!2d22.99432325669622!3d42.69546431391972!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa8682cb317bf5%3A0x400a01269bf5e60!2sSofia!5e0!3m2!1sen!2sbg!4v1688293285361!5m2!1sen!2sbg"
+                width="250px" height="250px" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </footer>
+</div>
 
-</footer>
 <script src="{% static 'javascript/dropdown-menu.js' %}"></script>
 </body>
 </html>

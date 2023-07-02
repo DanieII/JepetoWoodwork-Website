@@ -1,12 +1,15 @@
 from django.core.validators import MinLengthValidator, MinValueValidator
 from django.db import models
 
+from products.validators import validate_first_character
+
 
 class Product(models.Model):
     name = models.CharField(
         max_length=200,
         validators=[
-            MinLengthValidator(5)
+            MinLengthValidator(5),
+            validate_first_character
         ]
     )
     price = models.FloatField(
@@ -32,6 +35,10 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        self.name = self.name.title()
+        super().save()
 
 
 class Category(models.Model):

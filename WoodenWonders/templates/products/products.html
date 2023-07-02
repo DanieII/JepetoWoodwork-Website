@@ -1,0 +1,28 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block title %}
+    Products - WoodenWonders
+{% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/products/products.css' %}">
+{% endblock %}
+
+{% block content %}
+    <form method="get" action="{% url 'all_products' %}">
+        {{ form }}
+        <button type="submit">Filter</button>
+    </form>
+    <ul class="products">
+        {% for product in object_list %}
+            <li>
+                <div class="product">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                    <p class="product-name">{{ product.name }}</p>
+                    <p class="product-price">${{ product.price|floatformat:2 }}</p>
+                    <a href="#" class="add-to-cart">Add to cart</a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
