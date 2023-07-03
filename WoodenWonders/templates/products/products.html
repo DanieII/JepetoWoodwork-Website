@@ -9,10 +9,25 @@
 {% endblock %}
 
 {% block content %}
-    <form method="get" action="{% url 'all_products' %}">
-        {{ form }}
-        <button type="submit">Filter</button>
-    </form>
+    <div class="filters">
+        <form method="get" action="{% url 'all_products' %}">
+            <div class="form-error">
+                {{ form.non_field_errors }}
+            </div>
+
+            <label for="{{ form.categories.id_for_label }}">Categories</label>
+            {{ form.categories }}
+
+            <label for="{{ form.min_price.id_for_label }}">Price Range</label>
+            <div class="price-range">
+                {{ form.min_price }}
+                <span class="price-range-hyphen">-</span>
+                {{ form.max_price }}
+            </div>
+
+            <button type="submit">Filter</button>
+        </form>
+    </div>
     <ul class="products">
         {% for product in object_list %}
             <li>
@@ -23,6 +38,8 @@
                     <a href="#" class="add-to-cart">Add to cart</a>
                 </div>
             </li>
+        {% empty %}
+            <h1>No results &#128542;</h1>
         {% endfor %}
     </ul>
 {% endblock %}

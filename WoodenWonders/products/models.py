@@ -1,5 +1,6 @@
 from django.core.validators import MinLengthValidator, MinValueValidator
 from django.db import models
+from django.utils.text import slugify
 
 from products.validators import validate_first_character
 
@@ -38,7 +39,10 @@ class Product(models.Model):
 
     def save(self, *args, **kwargs):
         self.name = self.name.title()
-        super().save()
+        if not self.slug:
+            self.slug = slugify(self.name)
+
+        super().save(*args, **kwargs)
 
 
 class Category(models.Model):

@@ -5,13 +5,26 @@ from products.models import Category
 
 
 class ProductFilterForm(forms.Form):
-    categories = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, required=False)
-    min_price = forms.FloatField(validators=[MinValueValidator(1)], required=False)
-    max_price = forms.FloatField(validators=[MinValueValidator(1)], required=False)
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['categories'].choices = [(category.name, category.name) for category in Category.objects.all()]
+    categories = forms.MultipleChoiceField(
+        choices=[(category.name, category.name) for category in Category.objects.all()],
+        widget=forms.CheckboxSelectMultiple,
+        label='Select categories',
+        required=False
+    )
+    min_price = forms.FloatField(
+        validators=[
+            MinValueValidator(1)
+        ],
+        widget=forms.NumberInput(attrs={'placeholder': 'Min'}),
+        required=False
+    )
+    max_price = forms.FloatField(
+        validators=[
+            MinValueValidator(1)
+        ],
+        widget=forms.NumberInput(attrs={'placeholder': 'Max'}),
+        required=False
+    )
 
     def clean(self):
         super().clean()

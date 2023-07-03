@@ -43,11 +43,53 @@
     background-color: var(--dark-wood);
     padding: 5px 14px;
     font-size: 14px;
-    font-weight: 500;
     color: #fff;
     margin-top: 10px;
 }
 
 .add-to-cart:hover {
     background-color: var(--caramel);
+}
+
+.filters form {
+   margin: 20px;
+}
+
+.filters {
+    background-color: #F0ECE0;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.price-range {
+    display: flex;
+    align-items: center;
+}
+
+.price-range input {
+    width: 80px;
+}
+
+.price-range-hyphen {
+    margin: 0 5px;
+}
+
+.filters form label {
+    color: var(--dark-wood);
+}
+
+.form-error * {
+    color: red;
+    display: inline-block;
+}
+
+.products h1 {
+    color: var(--dark-wood);
+    font-weight: bold;
+}
+
+@media screen and (max-width: 767px) {
+    .products {
+        margin-top: 20px;
+    }
 }
