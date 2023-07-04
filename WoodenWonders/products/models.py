@@ -44,6 +44,9 @@ class Product(models.Model):
 
         super().save(*args, **kwargs)
 
+    class Meta:
+        ordering = ['pk']
+
 
 class Category(models.Model):
     name = models.CharField(

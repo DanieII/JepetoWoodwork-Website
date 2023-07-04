@@ -52,13 +52,18 @@
 }
 
 .filters form {
-   margin: 20px;
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .filters {
     background-color: #F0ECE0;
     margin-left: 20px;
     margin-right: 20px;
+    display: flex;
 }
 
 .price-range {
@@ -74,13 +79,19 @@
     margin: 0 5px;
 }
 
-.filters form label {
+.label-with-input > label {
     color: var(--dark-wood);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 13px;
 }
 
 .form-error * {
     color: red;
-    display: inline-block;
+}
+
+.form-error {
+    max-width: 200px;
 }
 
 .products h1 {
@@ -88,8 +99,75 @@
     font-weight: bold;
 }
 
+.filters form button {
+    text-transform: uppercase;
+    font-size: 10px;
+    background-color: var(--dark-wood);
+    border: none;
+    color: #fff;
+    height: 30px;
+    width: 60px;
+    flex-wrap: wrap;
+}
+
+.pagination {
+    display: flex;
+    margin-top: 30px;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.pagination a {
+    text-decoration: none;
+}
+
+.pagination-number {
+    padding: 12px 17px;
+    border-radius: 2px;
+    color: #fff;
+    background-color: var(--dark-wood);
+}
+
+.pagination-number:hover,
+.pagination-current {
+    background-color: var(--caramel);
+}
+
+.pagination a span {
+    font-size: 25px;
+    color: var(--dark-wood);
+}
+
+.pagination a span:hover {
+    color: var(--caramel);
+}
+
+.main-content {
+    display: flex;
+}
+
+main {
+    flex-direction: column;
+}
+
 @media screen and (max-width: 767px) {
     .products {
         margin-top: 20px;
+    }
+
+    .filters {
+        justify-content: center;
+    }
+
+    .centered {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 10px;
+    }
+
+    .main-content {
+        flex-direction: column;
     }
 }

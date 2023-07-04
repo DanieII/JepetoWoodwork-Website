@@ -202,10 +202,6 @@ main {
         gap: 0;
     }
 
-    main {
-        flex-direction: column;
-    }
-
     .action-menu {
         margin-right: 0;
     }
