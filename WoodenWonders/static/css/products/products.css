@@ -86,14 +86,6 @@
     font-size: 13px;
 }
 
-.form-error * {
-    color: red;
-}
-
-.form-error {
-    max-width: 200px;
-}
-
 .products h1 {
     color: var(--dark-wood);
     font-weight: bold;
@@ -147,8 +139,18 @@
     display: flex;
 }
 
+.main-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
 main {
+    display: flex;
     flex-direction: column;
+    width: 100%;
+    max-width: var(--max-width);
 }
 
 @media screen and (max-width: 767px) {

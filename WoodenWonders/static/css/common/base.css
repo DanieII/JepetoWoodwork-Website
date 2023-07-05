@@ -137,17 +137,12 @@ footer ul li a:hover::after {
     width: 100%;
 }
 
-.main-wrapper {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-    margin-top: 20px;
+.form-error * {
+    color: red;
 }
 
-main {
-    display: flex;
-    width: 100%;
-    max-width: var(--max-width);
+.form-error {
+    max-width: 200px;
 }
 
 @media screen and (max-width: 767px) {
