@@ -100,6 +100,11 @@
     height: 30px;
     width: 60px;
     flex-wrap: wrap;
+    cursor: pointer;
+}
+
+.filters form button:hover {
+    background-color: var(--caramel);
 }
 
 .pagination {
@@ -119,6 +124,7 @@
     border-radius: 2px;
     color: #fff;
     background-color: var(--dark-wood);
+    cursor: pointer;
 }
 
 .pagination-number:hover,

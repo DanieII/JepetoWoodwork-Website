@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import AuthenticationForm
 
 
 class CustomUserForm(forms.ModelForm):
@@ -27,3 +28,8 @@ class CustomUserForm(forms.ModelForm):
             user.save()
 
         return user
+
+
+class CustomLoginForm(AuthenticationForm):
+    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))

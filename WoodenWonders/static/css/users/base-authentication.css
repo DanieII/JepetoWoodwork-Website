@@ -1,0 +1,41 @@
+.main-wrapper {
+    margin-top: auto;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+main > p {
+    color: var(--dark-wood);
+}
+
+main > p a {
+    text-decoration: none;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+form * {
+    padding: 5px;
+}
+
+button[type='submit'] {
+    background-color: var(--dark-wood);
+    border: none;
+    color: #fff;
+    padding: 7px;
+    cursor: pointer;
+}
+
+button[type='submit']:hover {
+    background-color: var(--caramel);
+}

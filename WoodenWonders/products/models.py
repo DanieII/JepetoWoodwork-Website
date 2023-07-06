@@ -56,5 +56,9 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    @classmethod
+    def get_choices(cls):
+        return [(category.name, category.name) for category in cls.objects.all()]
+
     class Meta:
         verbose_name_plural = 'Categories'

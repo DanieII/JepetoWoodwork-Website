@@ -6,7 +6,6 @@ from products.models import Category
 
 class ProductFilterForm(forms.Form):
     categories = forms.MultipleChoiceField(
-        choices=[(category.name, category.name) for category in Category.objects.all()],
         widget=forms.CheckboxSelectMultiple,
         label='Select categories',
         required=False
@@ -25,6 +24,10 @@ class ProductFilterForm(forms.Form):
         widget=forms.NumberInput(attrs={'placeholder': 'Max'}),
         required=False
     )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['categories'].choices = Category.get_choices()
 
     def clean(self):
         super().clean()

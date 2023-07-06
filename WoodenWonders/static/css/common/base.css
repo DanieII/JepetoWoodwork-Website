@@ -11,6 +11,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    transition: all 0.2s ease-in;
 }
 
 body {
@@ -45,6 +46,7 @@ nav {
 nav ul {
     display: flex;
     gap: 1em;
+    z-index: 3;
 }
 
 nav ul li {

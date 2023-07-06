@@ -1,0 +1,41 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/users/base-authentication.css' %}">
+{% endblock %}
+{% block title %}
+    {{ state }} - WoodenWonders
+{% endblock %}
+
+{% block content %}
+    <form method="post" action="{% if state == 'Login' %}{% url 'login' %}{% else %}{% url 'register' %}{% endif %}">
+
+        {% csrf_token %}
+
+        <div class="form-error">
+            <p>{{ form.non_field_errors }}</p>
+        </div>
+
+        {% for field in form %}
+            {% if field.errors %}
+                {% for error in field.errors %}
+                    <div class="form-error">
+                        <p>{{ error }}</p>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <p>{{ field }}</p>
+        {% endfor %}
+
+        <input type="hidden" name="next" value="{{ next }}">
+
+        <button type="submit">{{ state }}</button>
+    </form>
+
+    {% if state == 'Login' %}
+        <p>Don't have an account? <a href="{% url 'register' %}?next={{ next }}">Register</a></p>
+    {% else %}
+        <p>Already have an account? <a href="{% url 'login' %}?next={{ next }}">Login</a></p>
+    {% endif %}
+{% endblock %}

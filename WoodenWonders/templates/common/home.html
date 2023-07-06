@@ -5,7 +5,10 @@
     <link rel="stylesheet" href="{% static 'css/common/home.css' %}">
 {% endblock %}
 {% block content %}
-    {% for product in object_list %}
-        <p>{{ product.name }}</p>
-    {% endfor %}
+    <div class="banner" style="background-image: url('{% static 'images/header-image.jpg' %}')">
+        <div>
+            <p>Welcome to WoodenWonders</p>
+            <a href="{% url 'products' %}">Shop now</a>
+        </div>
+    </div>
 {% endblock %}

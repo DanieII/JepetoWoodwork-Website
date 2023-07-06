@@ -10,7 +10,6 @@ class Products(ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(object_list=self.get_queryset())
-
         context['form'] = self.filter_form
 
         return context
