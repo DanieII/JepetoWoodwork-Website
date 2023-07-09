@@ -1,181 +1,142 @@
-.products {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 2em;
-}
-
-.products li img {
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-}
-
-.products li {
-    display: inline-block;
-}
-
-.product {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #F0ECE0;
-    padding: 20px;
-    gap: 10px;
-}
-
-.product-name {
-    color: var(--dark-wood);
-    font-weight: bold;
-}
-
-.product-price {
-    color: var(--dark-wood);
-    border-bottom: 2px solid var(--caramel);
-    font-size: 14px;
-    font-weight: bold;
-}
-
-.add-to-cart {
-    text-transform: uppercase;
-    text-decoration: none;
-    background-color: var(--dark-wood);
-    padding: 5px 14px;
-    font-size: 14px;
-    color: #fff;
-    margin-top: 10px;
-}
-
-.add-to-cart:hover {
-    background-color: var(--caramel);
-}
-
 .filters form {
-    display: flex;
-    flex-direction: column;
-    margin: 20px;
-    gap: 10px;
-    flex-wrap: wrap;
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .filters {
-    background-color: #F0ECE0;
-    margin-left: 20px;
-    margin-right: 20px;
-    display: flex;
+  background-color: #f0ece0;
+  margin-left: 20px;
+  margin-right: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.search-form {
+  margin-bottom: 0 !important;
+}
+
+.search-form button {
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--dark-wood);
+  font-weight: 600;
 }
 
 .price-range {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .price-range input {
-    width: 80px;
+  width: 80px;
 }
 
 .price-range-hyphen {
-    margin: 0 5px;
+  margin: 0 5px;
 }
 
 .label-with-input > label {
-    color: var(--dark-wood);
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 13px;
+  color: var(--dark-wood);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 13px;
 }
 
-.products h1 {
-    color: var(--dark-wood);
-    font-weight: bold;
+.filter-form {
+  margin-top: 10px !important;
 }
 
-.filters form button {
-    text-transform: uppercase;
-    font-size: 10px;
-    background-color: var(--dark-wood);
-    border: none;
-    color: #fff;
-    height: 30px;
-    width: 60px;
-    flex-wrap: wrap;
-    cursor: pointer;
+.filter-form button {
+  text-transform: uppercase;
+  font-size: 10px;
+  background-color: var(--dark-wood);
+  border: none;
+  color: #fff;
+  height: 30px;
+  width: 60px;
+  flex-wrap: wrap;
+  cursor: pointer;
 }
 
-.filters form button:hover {
-    background-color: var(--caramel);
+.filter-form button:hover {
+  background-color: var(--caramel);
 }
 
 .pagination {
-    display: flex;
-    margin-top: 30px;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
+  display: flex;
+  margin-top: 30px;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
 }
 
 .pagination a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .pagination-number {
-    padding: 12px 17px;
-    border-radius: 2px;
-    color: #fff;
-    background-color: var(--dark-wood);
-    cursor: pointer;
+  padding: 12px 17px;
+  border-radius: 2px;
+  color: #fff;
+  background-color: var(--dark-wood);
+  cursor: pointer;
 }
 
 .pagination-number:hover,
 .pagination-current {
-    background-color: var(--caramel);
+  background-color: var(--caramel);
 }
 
 .pagination a span {
-    font-size: 25px;
-    color: var(--dark-wood);
+  font-size: 25px;
+  color: var(--dark-wood);
 }
 
 .pagination a span:hover {
-    color: var(--caramel);
+  color: var(--caramel);
 }
 
 .main-content {
-    display: flex;
+  display: flex;
 }
 
 .main-wrapper {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-    margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 main {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: var(--max-width);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: var(--max-width);
 }
 
 @media screen and (max-width: 767px) {
-    .products {
-        margin-top: 20px;
-    }
+  .products {
+    margin-top: 20px;
+  }
 
-    .filters {
-        justify-content: center;
-    }
+  .filters {
+    justify-content: center;
+    align-items: center;
+  }
 
-    .centered {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-top: 10px;
-    }
+  .centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+  }
 
-    .main-content {
-        flex-direction: column;
-    }
+  .main-content {
+    flex-direction: column;
+  }
 }
