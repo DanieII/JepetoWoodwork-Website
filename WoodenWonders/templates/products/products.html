@@ -50,7 +50,7 @@ Products - WoodenWonders
         <img src="{{ product.image.url }}" alt="{{ product.name }}">
         <p class="product-name">{{ product.name }}</p>
         <p class="product-price">${{ product.price|floatformat:2 }}</p>
-        <a href="#" class="add-to-cart">Add to cart</a>
+        <a href="{% url 'add_to_cart' pk=product.pk %}" class="add-to-cart">Add to cart</a>
       </div>
     </li>
     {% empty %}
