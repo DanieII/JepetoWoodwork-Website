@@ -1,0 +1,27 @@
+{% extends 'common/base.html' %}
+{% load static %}
+{% block title %}Cart - WoodenWonders{% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/cart/cart.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="cart-products">
+        {% for product, quantity in cart_products.items %}
+            <div class="cart-product">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                <div class="container">
+                    <div class="product-information">
+                        <h3 class="product-name">{{ product.name }}</h3>
+                        <p class="categories">{{ product.categories.all|join:", " }}</p>
+                    </div>
+                    <div class="quantity">
+                        <i class="fa-solid fa-minus"></i>
+                        <p>{{ quantity }}</p>
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                    <p>${{ product.price }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

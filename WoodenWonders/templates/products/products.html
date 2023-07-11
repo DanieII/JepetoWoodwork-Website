@@ -1,78 +1,64 @@
 {% extends 'common/base.html' %}
 {% load static %}
-
-{% block title %}
-Products - WoodenWonders
-{% endblock %}
+{% block title %}Products - WoodenWonders{% endblock %}
 {% block styles %}
-<link rel="stylesheet" href="{% static 'css/products/products.css' %}">
+    <link rel="stylesheet" href="{% static 'css/products/products.css' %}">
+    <link rel="stylesheet" href="{% static 'css/products/products-list.css' %}">
 {% endblock %}
-
 {% block content %}
-<div class="main-content">
-  <div class="filters">
-    <form method="get" action="{% url 'products' %}" class="search-form">
-      <div class="search-field">
-        {{search_form.search_field}}
-        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i>
-        </button>
-      </div>
-    </form>
-
-    <form method="get" action="{% url 'products' %}" class="filter-form">
-      <div class="form-error">
-        {{ form.non_field_errors }}
-      </div>
-
-      <div class="label-with-input">
-        <label for="{{ form.categories.id_for_label }}">Categories</label>
-        {{ form.categories }}
-      </div>
-
-      <div class="label-with-input">
-        <label for="{{ form.min_price.id_for_label }}">Price Range</label>
-        <div class="price-range">
-          {{ form.min_price }}
-          <span class="price-range-hyphen">-</span>
-          {{ form.max_price }}
+    <div class="main-content">
+        <div class="filters">
+            <form method="get" action="{% url 'products' %}" class="search-form">
+                <div class="search-field">
+                    {{ search_form.search_field }}
+                    <button type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+            </form>
+            <form method="get" action="{% url 'products' %}" class="filter-form">
+                <div class="form-error">{{ form.non_field_errors }}</div>
+                <div class="label-with-input">
+                    <label for="{{ form.categories.id_for_label }}">Categories</label>
+                    {{ form.categories }}
+                </div>
+                <div class="label-with-input">
+                    <label for="{{ form.min_price.id_for_label }}">Price Range</label>
+                    <div class="price-range">
+                        {{ form.min_price }}
+                        <span class="price-range-hyphen">-</span>
+                        {{ form.max_price }}
+                    </div>
+                </div>
+                <div class="centered">
+                    <button type="submit">Filter</button>
+                </div>
+            </form>
         </div>
-      </div>
-
-      <div class="centered">
-        <button type="submit">Filter</button>
-      </div>
-    </form>
-  </div>
-  <ul class="products">
-    {% for product in page_obj %}
-    <li>
-      <div class="product">
-        <img src="{{ product.image.url }}" alt="{{ product.name }}">
-        <p class="product-name">{{ product.name }}</p>
-        <p class="product-price">${{ product.price|floatformat:2 }}</p>
-        <a href="{% url 'add_to_cart' pk=product.pk %}" class="add-to-cart">Add to cart</a>
-      </div>
-    </li>
-    {% empty %}
-    <h1>No results &#128542;</h1>
-    {% endfor %}
-  </ul>
-</div>
-<div class="pagination">
-  {% if page_obj.has_previous %}
-  <a href="?page={{ page_obj.previous_page_number }}"><span>&lt;</span></a>
-  {% endif %}
-
-  {% for num in page_obj.paginator.page_range %}
-  {% if page_obj.number == num %}
-  <span class="pagination-number pagination-current">{{ num }}</span>
-  {% else %}
-  <a class="pagination-number" href="?page={{ num }}">{{ num }}</a>
-  {% endif %}
-  {% endfor %}
-
-  {% if page_obj.has_next %}
-  <a href="?page={{ page_obj.next_page_number }}"><span>&gt;</span></a>
-  {% endif %}
-</div>
+        <ul class="products">
+            {% for product in page_obj %}
+                <li>
+                    <div class="product">
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                        <p class="product-name">{{ product.name }}</p>
+                        <p class="product-price">${{ product.price|floatformat:2 }}</p>
+                        <a href="{% url 'add_to_cart' pk=product.pk %}" class="add-to-cart">Add to cart</a>
+                    </div>
+                </li>
+            {% empty %}
+                <h1>No results &#128542;</h1>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="pagination">
+        {% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}"><span>&lt;</span></a>{% endif %}
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <span class="pagination-number pagination-current">{{ num }}</span>
+            {% else %}
+                <a class="pagination-number" href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}"><span>&gt;</span></a>{% endif %}
+    </div>
 {% endblock %}

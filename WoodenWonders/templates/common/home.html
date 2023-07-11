@@ -1,9 +1,9 @@
 {% extends 'common/base.html' %}
 {% load static %}
-
 {% block styles %}
-<link rel="stylesheet" href="{% static 'css/common/home.css' %}">
-<style>
+    <link rel="stylesheet" href="{% static 'css/common/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/products/products-list.css' %}">
+    <style>
   .banner {
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5)),
     url('{% static "images/wood-1200x630.jpg" %}'),
@@ -11,35 +11,34 @@
     background-size: cover;
     background-repeat: no-repeat;
   }
-</style>
+    </style>
 {% endblock %}
 {% block content %}
-<div class="banner">
-  <div>
-    <p>Welcome to
-      <span>W</span><span>o</span><span>o</span><span>d</span><span>e</span><span>n</span><span>W</span><span>o</span><span>n</span><span>d</span><span>e</span><span>r</span><span>s</span>
-    </p>
-    <a href="{% url 'products' %}">Shop now</a>
-  </div>
-</div>
-
-<div class="container">
-  <div class="newest-arrivals">
-    <h1>Newest Arrivals</h1>
-    <ul class="products">
-      {% for product in object_list %}
-      <li>
-        <div class="product">
-          <img src="{{ product.image.url }}" alt="{{ product.name }}">
-          <p class="product-name">{{ product.name }}</p>
-          <p class="product-price">${{ product.price|floatformat:2 }}</p>
-          <a href="{% url 'add_to_cart' pk=product.pk %}" class="add-to-cart">Add to cart</a>
+    <div class="banner">
+        <div>
+            <p>
+                Welcome to
+                <span>W</span><span>o</span><span>o</span><span>d</span><span>e</span><span>n</span><span>W</span><span>o</span><span>n</span><span>d</span><span>e</span><span>r</span><span>s</span>
+            </p>
+            <a href="{% url 'products' %}">Shop now</a>
         </div>
-      </li>
-      {% endfor %}
-    </ul>
-  </div>
-</div>
-
-<script src="{% static 'javascript/home-page-banner-text.js' %}"></script>
+    </div>
+    <div class="container">
+        <div class="newest-arrivals">
+            <h1>Newest Arrivals</h1>
+            <ul class="products">
+                {% for product in object_list %}
+                    <li>
+                        <div class="product">
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                            <p class="product-name">{{ product.name }}</p>
+                            <p class="product-price">${{ product.price|floatformat:2 }}</p>
+                            <a href="{% url 'add_to_cart' pk=product.pk %}" class="add-to-cart">Add to cart</a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <script src="{% static 'javascript/home-page-banner-text.js' %}"></script>
 {% endblock %}
