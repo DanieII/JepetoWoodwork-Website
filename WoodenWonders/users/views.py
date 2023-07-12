@@ -28,8 +28,10 @@ class UserRegisterView(ProhibitLoggedUsers, CreateView):
 class UserLoginView(ProhibitLoggedUsers, LoginView):
     form_class = CustomLoginForm
     template_name = "users/base-authentication.html"
-    success_url = reverse_lazy("products")
     extra_context = {"state": "Login"}
+
+    def get_success_url(self):
+        return self.request.POST.get("next", self.success_url)
 
 
 class UserDetailsView(LoginRequiredMixin, DetailView):

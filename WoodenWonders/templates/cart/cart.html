@@ -11,17 +11,21 @@
                 <img src="{{ product.image.url }}" alt="{{ product.name }}">
                 <div class="container">
                     <div class="product-information">
-                        <h3 class="product-name">{{ product.name }}</h3>
+                        <h4 class="product-name">{{ product.name }}</h4>
                         <p class="categories">{{ product.categories.all|join:", " }}</p>
                     </div>
                     <div class="quantity">
-                        <i class="fa-solid fa-minus"></i>
+                        <a href="{% url 'decrease_quantity' pk=product.pk %}">&minus;</a>
                         <p>{{ quantity }}</p>
-                        <i class="fa-solid fa-plus"></i>
+                        <a href="{% url "increase_quantity" pk=product.pk %}">&plus;</a>
                     </div>
-                    <p>${{ product.price }}</p>
+                    <div>
+                        <p>${% widthratio product.price 1 quantity %}</p>
+                        <a href="{% url 'remove_product' pk=product.pk %}">remove</a>
+                    </div>
                 </div>
             </div>
         {% endfor %}
     </div>
+    <a href="{% url "checkout" %}">Checkout</a>
 {% endblock %}

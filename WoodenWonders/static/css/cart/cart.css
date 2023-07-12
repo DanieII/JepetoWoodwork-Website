@@ -42,8 +42,10 @@ main {
   gap: 10px;
 }
 
-.quantity i {
+.quantity a {
   color: var(--dark-wood);
+  text-decoration: none;
+  font-size: 25px;
 }
 
 .cart-product .container {
@@ -59,4 +61,9 @@ main {
 .cart-product .container * {
   text-align: center;
   margin: auto;
+}
+
+.cart-product .container div:last-child a {
+  text-decoration: none;
+  color: var(--caramel);
 }
