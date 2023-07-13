@@ -5,27 +5,35 @@
     <link rel="stylesheet" href="{% static 'css/cart/cart.css' %}">
 {% endblock %}
 {% block content %}
-    <div class="cart-products">
-        {% for product, quantity in cart_products.items %}
-            <div class="cart-product">
-                <img src="{{ product.image.url }}" alt="{{ product.name }}">
-                <div class="container">
-                    <div class="product-information">
-                        <h4 class="product-name">{{ product.name }}</h4>
-                        <p class="categories">{{ product.categories.all|join:", " }}</p>
-                    </div>
-                    <div class="quantity">
-                        <a href="{% url 'decrease_quantity' pk=product.pk %}">&minus;</a>
-                        <p>{{ quantity }}</p>
-                        <a href="{% url "increase_quantity" pk=product.pk %}">&plus;</a>
-                    </div>
-                    <div>
-                        <p>${% widthratio product.price 1 quantity %}</p>
-                        <a href="{% url 'remove_product' pk=product.pk %}">remove</a>
+    {% if cart_products %}
+        <div class="cart-products">
+            {% for product, quantity in cart_products.items %}
+                <div class="cart-product">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                    <div class="container">
+                        <div class="product-information">
+                            <h4 class="product-name">{{ product.name }}</h4>
+                            <p class="categories">{{ product.categories.all|join:", " }}</p>
+                        </div>
+                        <div class="quantity">
+                            <a href="{% url 'decrease_quantity' pk=product.pk %}">&minus;</a>
+                            <p>{{ quantity }}</p>
+                            <a href="{% url "increase_quantity" pk=product.pk %}">&plus;</a>
+                        </div>
+                        <div>
+                            {% widthratio product.price 1 quantity as total_product_price %}
+                            <p>${{ total_product_price|floatformat:2 }}</p>
+                            <a href="{% url 'remove_product' pk=product.pk %}">remove</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        {% endfor %}
-    </div>
-    <a href="{% url "checkout" %}">Checkout</a>
+            {% endfor %}
+        </div>
+        <div>
+            <h3>Total: ${{ total_price|floatformat:2 }}</h3>
+            <a href="{% url "checkout" %}">Checkout</a>
+        </div>
+    {% else %}
+        <h1 style="align-self: center; color: var(--dark-wood);">No Products</h1>
+    {% endif %}
 {% endblock %}

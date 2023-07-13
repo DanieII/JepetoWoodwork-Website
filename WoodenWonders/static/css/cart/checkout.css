@@ -1,0 +1,31 @@
+.main-wrapper {
+  margin-top: auto;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+form * {
+  padding: 5px;
+}
+
+button[type="submit"] {
+  background-color: var(--dark-wood);
+  border: none;
+  color: #fff;
+  padding: 7px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: var(--caramel);
+}

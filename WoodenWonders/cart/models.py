@@ -23,4 +23,4 @@ class OrderProduct(models.Model):
 
     @property
     def product_total(self):
-        return self.product.price * self.quantity
+        return f"{self.product.price * self.quantity:.2f}"

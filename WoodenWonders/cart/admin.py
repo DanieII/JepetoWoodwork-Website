@@ -1,3 +1,26 @@
 from django.contrib import admin
+from .models import Order
 
-# Register your models here.
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ["full_name", "contact", "city", "address", "products"]
+
+    @staticmethod
+    def full_name(order):
+        return order.first_name + " " + order.last_name
+
+    @staticmethod
+    def contact(order):
+        user = order.user
+        return user.email or user.phone_number
+
+    @staticmethod
+    def products(order):
+        result = []
+        for product in order.orderproduct_set.all():
+            result.append(
+                f"{product.quantity} {product.product.name} for ${product.product_total}"
+            )
+
+        return ", ".join(result)

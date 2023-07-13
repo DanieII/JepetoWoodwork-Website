@@ -67,3 +67,21 @@ main {
   text-decoration: none;
   color: var(--caramel);
 }
+
+main > div:last-child h2 {
+  color: var(--dark-wood);
+}
+
+main > div:last-child {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+main > div:last-child a {
+  text-decoration: none;
+  color: var(--caramel);
+  font-size: 20px;
+}

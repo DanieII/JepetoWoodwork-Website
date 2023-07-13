@@ -11,23 +11,25 @@ from django.contrib.auth.views import LoginView
 class ProhibitLoggedUsers:
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect("products")
+            return redirect("home")
         return super().dispatch(request, *args, **kwargs)
 
 
 class UserRegisterView(ProhibitLoggedUsers, CreateView):
     form_class = CustomUserForm
     template_name = "users/base-authentication.html"
-    success_url = reverse_lazy("products")
+    success_url = reverse_lazy("home")
     extra_context = {"state": "Register"}
 
     def get_success_url(self):
-        return self.request.POST.get("next", self.success_url)
+        next = self.request.POST.get("next")
+        return next if next else self.success_url
 
 
 class UserLoginView(ProhibitLoggedUsers, LoginView):
     form_class = CustomLoginForm
     template_name = "users/base-authentication.html"
+    success_url = reverse_lazy("home")
     extra_context = {"state": "Login"}
 
     def get_success_url(self):

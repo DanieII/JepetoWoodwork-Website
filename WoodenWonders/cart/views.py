@@ -1,9 +1,10 @@
 from django.shortcuts import redirect, render
 from products.models import Product
-from .models import Order
-from django.views.generic import CreateView
+from .models import Order, OrderProduct
+from django.views.generic import CreateView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
+from django import forms
 
 
 def add_to_cart(request, pk):
@@ -23,8 +24,15 @@ def cart(request):
         Product.objects.get(pk=int(pk)): quantity
         for pk, quantity in request.session.get("cart", {}).items()
     }
-    context = {"cart_products": cart_products}
 
+    total_price = 0
+    for product, quantity in cart_products.items():
+        total_price += product.price * quantity
+
+    context = {
+        "cart_products": cart_products,
+        "total_price": total_price,
+    }
     return render(request, "cart/cart.html", context)
 
 
@@ -32,7 +40,7 @@ def increase_quantity(request, pk):
     request.session["cart"][pk] += 1
     request.session.save()
 
-    return redirect(request.META.get("HTTP_REFERER"))
+    return redirect(reverse("cart"))
 
 
 def decrease_quantity(request, pk):
@@ -45,14 +53,14 @@ def decrease_quantity(request, pk):
         request.session["cart"] = cart
         request.session.save()
 
-    return redirect(request.META.get("HTTP_REFERER"))
+    return redirect(reverse("cart"))
 
 
 def remove_product(request, pk):
     request.session["cart"].pop(pk)
     request.session.save()
 
-    return redirect(request.META.get("HTTP_REFERER"))
+    return redirect(reverse("cart"))
 
 
 class CheckoutView(LoginRequiredMixin, CreateView):
@@ -61,9 +69,19 @@ class CheckoutView(LoginRequiredMixin, CreateView):
     template_name = "cart/checkout.html"
     success_url = reverse_lazy("order_success")
 
+    def get_form(self):
+        form = super().get_form()
+
+        for field_name, field in form.fields.items():
+            field.widget = forms.TextInput(
+                attrs={"placeholder": field_name.title().replace("_", " ")}
+            )
+
+        return form
+
     def get(self, request, *args, **kwargs):
         if not request.session.get("cart"):
-            return redirect(request.META.get("HTTP_REFERER"))
+            return redirect(reverse("products"))
         return super().get(request)
 
     def form_valid(self, form):
@@ -79,3 +97,7 @@ class CheckoutView(LoginRequiredMixin, CreateView):
         self.request.session["cart"] = {}
 
         return super().form_valid(form)
+
+
+class OrderSuccessView(TemplateView):
+    template_name = "cart/success.html"
