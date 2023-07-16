@@ -18,7 +18,7 @@
                         <div class="quantity">
                             <a href="{% url 'decrease_quantity' pk=product.pk %}">&minus;</a>
                             <p>{{ quantity }}</p>
-                            <a href="{% url "increase_quantity" pk=product.pk %}">&plus;</a>
+                            <a href="{% url "add_to_cart" pk=product.pk %}">&plus;</a>
                         </div>
                         <div>
                             {% widthratio product.price 1 quantity as total_product_price %}

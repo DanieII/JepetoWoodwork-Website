@@ -39,8 +39,12 @@
             {% for product in page_obj %}
                 <li>
                     <div class="product">
-                        <img src="{{ product.image.url }}" alt="{{ product.name }}">
-                        <p class="product-name">{{ product.name }}</p>
+                        <a href="{% url 'product' pk=product.pk %}">
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                        </a>
+                        <a href="{% url 'product' pk=product.pk %}">
+                            <p class="product-name">{{ product.name }}</p>
+                        </a>
                         <p class="product-price">${{ product.price|floatformat:2 }}</p>
                         <a href="{% url 'add_to_cart' pk=product.pk %}" class="add-to-cart">Add to cart</a>
                     </div>

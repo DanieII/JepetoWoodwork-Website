@@ -1,7 +1,10 @@
-from django.views.generic import ListView
+from django.views.generic import DetailView, ListView
+from django.urls import reverse
+from django.views.generic.edit import FormMixin
 from .forms import ProductFilterForm
 from .models import Product
-from .forms import ProductSearchForm
+from .forms import ProductSearchForm, ProductAddToCartForm
+from cart.views import add_to_cart
 
 
 class Products(ListView):
@@ -38,3 +41,19 @@ class Products(ListView):
                 queryset = queryset.filter(price__lte=max_field)
 
         return queryset
+
+
+class ProductDetails(FormMixin, DetailView):
+    model = Product
+    template_name = "products/product.html"
+    form_class = ProductAddToCartForm
+
+    def get_success_url(self):
+        return reverse("product", kwargs={"pk": self.object.pk})
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        quantity = int(request.POST.get("quantity"))
+        add_to_cart(request, self.object.pk, quantity)
+
+        return self.form_valid(self.get_form())

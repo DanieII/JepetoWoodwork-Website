@@ -40,3 +40,7 @@ class ProductFilterForm(forms.Form):
                 )
 
         return self.cleaned_data
+
+
+class ProductAddToCartForm(forms.Form):
+    quantity = forms.IntegerField(validators=[MinValueValidator(1)], initial=1)

@@ -7,12 +7,13 @@ from django.urls import reverse_lazy, reverse
 from django import forms
 
 
-def add_to_cart(request, pk):
+def add_to_cart(request, pk, quantity=1):
     cart = request.session.get("cart", {})
+    pk = str(pk)
 
     if not cart.get(pk):
         cart[pk] = 0
-    cart[pk] += 1
+    cart[pk] += quantity
 
     request.session["cart"] = cart
 
@@ -34,13 +35,6 @@ def cart(request):
         "total_price": total_price,
     }
     return render(request, "cart/cart.html", context)
-
-
-def increase_quantity(request, pk):
-    request.session["cart"][pk] += 1
-    request.session.save()
-
-    return redirect(reverse("cart"))
 
 
 def decrease_quantity(request, pk):
@@ -69,6 +63,10 @@ class CheckoutView(LoginRequiredMixin, CreateView):
     template_name = "cart/checkout.html"
     success_url = reverse_lazy("order_success")
 
+    @property
+    def user_has_products(self):
+        return self.request.session.get("cart")
+
     def get_form(self):
         form = super().get_form()
 
@@ -80,11 +78,14 @@ class CheckoutView(LoginRequiredMixin, CreateView):
         return form
 
     def get(self, request, *args, **kwargs):
-        if not request.session.get("cart"):
-            return redirect(reverse("products"))
-        return super().get(request)
+        if self.user_has_products:
+            return super().get(request)
+        return redirect("products")
 
     def form_valid(self, form):
+        if not self.user_has_products:
+            return redirect("products")
+
         order = form.save(commit=False)
         order.user = self.request.user
         order.save()
@@ -101,3 +102,8 @@ class CheckoutView(LoginRequiredMixin, CreateView):
 
 class OrderSuccessView(TemplateView):
     template_name = "cart/success.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.META.get("HTTP_REFERER"):
+            return redirect("home")
+        return super().dispatch(request, *args, **kwargs)

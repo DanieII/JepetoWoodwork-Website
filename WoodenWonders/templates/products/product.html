@@ -1,0 +1,19 @@
+{% extends 'common/base.html' %}
+{% load static %}
+{% block title %}{{ object.name }} - WoodenWonders{% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/products/product.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="product">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        <h3>{{ product.name }}</h3>
+        <h4>${{ product.price }}</h4>
+        {% if product.description %}<p>{{ product.description }}</p>{% endif %}
+        <form method="post" action="{% url 'product' pk=object.pk %}">
+            {% csrf_token %}
+            {{ form.quantity }}
+            <button type="submit">Add to cart</button>
+        </form>
+    </div>
+{% endblock %}

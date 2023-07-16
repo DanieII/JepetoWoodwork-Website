@@ -55,3 +55,11 @@
   color: var(--dark-wood);
   font-weight: bold;
 }
+
+.product a {
+  text-decoration: none;
+}
+
+.product img:hover {
+  filter: brightness(90%);
+}
