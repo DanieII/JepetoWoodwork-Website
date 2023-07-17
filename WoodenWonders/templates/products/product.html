@@ -7,13 +7,32 @@
 {% block content %}
     <div class="product">
         <img src="{{ product.image.url }}" alt="{{ product.name }}">
-        <h3>{{ product.name }}</h3>
-        <h4>${{ product.price }}</h4>
-        {% if product.description %}<p>{{ product.description }}</p>{% endif %}
-        <form method="post" action="{% url 'product' pk=object.pk %}">
-            {% csrf_token %}
-            {{ form.quantity }}
-            <button type="submit">Add to cart</button>
-        </form>
+        <div class="product-information">
+            <h1>{{ product.name }}</h1>
+            <h3 class="price">${{ product.price|floatformat:2 }}</h3>
+            {% if product.description %}<p>{{ product.description }}</p>{% endif %}
+            <form method="post" action="{% url 'product' pk=object.pk %}">
+                {% csrf_token %}
+                {{ form.quantity }}
+                <button type="submit" class="add-to-cart">Add to cart</button>
+            </form>
+            <p class="categories">
+                Categories: <span>
+                {% for category in product.categories.all %}
+                    <a href="{% url 'products' %}?categories={{ category.name }}">{{ category.name }}</a>
+                    {% if not forloop.last %}<span>,</span>{% endif %}
+                {% endfor %}
+            </span>
+        </p>
     </div>
+</div>
+<div class="reviews">
+    <div class="reviews-inner">
+        {% for review in reviews %}
+            <div class="review">{{ review.review }}</div>
+        {% empty %}
+            <p>No reviews</p>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}

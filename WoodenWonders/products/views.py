@@ -1,7 +1,8 @@
 from django.views.generic import DetailView, ListView
 from django.urls import reverse
+from django.shortcuts import redirect
 from django.views.generic.edit import FormMixin
-from .forms import ProductFilterForm
+from .forms import ProductFilterForm, ProductReview, ProductReviewForm
 from .models import Product
 from .forms import ProductSearchForm, ProductAddToCartForm
 from cart.views import add_to_cart
@@ -48,12 +49,20 @@ class ProductDetails(FormMixin, DetailView):
     template_name = "products/product.html"
     form_class = ProductAddToCartForm
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["review_form"] = ProductReviewForm
+        context["reviews"] = ProductReview.objects.filter(product=self.object)
+
+        return context
+
     def get_success_url(self):
         return reverse("product", kwargs={"pk": self.object.pk})
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
-        quantity = int(request.POST.get("quantity"))
-        add_to_cart(request, self.object.pk, quantity)
+        if self.get_form().is_valid():
+            quantity = int(request.POST.get("quantity"))
+            add_to_cart(request, self.object.pk, quantity)
 
-        return self.form_valid(self.get_form())
+        return redirect(self.get_success_url())

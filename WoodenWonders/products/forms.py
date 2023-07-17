@@ -1,6 +1,6 @@
 from django import forms
 from django.core.validators import MinValueValidator
-from .models import Category
+from .models import Category, ProductReview
 
 
 class ProductSearchForm(forms.Form):
@@ -43,4 +43,12 @@ class ProductFilterForm(forms.Form):
 
 
 class ProductAddToCartForm(forms.Form):
-    quantity = forms.IntegerField(validators=[MinValueValidator(1)], initial=1)
+    quantity = forms.IntegerField(
+        validators=[MinValueValidator(1)], initial=1, min_value=1
+    )
+
+
+class ProductReviewForm(forms.ModelForm):
+    class Meta:
+        model = ProductReview
+        fields = "__all__"
