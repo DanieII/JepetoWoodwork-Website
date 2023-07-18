@@ -31,7 +31,7 @@
                     <li>
                         <div class="product">
                             <a href="{% url 'product' pk=product.pk %}">
-                                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="image">
                             </a>
                             <a href="{% url 'product' pk=product.pk %}">
                                 <p class="product-name">{{ product.name }}</p>

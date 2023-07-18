@@ -51,7 +51,7 @@ class ProductDetails(FormMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["review_form"] = ProductReviewForm
+        context["review_form"] = ProductReviewForm()
         context["reviews"] = ProductReview.objects.filter(product=self.object)
 
         return context
@@ -61,8 +61,22 @@ class ProductDetails(FormMixin, DetailView):
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
+        review_form = ProductReviewForm(request.POST or None)
+
         if self.get_form().is_valid():
             quantity = int(request.POST.get("quantity"))
             add_to_cart(request, self.object.pk, quantity)
+
+        elif review_form.is_valid():
+            if not request.user.is_authenticated:
+                next_url = request.get_full_path()
+                login_url = reverse("login") + f"?next={next_url}"
+                return redirect(login_url)
+
+            review = review_form.save(commit=False)
+            review.stars = request.POST.get("rating")
+            review.user = request.user
+            review.product = self.object
+            review.save()
 
         return redirect(self.get_success_url())

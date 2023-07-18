@@ -3,6 +3,7 @@
 :root {
   --max-width: 1300px;
   --light: #e9e4d0;
+  --lighter: #f0ece0;
   --dark-wood: #504037;
   --caramel: #b18857;
 }
@@ -12,10 +13,11 @@
   padding: 0;
   box-sizing: border-box;
   transition: all 0.2s ease-in;
+  font-family: "Poppins", sans-serif;
 }
 
 body {
-  background-color: #e9e4d0;
+  background-color: var(--light);
   font-family: "Poppins", sans-serif;
   height: 100vh;
   display: flex;
@@ -145,6 +147,40 @@ footer ul li a:hover::after {
 
 .form-error {
   max-width: 200px;
+}
+
+.button {
+  text-transform: uppercase;
+  text-decoration: none;
+  background-color: var(--dark-wood);
+  padding: 5px 10px;
+  color: #fff !important;
+  margin-top: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: var(--caramel);
+}
+
+.main-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: var(--max-width);
+}
+
+.image {
+  height: 200px;
+  object-fit: cover;
 }
 
 @media screen and (max-width: 767px) {

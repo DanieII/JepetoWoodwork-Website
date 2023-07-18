@@ -7,15 +7,25 @@ from django.urls import reverse_lazy, reverse
 from django import forms
 
 
+def process_cart_quantity(product_pk, quantity, cart):
+    product = Product.objects.get(pk=product_pk)
+    cart[product_pk] += quantity
+
+    product.quantity -= cart[product_pk]
+    if product.quantity < 0:
+        cart[product_pk] += product.quantity
+
+    return cart
+
+
 def add_to_cart(request, pk, quantity=1):
     cart = request.session.get("cart", {})
     pk = str(pk)
 
     if not cart.get(pk):
         cart[pk] = 0
-    cart[pk] += quantity
 
-    request.session["cart"] = cart
+    request.session["cart"] = process_cart_quantity(pk, quantity, cart)
 
     return redirect(request.META.get("HTTP_REFERER"))
 
@@ -39,11 +49,11 @@ def cart(request):
 
 def decrease_quantity(request, pk):
     cart = request.session["cart"]
-    cart_product = cart[pk]
+    cart_product_quantity = cart[pk]
 
-    if cart_product > 1:
-        cart_product -= 1
-        cart[pk] = cart_product
+    if cart_product_quantity > 1:
+        cart_product_quantity -= 1
+        cart[pk] = cart_product_quantity
         request.session["cart"] = cart
         request.session.save()
 
@@ -93,6 +103,8 @@ class CheckoutView(LoginRequiredMixin, CreateView):
         cart = self.request.session["cart"]
         for product_id, quantity in cart.items():
             product = Product.objects.get(id=product_id)
+            product.quantity -= quantity
+            product.save()
             OrderProduct.objects.create(order=order, product=product, quantity=quantity)
 
         self.request.session["cart"] = {}

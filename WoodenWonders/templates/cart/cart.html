@@ -9,7 +9,7 @@
         <div class="cart-products">
             {% for product, quantity in cart_products.items %}
                 <div class="cart-product">
-                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="image">
                     <div class="container">
                         <div class="product-information">
                             <h4 class="product-name">{{ product.name }}</h4>

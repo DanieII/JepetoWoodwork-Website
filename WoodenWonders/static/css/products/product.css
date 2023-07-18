@@ -1,17 +1,3 @@
-.main-wrapper {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-  margin-top: 20px;
-}
-
-main {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: var(--max-width);
-}
-
 .product {
   display: flex;
   justify-content: center;
@@ -51,24 +37,8 @@ main {
 }
 
 .product img {
-  width: 250px;
   height: 250px;
   object-fit: cover;
-}
-
-.add-to-cart {
-  text-transform: uppercase;
-  text-decoration: none;
-  background-color: var(--dark-wood);
-  padding: 5px 14px;
-  font-size: 14px;
-  color: #fff;
-  margin-top: 10px;
-  border: none;
-}
-
-.add-to-cart:hover {
-  background-color: var(--caramel);
 }
 
 .categories span * {
@@ -77,6 +47,56 @@ main {
 
 .categories {
   margin-top: 20px;
+}
+
+.reviews {
+  background-color: var(--lighter);
+  margin-top: 100px;
+  align-self: center;
+  width: 80%;
+}
+
+.star-rating {
+  cursor: pointer;
+  user-select: none;
+}
+
+.star-rating i {
+  margin-right: 5px;
+  transition: all 0s;
+}
+
+.fa-star {
+  color: var(--dark-wood);
+}
+
+.empty-star {
+  margin-right: 5px;
+}
+
+.reviews-inner {
+  padding: 30px;
+}
+
+.reviews-inner h3 {
+  color: var(--dark-wood);
+  font-weight: 100;
+}
+
+.review-field {
+  resize: none;
+  width: 100%;
+  padding: 5px;
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.review-form .button {
+  align-self: flex-start;
 }
 
 @media screen and (max-width: 767px) {

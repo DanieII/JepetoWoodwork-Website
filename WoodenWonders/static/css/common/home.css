@@ -23,6 +23,7 @@
   background-color: var(--light);
   color: var(--dark-wood);
   padding: 7px;
+  font-weight: 600;
 }
 
 .container {
@@ -44,4 +45,13 @@
 .newest-arrivals h1 {
   margin-bottom: 10px;
   color: var(--dark-wood);
+}
+
+.main-wrapper {
+  margin-top: 0;
+}
+
+main {
+  width: 100vw;
+  max-width: none;
 }
