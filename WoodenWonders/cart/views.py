@@ -7,11 +7,11 @@ from django.urls import reverse_lazy, reverse
 from django import forms
 
 
-def process_cart_quantity(product_pk, quantity, cart):
+def process_cart_quantity(product_pk, product, quantity, cart):
     product = Product.objects.get(pk=product_pk)
     cart[product_pk] += quantity
-
     product.quantity -= cart[product_pk]
+
     if product.quantity < 0:
         cart[product_pk] += product.quantity
 
@@ -20,14 +20,19 @@ def process_cart_quantity(product_pk, quantity, cart):
 
 def add_to_cart(request, pk, quantity=1):
     cart = request.session.get("cart", {})
-    pk = str(pk)
+    product = Product.objects.get(pk=pk)
+    url = request.META.get("HTTP_REFERER")
 
+    if product.quantity <= 0:
+        return redirect(url)
+
+    pk = str(pk)
     if not cart.get(pk):
         cart[pk] = 0
 
-    request.session["cart"] = process_cart_quantity(pk, quantity, cart)
+    request.session["cart"] = process_cart_quantity(pk, product, quantity, cart)
 
-    return redirect(request.META.get("HTTP_REFERER"))
+    return redirect(url)
 
 
 def cart(request):

@@ -50,8 +50,12 @@ class ProductDetails(FormMixin, DetailView):
     form_class = ProductAddToCartForm
 
     def get_context_data(self, **kwargs):
+        stars = self.request.GET.get("stars")
+        message = self.request.GET.get("message")
         context = super().get_context_data(**kwargs)
-        context["review_form"] = ProductReviewForm()
+        context["review_form"] = ProductReviewForm(
+            initial={"stars": int(stars) if stars else 1, "review": message}
+        )
         context["reviews"] = ProductReview.objects.filter(product=self.object)
 
         return context
@@ -61,16 +65,22 @@ class ProductDetails(FormMixin, DetailView):
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
+        self.form = self.get_form()
         review_form = ProductReviewForm(request.POST or None)
 
-        if self.get_form().is_valid():
+        if self.form.is_valid():
             quantity = int(request.POST.get("quantity"))
             add_to_cart(request, self.object.pk, quantity)
 
         elif review_form.is_valid():
             if not request.user.is_authenticated:
                 next_url = request.get_full_path()
-                login_url = reverse("login") + f"?next={next_url}"
+                current_stars = review_form.cleaned_data["stars"]
+                current_message = review_form.cleaned_data["review"]
+                login_url = (
+                    reverse("login")
+                    + f"?next={next_url}&stars={current_stars}&message={current_message}"
+                )
                 return redirect(login_url)
 
             review = review_form.save(commit=False)

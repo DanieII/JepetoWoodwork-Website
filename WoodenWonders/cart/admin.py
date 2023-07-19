@@ -4,7 +4,7 @@ from .models import Order
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ["full_name", "contact", "city", "address", "products"]
+    list_display = ["full_name", "contact", "city", "address", "products", "total"]
 
     @staticmethod
     def full_name(order):
@@ -24,3 +24,11 @@ class OrderAdmin(admin.ModelAdmin):
             )
 
         return ", ".join(result)
+
+    @staticmethod
+    def total(order):
+        return "$" + str(
+            sum(
+                float(product.product_total) for product in order.orderproduct_set.all()
+            )
+        )

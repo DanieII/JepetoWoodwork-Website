@@ -51,9 +51,10 @@ class ProductAddToCartForm(forms.Form):
 class ProductReviewForm(forms.ModelForm):
     class Meta:
         model = ProductReview
-        fields = ["review"]
+        fields = ["stars", "review"]
         widgets = {
+            "stars": forms.HiddenInput(attrs={"class": "stars-field"}),
             "review": forms.Textarea(
                 attrs={"placeholder": "Your review", "class": "review-field"}
-            )
+            ),
         }

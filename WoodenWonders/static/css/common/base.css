@@ -183,6 +183,29 @@ main {
   object-fit: cover;
 }
 
+.fa-cart-shopping {
+  position: relative;
+}
+
+.fa-cart-shopping::after {
+  content: attr(value);
+  font-size: 12px;
+  font-weight: 100;
+  background-color: var(--dark-wood);
+  color: var(--lighter);
+  border-radius: 50%;
+  position: absolute;
+  padding: 5px;
+  left: 80%;
+  top: -15px;
+  text-align: center;
+  transition: inherit;
+}
+
+.fa-cart-shopping[value=""]::after {
+  display: none;
+}
+
 @media screen and (max-width: 767px) {
   .hamburger {
     display: block;

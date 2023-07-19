@@ -14,17 +14,20 @@
   flex-direction: column;
 }
 
-.search-form {
+.search-field {
   margin-bottom: 0 !important;
+  min-width: 192px;
 }
 
-.search-form button {
+.search-field button {
   border: none;
   background: none;
   padding: 0;
   cursor: pointer;
   color: var(--dark-wood);
   font-weight: 600;
+  font-size: 15px;
+  margin-left: 5px;
 }
 
 .price-range {
