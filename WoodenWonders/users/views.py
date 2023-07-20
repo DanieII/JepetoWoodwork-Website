@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView
 from users.forms import CustomUserForm, CustomLoginForm
 from django.contrib.auth.views import LoginView
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login
 from .mixins import HandleReviewMessageMixin, ProhibitLoggedUsersMixin
 
 
@@ -43,12 +43,8 @@ class UserDetailsView(LoginRequiredMixin, DetailView):
     model = get_user_model()
     template_name = "users/details.html"
 
-    @property
-    def user_has_permission(self):
-        accessed_pk = self.kwargs.get("pk")
-        return self.request.user.pk == accessed_pk
+    def get_object(self, queryset=None):
+        return self.request.user
 
     def get(self, request, *args, **kwargs):
-        if self.user_has_permission:
-            return super().get(request, *args, **kwargs)
-        raise Http404()
+        return super().get(request, *args, **kwargs)

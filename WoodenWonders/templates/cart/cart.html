@@ -1,5 +1,6 @@
 {% extends 'common/base.html' %}
 {% load static %}
+{% load product_filters %}
 {% block title %}Cart - WoodenWonders{% endblock %}
 {% block styles %}
     <link rel="stylesheet" href="{% static 'css/cart/cart.css' %}">
@@ -21,8 +22,7 @@
                             <a href="{% url "add_to_cart" pk=product.pk %}">&plus;</a>
                         </div>
                         <div>
-                            {% widthratio product.price 1 quantity as total_product_price %}
-                            <p>${{ total_product_price|floatformat:2 }}</p>
+                            <p>${{ product.price|calculate_total_price:quantity }}</p>
                             <a href="{% url 'remove_product' pk=product.pk %}">remove</a>
                         </div>
                     </div>
@@ -34,6 +34,6 @@
             <a href="{% url "checkout" %}">Checkout</a>
         </div>
     {% else %}
-        <h1 style="align-self: center; color: var(--dark-wood);">No Products</h1>
+        <h1 style="align-self: center; color: var(--dark-wood);">No Products In Cart</h1>
     {% endif %}
 {% endblock %}

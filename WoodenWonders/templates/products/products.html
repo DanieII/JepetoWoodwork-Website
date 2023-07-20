@@ -37,18 +37,7 @@
         </div>
         <ul class="products">
             {% for product in page_obj %}
-                <li>
-                    <div class="product">
-                        <a href="{% url 'product' pk=product.pk %}">
-                            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="image">
-                        </a>
-                        <a href="{% url 'product' pk=product.pk %}">
-                            <p class="product-name">{{ product.name }}</p>
-                        </a>
-                        <p class="product-price">${{ product.price|floatformat:2 }}</p>
-                        <a href="{% url 'add_to_cart' pk=product.pk %}" class="button">Add to cart</a>
-                    </div>
-                </li>
+                <li>{% include "products/product.html" %}</li>
             {% empty %}
                 <h1>No results &#128373;</h1>
             {% endfor %}

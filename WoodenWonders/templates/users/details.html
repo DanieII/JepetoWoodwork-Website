@@ -1,4 +1,18 @@
 {% extends 'common/base.html' %}
-{% block title %}
-{{ object.username }}'s profile - WoodenWonders
+{% block title %}{{ object.username }}'s profile - WoodenWonders{% endblock %}
+{% block content %}
+    <ul>
+        <li>
+            <a href="">Orders</a>
+        </li>
+        <li>
+            <a href="">Wishlist</a>
+        </li>
+        <li>
+            <a href="">Change Password</a>
+        </li>
+        <li>
+            <a href="">Log out</a>
+        </li>
+    </ul>
 {% endblock %}

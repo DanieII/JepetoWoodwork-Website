@@ -48,24 +48,24 @@
                 <ul class="action-menu">
                     <li>
                         {% if request.user.is_authenticated %}
-                            <a href="{% url 'user_details' pk=request.user.pk %}"><i class="fa-solid fa-user"></i></a>
+                            <a href="{% url 'user_details' %}"><i class="fa-solid fa-user"></i></a>
                         {% else %}
                             <a href="{% url 'login' %}"><i class="fa-solid fa-user"></i></a>
                         {% endif %}
                     </li>
                     <li>
                         <a href="{% url 'cart' %}">
-                        {% if request.session.cart %}
-                          {% with cart_quantity=request.session.cart|length %}
-                            <i class="fa-solid fa-cart-shopping" value="{{ cart_quantity }}"></i>
-                          {% endwith %}
-                        {% else %}
-                          <i class="fa-solid fa-cart-shopping" value=""></i>
-                        {% endif %}
-                      </a>
+                            {% if request.session.cart %}
+                                {% with cart_quantity=request.session.cart|length %}
+                                    <i class="fa-solid fa-cart-shopping" value="{{ cart_quantity }}"></i>
+                                {% endwith %}
+                            {% else %}
+                                <i class="fa-solid fa-cart-shopping" value=""></i>
+                            {% endif %}
+                        </a>
                     </li>
                     <li>
-                        <a href="{% url 'home' %}"><i class="fa-solid fa-heart"></i></a>
+                        <a href="{% url 'wishlist' %}"><i class="fa-solid fa-heart"></i></a>
                     </li>
                 </ul>
             </nav>

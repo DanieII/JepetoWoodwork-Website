@@ -1,0 +1,32 @@
+from django.shortcuts import render, redirect
+from products.models import Product
+from wishlist.models import Wishlist
+from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView
+
+
+@login_required
+def handle_heart_button(request, pk):
+    wishlist = request.user.wishlist
+    product = Product.objects.get(pk=pk)
+
+    if product in wishlist.products.all():
+        wishlist.products.remove(product)
+    else:
+        wishlist.products.add(product)
+
+    wishlist.save()
+
+    return redirect(request.META.get("HTTP_REFERER"))
+
+
+class WishListView(ListView):
+    model = Product
+    template_name = "wishlist/wishlist.html"
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        wishlist = self.request.user.wishlist
+        product_ids = [p.pk for p in wishlist.products.all()]
+        queryset = queryset.filter(pk__in=product_ids)
+        return queryset

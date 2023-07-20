@@ -28,18 +28,7 @@
             <h1>Newest Arrivals</h1>
             <ul class="products">
                 {% for product in object_list %}
-                    <li>
-                        <div class="product">
-                            <a href="{% url 'product' pk=product.pk %}">
-                                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="image">
-                            </a>
-                            <a href="{% url 'product' pk=product.pk %}">
-                                <p class="product-name">{{ product.name }}</p>
-                            </a>
-                            <p class="product-price">${{ product.price|floatformat:2 }}</p>
-                            <a href="{% url 'add_to_cart' pk=product.pk %}" class="add-to-cart">Add to cart</a>
-                        </div>
-                    </li>
+                    <li>{% include "products/product.html" %}</li>
                 {% endfor %}
             </ul>
         </div>

@@ -66,3 +66,7 @@ main > div:last-child a {
   color: var(--caramel);
   font-size: 20px;
 }
+
+main > div:last-child h3 {
+  font-weight: 100;
+}

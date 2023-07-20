@@ -1,9 +1,16 @@
 .filters form {
   display: flex;
-  flex-direction: column;
   margin: 20px;
-  gap: 10px;
   flex-wrap: wrap;
+}
+
+.filters form:nth-of-type(1) {
+  margin-bottom: 0;
+}
+
+.filters form:nth-of-type(2) {
+  flex-direction: column;
+  gap: 10px;
 }
 
 .filters {
@@ -16,7 +23,11 @@
 
 .search-field {
   margin-bottom: 0 !important;
-  min-width: 192px;
+  min-width: 225px;
+}
+
+.search-field input {
+  width: 200px;
 }
 
 .search-field button {

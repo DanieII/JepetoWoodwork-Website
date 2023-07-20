@@ -46,7 +46,7 @@ class Products(ListView):
 
 class ProductDetails(FormMixin, DetailView):
     model = Product
-    template_name = "products/product.html"
+    template_name = "products/product-details.html"
     form_class = ProductAddToCartForm
 
     def get_context_data(self, **kwargs):
