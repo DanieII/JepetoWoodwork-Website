@@ -54,10 +54,6 @@
   text-decoration: none;
 }
 
-.product img:hover {
-  filter: brightness(90%);
-}
-
 .product div:nth-of-type(1) {
   position: relative;
 }

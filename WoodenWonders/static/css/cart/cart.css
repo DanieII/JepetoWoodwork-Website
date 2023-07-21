@@ -1,3 +1,7 @@
+a {
+  text-decoration: none;
+}
+
 .cart-products {
   display: flex;
   flex-direction: column;
@@ -25,7 +29,7 @@
 
 .quantity a {
   color: var(--dark-wood);
-  text-decoration: none;
+
   font-size: 25px;
 }
 
@@ -45,7 +49,6 @@
 }
 
 .cart-product .container div:last-child a {
-  text-decoration: none;
   color: var(--caramel);
 }
 
@@ -62,7 +65,6 @@ main > div:last-child {
 }
 
 main > div:last-child a {
-  text-decoration: none;
   color: var(--caramel);
   font-size: 20px;
 }

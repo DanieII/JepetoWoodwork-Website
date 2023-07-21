@@ -1,18 +1,13 @@
 {% extends 'common/base.html' %}
+{% load static %}
 {% block title %}{{ object.username }}'s profile - WoodenWonders{% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static "css/users/details.css" %}">
+{% endblock %}
 {% block content %}
-    <ul>
-        <li>
-            <a href="">Orders</a>
-        </li>
-        <li>
-            <a href="">Wishlist</a>
-        </li>
-        <li>
-            <a href="">Change Password</a>
-        </li>
-        <li>
-            <a href="">Log out</a>
-        </li>
-    </ul>
+    {% include "users/base-details.html" %}
+    <div class="information">
+        <h2>{{ request.user }}</h2>
+        <p>Joined on: {{ request.user.date_joined|date:"M d, Y" }}</p>
+    </div>
 {% endblock %}

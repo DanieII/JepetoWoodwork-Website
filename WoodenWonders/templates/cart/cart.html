@@ -10,10 +10,14 @@
         <div class="cart-products">
             {% for product, quantity in cart_products.items %}
                 <div class="cart-product">
-                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="image">
+                    <a href="{% url 'product' pk=product.pk %}">
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="image">
+                    </a>
                     <div class="container">
                         <div class="product-information">
-                            <h4 class="product-name">{{ product.name }}</h4>
+                            <a href="{% url 'product' pk=product.pk %}">
+                                <h4 class="product-name">{{ product.name }}</h4>
+                            </a>
                             <p class="categories">{{ product.categories.all|join:", " }}</p>
                         </div>
                         <div class="quantity">

@@ -1,0 +1,31 @@
+{% extends 'common/base.html' %}
+{% load static %}
+{% block title %}Order History - WoodenWonders{% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static "css/users/order-history.css" %}">
+{% endblock %}
+{% block content %}
+    {% include "users/base-details.html" %}
+    <div class="order-history">
+        {% if object_list %}
+            <h2>Your Orders</h2>
+            {% for order in object_list %}
+                <div class="order">
+                    <p class="created-on">Created on: {{ order.created_on|date:"F d, Y" }}</p>
+                    <ul>
+                        {% for ordered_product in order.orderproduct_set.all %}
+                            <li>
+                                <p>
+                                    <a href="{% url 'product' pk=ordered_product.pk %}">{{ ordered_product.product.name }}</a> - Quantity: {{ ordered_product.quantity }} - Total: ${{ ordered_product.product_total }}
+                                </p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <p>Total Price: ${{ order.total_price|floatformat:2 }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h1 style="align-self: center; color: var(--dark-wood);">No Orders</h1>
+        {% endif %}
+    </div>
+{% endblock %}

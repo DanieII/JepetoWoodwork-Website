@@ -9,23 +9,15 @@
     <form method="post"
           action="{% if state == 'Login' %}{% url 'login' %}{% else %}{% url 'register' %}{% endif %}">
         {% csrf_token %}
-        <div class="form-error">
-            <p>{{ form.non_field_errors }}</p>
-        </div>
+        <p>{{ form.non_field_errors }}</p>
         {% for field in form %}
-            {% if field.errors %}
-                {% for error in field.errors %}
-                    <div class="form-error">
-                        <p>{{ error }}</p>
-                    </div>
-                {% endfor %}
-            {% endif %}
+            {% if field.errors %}{{ field.errors }}{% endif %}
             <p>{{ field }}</p>
         {% endfor %}
         <input type="hidden" name="next" value="{{ next }}">
         <input type="hidden" name="stars" value="{{ stars }}">
         <input type="hidden" name="message" value="{{ message }}">
-        <button type="submit">{{ state }}</button>
+        <button type="submit" class="button">{{ state }}</button>
     </form>
     {% if state == 'Login' %}
         <p>

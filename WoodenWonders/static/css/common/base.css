@@ -141,14 +141,6 @@ footer ul li a:hover::after {
   width: 100%;
 }
 
-.form-error * {
-  color: red;
-}
-
-.form-error {
-  max-width: 200px;
-}
-
 .button {
   text-transform: uppercase;
   text-decoration: none;
@@ -181,6 +173,10 @@ main {
 .image {
   height: 200px;
   object-fit: cover;
+}
+
+.image:hover {
+  filter: brightness(90%);
 }
 
 .fa-cart-shopping {

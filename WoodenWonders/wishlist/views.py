@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from products.models import Product
 from wishlist.models import Wishlist
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
 
 
@@ -20,7 +21,7 @@ def handle_heart_button(request, pk):
     return redirect(request.META.get("HTTP_REFERER"))
 
 
-class WishListView(ListView):
+class WishListView(LoginRequiredMixin, ListView):
     model = Product
     template_name = "wishlist/wishlist.html"
 

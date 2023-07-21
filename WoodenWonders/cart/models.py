@@ -9,17 +9,19 @@ class Order(models.Model):
     last_name = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
+    created_on = models.DateTimeField(auto_now=True)
 
     @property
     def total_price(self):
-        return sum(product.product_total for product in self.cart_product_set.all())
+        return sum(
+            float(product.product_total) for product in self.orderproduct_set.all()
+        )
 
 
 class OrderProduct(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     quantity = models.IntegerField()
-    date_added = models.DateTimeField(auto_now=True)
 
     @property
     def product_total(self):

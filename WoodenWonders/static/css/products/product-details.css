@@ -103,6 +103,10 @@
   margin-left: -2px;
 }
 
+.available {
+  color: var(--caramel);
+}
+
 @media screen and (max-width: 767px) {
   .product {
     flex-direction: column;

@@ -1,41 +1,41 @@
 .main-wrapper {
-    margin-top: auto;
+  margin-top: auto;
 }
 
 main {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    gap: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
 }
 
 main > p {
-    color: var(--dark-wood);
+  color: var(--dark-wood);
 }
 
 main > p a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
 }
 
 form * {
-    padding: 5px;
+  padding: 5px;
 }
 
-button[type='submit'] {
-    background-color: var(--dark-wood);
-    border: none;
-    color: #fff;
-    padding: 7px;
-    cursor: pointer;
+.errorlist li {
+  color: red;
 }
 
-button[type='submit']:hover {
-    background-color: var(--caramel);
+.errorlist li {
+  display: block;
+}
+
+.errorlist {
+  max-width: 280px;
 }
