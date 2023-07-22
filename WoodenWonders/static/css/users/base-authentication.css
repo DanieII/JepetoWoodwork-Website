@@ -39,3 +39,15 @@ form * {
 .errorlist {
   max-width: 280px;
 }
+
+.username-fields {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 0;
+  gap: 5px;
+}
+
+.username-fields * {
+  color: var(--dark-wood);
+}

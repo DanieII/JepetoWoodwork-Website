@@ -1,0 +1,31 @@
+{% extends "common/base.html" %}
+{% load static %}
+{% block title %}Contacts - WoodenWonders{% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static "css/common/contacts.css" %}">
+{% endblock %}
+{% block content %}
+    <h1 style="align-self: center;
+               color: var(--dark-wood);
+               padding-bottom: 40px">Contacts</h1>
+    <div class="content">
+        <div class="contact-information">
+            <h3>
+                <i class="fa-solid fa-location-dot"></i> Sofia
+            </h3>
+            <h3>
+                <i class="fa-solid fa-phone"></i> +35988888888
+            </h3>
+            <h3>
+                <i class="fa-solid fa-envelope"></i> woodenwonders@gmail.com
+            </h3>
+        </div>
+        <div>
+            <form method="post" action="{% url 'contacts' %}" class="contact-form">
+                {% csrf_token %}
+                {% for field in form %}{{ field }}{% endfor %}
+                <button type="submit" class="button">Send</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

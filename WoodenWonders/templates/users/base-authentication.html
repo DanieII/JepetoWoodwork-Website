@@ -10,10 +10,22 @@
           action="{% if state == 'Login' %}{% url 'login' %}{% else %}{% url 'register' %}{% endif %}">
         {% csrf_token %}
         <p>{{ form.non_field_errors }}</p>
-        {% for field in form %}
-            {% if field.errors %}{{ field.errors }}{% endif %}
-            <p>{{ field }}</p>
-        {% endfor %}
+        {% if state == "Register" %}
+            <div class="username-fields">
+                {{ form.email.errors }}
+                {{ form.email }}
+                <p>and/or</p>
+                {{ form.phone_number.errors }}
+                {{ form.phone_number }}
+            </div>
+            {{ form.password1 }}
+            {{ form.password2 }}
+        {% else %}
+            {% for field in form %}
+                {% if field.errors %}{{ field.errors }}{% endif %}
+                <p>{{ field }}</p>
+            {% endfor %}
+        {% endif %}
         <input type="hidden" name="next" value="{{ next }}">
         <input type="hidden" name="stars" value="{{ stars }}">
         <input type="hidden" name="message" value="{{ message }}">
