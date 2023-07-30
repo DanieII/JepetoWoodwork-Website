@@ -242,7 +242,7 @@ main {
   }
 
   nav {
-    justify-content: space-around;
+    justify-content: space-evenly;
   }
 
   .navbar-icon {

@@ -1,0 +1,22 @@
+{% extends "common/base.html" %}
+{% load static %}
+{% block title %}Blog - WoodenWonders{% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static "css/blog/blog.css" %}">
+{% endblock %}
+{% block content %}
+    <div class="blog-posts">
+        {% for blog_post in object_list %}
+            <div class="blog-post">
+                <a href="{% url "blog_details" blog_post.pk %}">
+                    <img src="{{ blog_post.image.url }}" alt="{{ blog_post.title }}">
+                    <h3>{{ blog_post.title|truncatechars:50 }}</h3>
+                    <p>
+                        <i class="fa-regular fa-calendar-days"></i>
+                        {{ blog_post.date_added|date }}
+                    </p>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

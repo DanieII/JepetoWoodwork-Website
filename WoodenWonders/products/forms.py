@@ -49,6 +49,8 @@ class ProductAddToCartForm(forms.Form):
 
 
 class ProductReviewForm(forms.ModelForm):
+    INITIAL_STARS = 1
+
     class Meta:
         model = ProductReview
         fields = ["stars", "review"]

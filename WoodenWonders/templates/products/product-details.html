@@ -30,41 +30,39 @@
     </div>
 </div>
 <div class="reviews">
-    <div class="reviews-inner">
-        <h3>Reviews</h3>
-        {% for review in reviews %}
-            <div class="review">
-                {% with empty_stars_count=review.stars|calculate_empty_stars %}
-                    {% for _ in review.stars|get_range_from_number %}
-                        {% if forloop.last %}
-                            <i class="fa-solid fa-star last-filled-star"></i>
-                        {% else %}
-                            <i class="fa-solid fa-star"></i>
-                        {% endif %}
-                    {% endfor %}
-                    {% for _ in empty_stars_count %}<i class="fa-regular fa-star empty-star"></i>{% endfor %}
-                {% endwith %}
-                <p>{{ review.review }}</p>
-            </div>
-        {% empty %}
-            <p>There are not reviews yet.</p>
-        {% endfor %}
-        <form method="post"
-              action="{% url 'product' pk=object.pk %}"
-              class="review-form">
-            {% csrf_token %}
-            <div class="star-rating">
-                <i class="fa-solid fa-star" rating-value="1"></i>
-                <i class="fa-regular fa-star" rating-value="2"></i>
-                <i class="fa-regular fa-star" rating-value="3"></i>
-                <i class="fa-regular fa-star" rating-value="4"></i>
-                <i class="fa-regular fa-star" rating-value="5"></i>
-            </div>
-            <input type="hidden" name="rating" value="1">
-            {% for field in review_form %}{{ field }}{% endfor %}
-            <button type="submit" class="button">Submit</button>
-        </form>
-    </div>
+    <h3>Reviews</h3>
+    {% for review in reviews %}
+        <div class="review">
+            {% with empty_stars_count=review.stars|calculate_empty_stars %}
+                {% for _ in review.stars|get_range_from_number %}
+                    {% if forloop.last %}
+                        <i class="fa-solid fa-star last-filled-star"></i>
+                    {% else %}
+                        <i class="fa-solid fa-star"></i>
+                    {% endif %}
+                {% endfor %}
+                {% for _ in empty_stars_count %}<i class="fa-regular fa-star empty-star"></i>{% endfor %}
+            {% endwith %}
+            <p>{{ review.review }}</p>
+        </div>
+    {% empty %}
+        <p>There are not reviews yet.</p>
+    {% endfor %}
+    <form method="post"
+          action="{% url 'product' pk=object.pk %}"
+          class="review-form">
+        {% csrf_token %}
+        <div class="star-rating">
+            <i class="fa-solid fa-star" rating-value="1"></i>
+            <i class="fa-regular fa-star" rating-value="2"></i>
+            <i class="fa-regular fa-star" rating-value="3"></i>
+            <i class="fa-regular fa-star" rating-value="4"></i>
+            <i class="fa-regular fa-star" rating-value="5"></i>
+        </div>
+        <input type="hidden" name="rating" value="1">
+        {% for field in review_form %}{{ field }}{% endfor %}
+        <button type="submit" class="button">Submit</button>
+    </form>
 </div>
 <script src="{% static "javascript/star-rating.js" %}"></script>
 {% endblock %}

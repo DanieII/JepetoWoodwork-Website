@@ -42,6 +42,7 @@ stars.forEach((star) => {
     selectedRating = parseInt(star.getAttribute("rating-value"));
     ratingInput.value = selectedRating;
     formStarInput.value = selectedRating;
+    resetStars();
   });
 });
 

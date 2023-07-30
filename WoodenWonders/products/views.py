@@ -54,7 +54,10 @@ class ProductDetails(FormMixin, DetailView):
         message = self.request.GET.get("message")
         context = super().get_context_data(**kwargs)
         context["review_form"] = ProductReviewForm(
-            initial={"stars": int(stars) if stars else 1, "review": message}
+            initial={
+                "stars": int(stars) if stars else ProductReviewForm.INITIAL_STARS,
+                "review": message,
+            }
         )
         context["reviews"] = ProductReview.objects.filter(product=self.object)
 
