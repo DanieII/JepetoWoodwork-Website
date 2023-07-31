@@ -1,0 +1,7 @@
+{% extends "common/base.html" %}
+{% load static %}
+{% block title %}{{ object.title }} - WoodenWonders{% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static "css/blog/blog-details.css" %}">
+{% endblock %}
+{% block content %}{{ form.as_p }}{% endblock %}

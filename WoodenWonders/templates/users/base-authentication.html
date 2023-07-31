@@ -27,17 +27,19 @@
             {% endfor %}
         {% endif %}
         <input type="hidden" name="next" value="{{ next }}">
-        <input type="hidden" name="stars" value="{{ stars }}">
-        <input type="hidden" name="message" value="{{ message }}">
+        {% for key, value in login_required_form_fields.items %}
+            <input type="hidden" name="{{ key }}" value="{{ value }}">
+        {% endfor %}
+        {% if given_fields %}<input type="hidden" name="given_fields" value="{{ given_fields }}">{% endif %}
         <button type="submit" class="button">{{ state }}</button>
     </form>
     {% if state == 'Login' %}
         <p>
-            Don't have an account? <a href="{% url 'register' %}?next={{ next }}&stars={{ stars }}&message={{ message }}">Register</a>
+            Don't have an account? <a href="{% url 'register' %}?{{ request.META.QUERY_STRING }}">Register</a>
         </p>
     {% else %}
         <p>
-            Already have an account? <a href="{% url 'login' %}?next={{ next }}&stars={{ stars }}&message={{ message }}">Login</a>
+            Already have an account? <a href="{% url 'login' %}?{{ request.META.QUERY_STRING }}">Login</a>
         </p>
     {% endif %}
 {% endblock %}

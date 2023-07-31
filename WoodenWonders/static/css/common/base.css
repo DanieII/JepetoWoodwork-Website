@@ -172,6 +172,7 @@ main {
 
 .image {
   height: 200px;
+  min-width: 300px;
   object-fit: cover;
 }
 

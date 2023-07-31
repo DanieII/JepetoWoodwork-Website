@@ -8,9 +8,11 @@
     <div class="blog-posts">
         {% for blog_post in object_list %}
             <div class="blog-post">
-                <a href="{% url "blog_details" blog_post.pk %}">
-                    <img src="{{ blog_post.image.url }}" alt="{{ blog_post.title }}">
-                    <h3>{{ blog_post.title|truncatechars:50 }}</h3>
+                <a href="{% url "blog_details" blog_post.slug %}">
+                    <img src="{{ blog_post.image.url }}"
+                         alt="{{ blog_post.title }}"
+                         class="image">
+                    <p class="title">{{ blog_post.title|truncatechars:50 }}</p>
                     <p>
                         <i class="fa-regular fa-calendar-days"></i>
                         {{ blog_post.date_added|date }}

@@ -6,6 +6,7 @@ from .forms import ProductFilterForm, ProductReview, ProductReviewForm
 from .models import Product
 from .forms import ProductSearchForm, ProductAddToCartForm
 from cart.views import add_to_cart
+from users.mixins import HandleSendLoginRequiredFormInformationMixin
 
 
 class Products(ListView):
@@ -44,15 +45,23 @@ class Products(ListView):
         return queryset
 
 
-class ProductDetails(FormMixin, DetailView):
+class ProductDetails(
+    HandleSendLoginRequiredFormInformationMixin, FormMixin, DetailView
+):
     model = Product
     template_name = "products/product-details.html"
     form_class = ProductAddToCartForm
+    mixin_form = ProductReviewForm
+    fields = ["stars", "review"]
+
+    def get_additional_fields(self):
+        return {"user": self.request.user, "product": self.object}
 
     def get_context_data(self, **kwargs):
-        stars = self.request.GET.get("stars")
-        message = self.request.GET.get("message")
         context = super().get_context_data(**kwargs)
+
+        stars = self.request.GET.get("stars")
+        message = self.request.GET.get("review")
         context["review_form"] = ProductReviewForm(
             initial={
                 "stars": int(stars) if stars else ProductReviewForm.INITIAL_STARS,
@@ -69,27 +78,11 @@ class ProductDetails(FormMixin, DetailView):
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         self.form = self.get_form()
-        review_form = ProductReviewForm(request.POST or None)
+
+        response = super().post(request)
 
         if self.form.is_valid():
             quantity = int(request.POST.get("quantity"))
             add_to_cart(request, self.object.pk, quantity)
 
-        elif review_form.is_valid():
-            if not request.user.is_authenticated:
-                next_url = request.get_full_path()
-                current_stars = review_form.cleaned_data["stars"]
-                current_message = review_form.cleaned_data["review"]
-                login_url = (
-                    reverse("login")
-                    + f"?next={next_url}&stars={current_stars}&message={current_message}"
-                )
-                return redirect(login_url)
-
-            review = review_form.save(commit=False)
-            review.stars = request.POST.get("rating")
-            review.user = request.user
-            review.product = self.object
-            review.save()
-
-        return redirect(self.get_success_url())
+        return response

@@ -8,6 +8,6 @@
     {% include "users/base-details.html" %}
     <div class="information">
         <h2>{{ request.user }}</h2>
-        <p>Joined on: {{ request.user.date_joined|date:"M d, Y" }}</p>
+        <p>Joined on: {{ request.user.date_joined|date }}</p>
     </div>
 {% endblock %}
