@@ -8,14 +8,9 @@ main {
   align-items: center;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-form * {
-  padding: 5px;
+.form button {
+  margin-top: 5px;
+  align-self: center;
 }
 
 button[type="submit"] {

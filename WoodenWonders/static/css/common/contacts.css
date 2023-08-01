@@ -16,12 +16,6 @@
   color: var(--caramel);
 }
 
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
 .message {
   resize: vertical;
   width: 300px;
@@ -30,13 +24,8 @@
   padding: 5px;
 }
 
-.contact-form input {
-  width: 300px;
-  padding: 5px;
-}
-
-.contact-form button {
-  align-self: flex-start;
+.form input {
+  min-width: 100%;
 }
 
 @media screen and (max-width: 767px) {

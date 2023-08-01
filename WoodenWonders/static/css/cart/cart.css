@@ -74,8 +74,18 @@ main > div:last-child h3 {
   font-weight: 100;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 600px) {
   .cart-product img {
-    width: 230px;
+    width: 100%;
+    height: auto;
+  }
+
+  .cart-product {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .cart-product .container {
+    margin: 20px;
   }
 }

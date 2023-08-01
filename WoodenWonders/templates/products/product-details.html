@@ -14,7 +14,7 @@
             <h3 class="price">${{ product.price|floatformat:2 }}</h3>
             {% if product.description %}<p>{{ product.description }}</p>{% endif %}
             <p class="available">{{ product.quantity }} available</p>
-            <form method="post" action="{% url 'product' pk=object.pk %}">
+            <form method="post" action="{% url 'product' slug=object.slug %}">
                 {% csrf_token %}
                 {{ form.quantity }}
                 <button type="submit" class="button">Add to cart</button>
@@ -49,7 +49,7 @@
         <p>There are not reviews yet.</p>
     {% endfor %}
     <form method="post"
-          action="{% url 'product' pk=object.pk %}"
+          action="{% url 'product' slug=object.slug %}"
           class="review-form">
         {% csrf_token %}
         <div class="star-rating">

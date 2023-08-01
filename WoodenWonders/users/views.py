@@ -38,9 +38,9 @@ class UserRegisterView(
         response = super().form_valid(form)
         user = form.save()
 
-        backend = "users.authentication.PhoneAndEmailAuthBackend"
-
-        login(self.request, user, backend=backend)
+        login(
+            self.request, user, backend="users.authentication.PhoneAndEmailAuthBackend"
+        )
 
         return response
 

@@ -5,76 +5,69 @@ from django.views.generic import CreateView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
 from django import forms
+from common.mixins import OptionalFormFieldsMixin
+from .helper_functions import get_cart_products, get_total_price, process_cart_quantity
 
 
-def process_cart_quantity(product_pk, product, quantity, cart):
-    product = Product.objects.get(pk=product_pk)
-    cart[product_pk] += quantity
-    product.quantity -= cart[product_pk]
-
-    if product.quantity < 0:
-        cart[product_pk] += product.quantity
-
-    return cart
-
-
-def add_to_cart(request, pk, quantity=1):
+def add_to_cart(request, slug, quantity=1):
     cart = request.session.get("cart", {})
-    product = Product.objects.get(pk=pk)
+    product = Product.objects.get(slug=slug)
     url = request.META.get("HTTP_REFERER")
 
     if product.quantity <= 0:
         return redirect(url)
 
-    pk = str(pk)
-    if not cart.get(pk):
-        cart[pk] = 0
+    if not cart.get(slug):
+        cart[slug] = 0
 
-    request.session["cart"] = process_cart_quantity(pk, product, quantity, cart)
+    request.session["cart"] = process_cart_quantity(slug, product, quantity, cart)
 
     return redirect(url)
 
 
 def cart(request):
-    cart_products = {
-        Product.objects.get(pk=int(pk)): quantity
-        for pk, quantity in request.session.get("cart", {}).items()
-    }
-
-    total_price = 0
-    for product, quantity in cart_products.items():
-        total_price += product.price * quantity
+    cart_products = get_cart_products(request.session)
 
     context = {
         "cart_products": cart_products,
-        "total_price": total_price,
+        "total_price": get_total_price(cart_products),
     }
     return render(request, "cart/cart.html", context)
 
 
-def decrease_quantity(request, pk):
+def decrease_quantity(request, slug):
     cart = request.session["cart"]
-    cart_product_quantity = cart[pk]
+    cart_product_quantity = cart[slug]
 
     if cart_product_quantity > 1:
         cart_product_quantity -= 1
-        cart[pk] = cart_product_quantity
+        cart[slug] = cart_product_quantity
         request.session["cart"] = cart
         request.session.save()
 
     return redirect(reverse("cart"))
 
 
-def remove_product(request, pk):
-    request.session["cart"].pop(pk)
+def remove_product(request, slug):
+    request.session["cart"].pop(slug)
     request.session.save()
 
     return redirect(reverse("cart"))
 
 
-class CheckoutView(LoginRequiredMixin, CreateView):
+class CheckoutView(OptionalFormFieldsMixin, LoginRequiredMixin, CreateView):
     model = Order
-    fields = ["first_name", "last_name", "city", "address"]
+    fields = [
+        "first_name",
+        "last_name",
+        "email",
+        "phone_number",
+        "city",
+        "address",
+        "apartment_building",
+        "postal_code",
+    ]
+    optional_fields = ["apartment_building"]
     template_name = "cart/checkout.html"
     success_url = reverse_lazy("order_success")
 
@@ -85,10 +78,19 @@ class CheckoutView(LoginRequiredMixin, CreateView):
     def get_form(self):
         form = super().get_form()
 
+        if self.request.user.email:
+            form.fields["email"].initial = self.request.user.email
+        if self.request.user.phone_number:
+            form.fields["phone_number"].initial = self.request.user.phone_number
+
         for field_name, field in form.fields.items():
+            placeholder = field.widget.attrs.get("placeholder")
             field.widget = forms.TextInput(
                 attrs={"placeholder": field_name.title().replace("_", " ")}
             )
+
+            if placeholder:
+                field.widget.attrs["placeholder"] += placeholder
 
         return form
 
@@ -96,6 +98,16 @@ class CheckoutView(LoginRequiredMixin, CreateView):
         if self.user_has_products:
             return super().get(request)
         return redirect("products")
+
+    def get_context_data(self):
+        context = super().get_context_data()
+        cart_products = get_cart_products(self.request.session)
+        total_price = get_total_price(cart_products)
+
+        context["cart_products"] = cart_products
+        context["total_price"] = total_price
+
+        return context
 
     def form_valid(self, form):
         if not self.user_has_products:

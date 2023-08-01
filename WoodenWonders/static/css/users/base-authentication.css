@@ -17,27 +17,8 @@ main > p a {
   text-decoration: none;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
-}
-
-form * {
-  padding: 5px;
-}
-
-.errorlist li {
-  color: red;
-}
-
-.errorlist li {
-  display: block;
-}
-
-.errorlist {
-  max-width: 280px;
+.form button {
+  align-self: center;
 }
 
 .username-fields {

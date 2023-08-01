@@ -1,33 +1,15 @@
-.filters form {
-  display: flex;
-  margin: 20px;
-  flex-wrap: wrap;
-}
-
-.filters form:nth-of-type(1) {
-  margin-bottom: 0;
-}
-
-.filters form:nth-of-type(2) {
-  flex-direction: column;
-  gap: 10px;
-}
-
 .filters {
   background-color: var(--lighter);
   margin-left: 20px;
   margin-right: 20px;
   display: flex;
   flex-direction: column;
+  height: fit-content;
 }
 
 .search-field {
   margin-bottom: 0 !important;
-  min-width: 225px;
-}
-
-.search-field input {
-  width: 200px;
+  min-width: 200px;
 }
 
 .search-field button {
@@ -39,6 +21,11 @@
   font-weight: 600;
   font-size: 15px;
   margin-left: 5px;
+}
+
+.search-field button:hover {
+  color: var(--caramel);
+  transition: color 0.1ms ease-out;
 }
 
 .price-range {
@@ -103,6 +90,19 @@
   display: flex;
 }
 
+.form {
+  align-items: self-start;
+  margin: 20px;
+}
+
+.form:nth-of-type(1) {
+  margin-bottom: 0;
+}
+
+.form *:not(button) {
+  padding: 1px;
+}
+
 @media screen and (max-width: 767px) {
   .products {
     margin-top: 20px;
@@ -113,11 +113,8 @@
     align-items: center;
   }
 
-  .centered {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 10px;
+  .form button {
+    align-self: center;
   }
 
   .main-content {

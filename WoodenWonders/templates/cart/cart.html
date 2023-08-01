@@ -10,24 +10,24 @@
         <div class="cart-products">
             {% for product, quantity in cart_products.items %}
                 <div class="cart-product">
-                    <a href="{% url 'product' pk=product.pk %}">
+                    <a href="{% url 'product' slug=product.slug %}">
                         <img src="{{ product.image.url }}" alt="{{ product.name }}" class="image">
                     </a>
                     <div class="container">
                         <div class="product-information">
-                            <a href="{% url 'product' pk=product.pk %}">
+                            <a href="{% url 'product' slug=product.slug %}">
                                 <h4 class="product-name">{{ product.name }}</h4>
                             </a>
                             <p class="categories">{{ product.categories.all|join:", " }}</p>
                         </div>
                         <div class="quantity">
-                            <a href="{% url 'decrease_quantity' pk=product.pk %}">&minus;</a>
+                            <a href="{% url 'decrease_quantity' slug=product.slug %}">&minus;</a>
                             <p>{{ quantity }}</p>
-                            <a href="{% url "add_to_cart" pk=product.pk %}">&plus;</a>
+                            <a href="{% url "add_to_cart" slug=product.slug %}">&plus;</a>
                         </div>
                         <div>
                             <p>${{ product.price|calculate_total_price:quantity }}</p>
-                            <a href="{% url 'remove_product' pk=product.pk %}">remove</a>
+                            <a href="{% url 'remove_product' slug=product.slug %}">remove</a>
                         </div>
                     </div>
                 </div>

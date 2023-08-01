@@ -62,7 +62,7 @@ nav ul li a {
 
 nav ul li a:hover {
   color: var(--dark-wood);
-  transition: color 0.2s ease-in;
+  transition: none;
 }
 
 .action-menu {
@@ -203,6 +203,39 @@ main {
   display: none;
 }
 
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.form * {
+  padding: 5px;
+}
+
+.form button {
+  align-self: flex-start;
+}
+
+.form input:focus,
+.form textarea:focus {
+  outline: none !important;
+  border: 2px solid var(--caramel);
+}
+
+.errorlist li {
+  color: red;
+}
+
+.errorlist li {
+  display: block;
+}
+
+.errorlist {
+  max-width: 280px;
+}
+
 @media screen and (max-width: 767px) {
   .hamburger {
     display: block;
@@ -240,6 +273,10 @@ main {
 
   .navigation-menu.active li {
     margin-right: 40px;
+  }
+
+  .navigation-menu li:last-of-type {
+    margin-bottom: 20px;
   }
 
   nav {

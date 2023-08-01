@@ -9,6 +9,10 @@ class Order(models.Model):
     last_name = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
+    apartment_building = models.CharField(max_length=100, null=True, blank=True)
+    postal_code = models.IntegerField()
+    phone_number = models.CharField(max_length=100)
+    email = models.EmailField()
     created_on = models.DateTimeField(auto_now=True)
 
     @property

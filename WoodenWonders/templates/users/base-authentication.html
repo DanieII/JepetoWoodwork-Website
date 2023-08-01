@@ -7,7 +7,8 @@
 {% block title %}{{ state }} - WoodenWonders{% endblock %}
 {% block content %}
     <form method="post"
-          action="{% if state == 'Login' %}{% url 'login' %}{% else %}{% url 'register' %}{% endif %}">
+          action="{% if request.META.QUERY_STRING %}?{{ request.META.QUERY_STRING }}{% elif state == 'Login' %} {% url 'login' %} {% else %} {% url 'register' %} {% endif %} "
+          class="form">
         {% csrf_token %}
         <p>{{ form.non_field_errors }}</p>
         {% if state == "Register" %}
@@ -27,10 +28,12 @@
             {% endfor %}
         {% endif %}
         <input type="hidden" name="next" value="{{ next }}">
-        {% for key, value in login_required_form_fields.items %}
-            <input type="hidden" name="{{ key }}" value="{{ value }}">
-        {% endfor %}
-        {% if given_fields %}<input type="hidden" name="given_fields" value="{{ given_fields }}">{% endif %}
+        {% for key, value in fields_with_values.items %}<input type="hidden" name="{{ key }}" value="{{ value }}">{% endfor %}
+        {% if login_required_form_fields %}
+            <input type="hidden"
+                   name="login_required_form_fields"
+                   value="{{ login_required_form_fields }}">
+        {% endif %}
         <button type="submit" class="button">{{ state }}</button>
     </form>
     {% if state == 'Login' %}

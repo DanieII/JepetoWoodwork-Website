@@ -12,7 +12,7 @@ from users.mixins import HandleSendLoginRequiredFormInformationMixin
 class Products(ListView):
     model = Product
     template_name = "products/products.html"
-    paginate_by = 2
+    paginate_by = 10
     extra_context = {"search_form": ProductSearchForm}
 
     def get_context_data(self, *args, **kwargs):
@@ -73,7 +73,7 @@ class ProductDetails(
         return context
 
     def get_success_url(self):
-        return reverse("product", kwargs={"pk": self.object.pk})
+        return reverse("product", kwargs={"slug": self.object.slug})
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -83,6 +83,6 @@ class ProductDetails(
 
         if self.form.is_valid():
             quantity = int(request.POST.get("quantity"))
-            add_to_cart(request, self.object.pk, quantity)
+            add_to_cart(request, self.object.slug, quantity)
 
         return response

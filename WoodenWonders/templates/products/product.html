@@ -1,7 +1,7 @@
 {% load static %}
 <div class="product">
     <div>
-        <a href="{% url 'heart' pk=product.pk %}">
+        <a href="{% url 'heart' slug=product.slug %}">
             {% if request.user.is_authenticated %}
                 {% if product in request.user.wishlist.products.all %}
                     <i class="fa-solid fa-heart wishlist-heart button"></i>
@@ -12,13 +12,13 @@
                 <i class="fa-regular fa-heart wishlist-heart button"></i>
             {% endif %}
         </a>
-        <a href="{% url 'product' pk=product.pk %}">
+        <a href="{% url 'product' slug=product.slug %}">
             <img src="{{ product.image.url }}" alt="{{ product.name }}" class="image" />
         </a>
     </div>
-    <a href="{% url 'product' pk=product.pk %}">
+    <a href="{% url 'product' slug=product.slug %}">
         <p class="product-name">{{ product.name }}</p>
     </a>
     <p class="product-price">${{ product.price|floatformat:2 }}</p>
-    <a href="{% url 'add_to_cart' pk=product.pk %}" class="button">Add to cart</a>
+    <a href="{% url 'add_to_cart' slug=product.slug %}" class="button">Add to cart</a>
 </div>

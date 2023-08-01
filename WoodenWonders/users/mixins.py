@@ -1,4 +1,4 @@
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse
 from urllib.parse import urlencode
 
@@ -11,38 +11,68 @@ class ProhibitLoggedUsersMixin:
 
 
 class HandleQueryParamsFromLoginRequiredFormsMixin:
+    def get_form_fields_from_request(self, request_method):
+        request_method_instance = getattr(self.request, request_method)
+        login_required_form_fields = request_method_instance.get(
+            "login_required_form_fields"
+        )
+
+        if login_required_form_fields:
+            fields_with_values = {
+                field: request_method_instance.get(field)
+                for field in request_method_instance
+                if field in login_required_form_fields
+            }
+        else:
+            fields_with_values = {}
+
+        return login_required_form_fields, fields_with_values
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        given_fields = self.request.GET.get("login_required_form_fields")
-        self.login_required_form_fields = {
-            field: self.request.GET.get(field)
-            for field in self.request.GET
-            if field in given_fields
-        }
+        (
+            login_required_form_fields,
+            fields_with_values,
+        ) = self.get_form_fields_from_request("GET")
 
-        context["given_fields"] = given_fields
-        context["login_required_form_fields"] = self.login_required_form_fields
+        context["login_required_form_fields"] = login_required_form_fields
+        context["fields_with_values"] = fields_with_values
 
         return context
 
     def form_valid(self, form):
-        given_fields = self.request.POST.get("given_fields")
-        login_required_form_fields = {
-            field: self.request.POST.get(field)
-            for field in self.request.POST
-            if field in given_fields.split(",")
-        }
+        response = super().form_valid(form)
 
-        return redirect(
-            self.get_success_url() + "?" + urlencode(login_required_form_fields)
-        )
+        (
+            login_required_form_fields,
+            fields_with_values,
+        ) = self.get_form_fields_from_request("POST")
+
+        if login_required_form_fields:
+            return redirect(response.url + "?" + urlencode(fields_with_values))
+
+        return response
 
 
 class HandleSendLoginRequiredFormInformationMixin:
     mixin_form = None
     fields = []
     additional_fields = {}
+
+    def get_query_string(self, form_instance):
+        fields_with_values = {}
+        next_url = self.request.get_full_path()
+
+        for field in self.fields:
+            fields_with_values[field] = form_instance.cleaned_data.get(field)
+
+        parameters_in_query_format = urlencode(fields_with_values)
+        fields_list = ",".join(self.fields)
+
+        query_string = f"?next={next_url}&{parameters_in_query_format}&login_required_form_fields={fields_list}"
+
+        return query_string
 
     def get_additional_fields(self):
         return {}
@@ -51,17 +81,7 @@ class HandleSendLoginRequiredFormInformationMixin:
         form_instance = self.mixin_form(request.POST)
         if form_instance.is_valid():
             if not request.user.is_authenticated:
-                fields_with_values = {}
-                next_url = request.get_full_path()
-
-                for field in self.fields:
-                    fields_with_values[field] = form_instance.cleaned_data.get(field)
-
-                parameters_in_query_format = urlencode(fields_with_values)
-                fields_list = ",".join(self.fields)
-
-                query_string = f"?next={next_url}&{parameters_in_query_format}&login_required_form_fields={fields_list}"
-
+                query_string = self.get_query_string(form_instance)
                 login_url = reverse("login") + query_string
 
                 return redirect(login_url)
