@@ -24,7 +24,7 @@
   object-fit: cover;
 }
 
-.title {
+.blog-title {
   font-weight: bold;
   font-size: 1.1rem;
 }
@@ -33,8 +33,12 @@
   text-decoration: none;
 }
 
-.blog-post a:hover * {
+.blog-post:hover a * {
   color: var(--caramel);
+}
+
+.blog-post:hover img {
+  filter: brightness(90%);
 }
 
 @media screen and (max-width: 767px) {

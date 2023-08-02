@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{% static "css/blog/blog.css" %}">
 {% endblock %}
 {% block content %}
+    <h1 class="title">Blog</h1>
     <div class="blog-posts">
         {% for blog_post in object_list %}
             <div class="blog-post">
@@ -12,7 +13,7 @@
                     <img src="{{ blog_post.image.url }}"
                          alt="{{ blog_post.title }}"
                          class="image">
-                    <p class="title">{{ blog_post.title|truncatechars:50 }}</p>
+                    <p class="blog-title">{{ blog_post.title|truncatechars:50 }}</p>
                     <p>
                         <i class="fa-regular fa-calendar-days"></i>
                         {{ blog_post.date_added|date }}

@@ -4,7 +4,6 @@ from .models import Order, OrderProduct
 from django.views.generic import CreateView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
-from django import forms
 from common.mixins import OptionalFormFieldsMixin
 from .helper_functions import get_cart_products, get_total_price, process_cart_quantity
 
@@ -66,6 +65,7 @@ class CheckoutView(OptionalFormFieldsMixin, LoginRequiredMixin, CreateView):
         "address",
         "apartment_building",
         "postal_code",
+        "delivery_type",
     ]
     optional_fields = ["apartment_building"]
     template_name = "cart/checkout.html"
@@ -85,9 +85,7 @@ class CheckoutView(OptionalFormFieldsMixin, LoginRequiredMixin, CreateView):
 
         for field_name, field in form.fields.items():
             placeholder = field.widget.attrs.get("placeholder")
-            field.widget = forms.TextInput(
-                attrs={"placeholder": field_name.title().replace("_", " ")}
-            )
+            field.widget.attrs["placeholder"] = field_name.title().replace("_", " ")
 
             if placeholder:
                 field.widget.attrs["placeholder"] += placeholder
@@ -99,7 +97,7 @@ class CheckoutView(OptionalFormFieldsMixin, LoginRequiredMixin, CreateView):
             return super().get(request)
         return redirect("products")
 
-    def get_context_data(self):
+    def get_context_data(self, *args, **kwargs):
         context = super().get_context_data()
         cart_products = get_cart_products(self.request.session)
         total_price = get_total_price(cart_products)
@@ -118,8 +116,8 @@ class CheckoutView(OptionalFormFieldsMixin, LoginRequiredMixin, CreateView):
         order.save()
 
         cart = self.request.session["cart"]
-        for product_id, quantity in cart.items():
-            product = Product.objects.get(id=product_id)
+        for product_slug, quantity in cart.items():
+            product = Product.objects.get(slug=product_slug)
             product.quantity -= quantity
             product.save()
             OrderProduct.objects.create(order=order, product=product, quantity=quantity)

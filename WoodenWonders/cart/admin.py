@@ -1,10 +1,23 @@
 from django.contrib import admin
 from .models import Order
+from django.urls import reverse
+from django.utils.safestring import mark_safe
 
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ["full_name", "contact", "city", "address", "products", "total"]
+    list_display = [
+        "full_name",
+        "contact",
+        "city",
+        "address",
+        "apartment_building",
+        "postal_code",
+        "delivery_type",
+        "products",
+        "total",
+        "created_on",
+    ]
 
     @staticmethod
     def full_name(order):
@@ -12,18 +25,19 @@ class OrderAdmin(admin.ModelAdmin):
 
     @staticmethod
     def contact(order):
-        user = order.user
-        return user.email or user.phone_number
+        return order.email + "/" + str(order.phone_number)
 
     @staticmethod
     def products(order):
         result = []
         for product in order.orderproduct_set.all():
+            product_url = reverse("product", kwargs={"slug": product.product.slug})
+            product_link = f'<a href="{product_url}">{product.product.name}</a>'
             result.append(
-                f"{product.quantity} {product.product.name} for ${product.product_total}"
+                f"{product.quantity} {product_link} for ${product.product_total}"
             )
 
-        return ", ".join(result)
+        return mark_safe(", ".join(result))
 
     @staticmethod
     def total(order):

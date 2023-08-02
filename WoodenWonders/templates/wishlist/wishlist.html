@@ -8,7 +8,7 @@
         {% for product in object_list %}
             {% include "products/product.html" %}
         {% empty %}
-            <h1 style="align-self: center; color: var(--dark-wood);">No Products In Wishlist</h1>
+            <h1 class="title">No Products In Wishlist</h1>
         {% endfor %}
     </div>
 {% endblock %}
