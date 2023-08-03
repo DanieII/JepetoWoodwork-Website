@@ -60,22 +60,29 @@ class HandleSendLoginRequiredFormInformationMixin:
     fields = []
     additional_fields = {}
 
+    def get_fields(self):
+        fields = self.fields
+        if fields == "__all__":
+            return [field for field in self.mixin_form.base_fields]
+        return fields
+
+    def get_additional_fields(self):
+        return {}
+
     def get_query_string(self, form_instance):
+        fields = self.get_fields()
         fields_with_values = {}
         next_url = self.request.get_full_path()
 
-        for field in self.fields:
+        for field in fields:
             fields_with_values[field] = form_instance.cleaned_data.get(field)
 
         parameters_in_query_format = urlencode(fields_with_values)
-        fields_list = ",".join(self.fields)
+        fields_list = ",".join(fields)
 
         query_string = f"?next={next_url}&{parameters_in_query_format}&login_required_form_fields={fields_list}"
 
         return query_string
-
-    def get_additional_fields(self):
-        return {}
 
     def post(self, request, *args, **kwargs):
         form_instance = self.mixin_form(request.POST)

@@ -52,13 +52,13 @@ class ProductDetails(
     template_name = "products/product-details.html"
     form_class = ProductAddToCartForm
     mixin_form = ProductReviewForm
-    fields = ["stars", "review"]
+    fields = "__all__"
 
     def get_additional_fields(self):
         return {"user": self.request.user, "product": self.object}
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
 
         stars = self.request.GET.get("stars")
         message = self.request.GET.get("review")
@@ -68,7 +68,6 @@ class ProductDetails(
                 "review": message,
             }
         )
-        context["reviews"] = ProductReview.objects.filter(product=self.object)
 
         return context
 

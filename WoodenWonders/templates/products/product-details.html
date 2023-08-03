@@ -31,7 +31,7 @@
 </div>
 <div class="reviews">
     <h3>Reviews</h3>
-    {% for review in reviews %}
+    {% for review in object.productreview_set.all %}
         <div class="review">
             {% with empty_stars_count=review.stars|calculate_empty_stars %}
                 {% for _ in review.stars|get_range_from_number %}
@@ -50,7 +50,7 @@
     {% endfor %}
     <form method="post"
           action="{% url 'product' slug=object.slug %}"
-          class="review-form">
+          class="form">
         {% csrf_token %}
         <div class="star-rating">
             <i class="fa-solid fa-star" rating-value="1"></i>

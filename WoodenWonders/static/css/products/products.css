@@ -8,8 +8,9 @@
 }
 
 .search-field {
+  display: flex;
+  gap: 5px;
   margin-bottom: 0 !important;
-  min-width: 200px;
 }
 
 .search-field button {

@@ -10,7 +10,7 @@ class Blog(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
     image = models.ImageField(upload_to="blog_images")
-    date_added = models.DateTimeField(auto_now_add=True)
+    created_on = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(max_length=200, blank=True)
 
     def save(self, *args, **kwargs):
@@ -25,4 +25,5 @@ class Blog(models.Model):
 class BlogComment(models.Model):
     user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    created_on = models.DateTimeField(auto_now_add=True)
     comment = models.TextField()

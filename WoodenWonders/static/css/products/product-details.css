@@ -51,20 +51,26 @@
 }
 
 .reviews {
-  background-color: var(--lighter);
   margin-top: 100px;
   align-self: center;
   width: 80%;
-  padding: 30px;
+}
+
+.form {
+  margin-top: 10px;
 }
 
 .star-rating {
+  align-self: flex-start;
   cursor: pointer;
   user-select: none;
 }
 
+.form textarea {
+  align-self: flex-start;
+}
+
 .star-rating i {
-  margin-right: 5px;
   transition: all 0s;
 }
 
@@ -79,23 +85,7 @@
 .reviews h3 {
   color: var(--dark-wood);
   font-weight: 100;
-  margin-bottom: 5px;
-}
-
-.review-field {
-  resize: none;
-  width: 100%;
-  padding: 5px;
-}
-
-.review-form {
-  display: flex;
-  flex-direction: column;
-  margin-top: 20px;
-}
-
-.review-form .button {
-  align-self: flex-start;
+  margin-bottom: 10px;
 }
 
 .comma {

@@ -34,13 +34,15 @@
                 <button type="submit" class="button">Filter</button>
             </form>
         </div>
-        <ul class="products">
-            {% for product in page_obj %}
-                <li>{% include "products/product.html" %}</li>
-            {% empty %}
-                <h1>No results &#128373;</h1>
-            {% endfor %}
-        </ul>
+        {% if page_obj %}
+            <ul class="products">
+                {% for product in page_obj %}
+                    <li>{% include "products/product.html" %}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h1 class="title">No results</h1>
+        {% endif %}
     </div>
     <div class="pagination">
         {% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}"><span>&lt;</span></a>{% endif %}

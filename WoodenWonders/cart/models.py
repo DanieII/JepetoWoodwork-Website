@@ -1,7 +1,11 @@
+from re import U
 from django.db import models
 from django.contrib.auth import get_user_model
+from WoodenWonders.settings import USE_TZ
 from products.models import Product
 from phonenumber_field.modelfields import PhoneNumberField
+
+UserModel = get_user_model()
 
 
 class Order(models.Model):
@@ -11,7 +15,7 @@ class Order(models.Model):
         ("self_delivery", "Delivered by Us (for Sofia)"),
     ]
 
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
