@@ -14,6 +14,8 @@ from pathlib import Path
 import dotenv
 from django.urls import reverse_lazy
 import certifi
+from django.contrib.messages import constants as messages
+
 
 dotenv.load_dotenv()
 os.environ["SSL_CERT_FILE"] = certifi.where()
@@ -165,3 +167,11 @@ AUTH_USER_MODEL = "users.CustomUser"
 
 LOGIN_URL = reverse_lazy("login")
 LOGIN_REDIRECT_URL = reverse_lazy("home")
+
+MESSAGE_TAGS = {
+    messages.DEBUG: "alert-secondary",
+    messages.INFO: "alert-info",
+    messages.SUCCESS: "alert-success",
+    messages.WARNING: "alert-warning",
+    messages.ERROR: "alert-danger",
+}

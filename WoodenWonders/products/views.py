@@ -53,6 +53,7 @@ class ProductDetails(
     form_class = ProductAddToCartForm
     mixin_form = ProductReviewForm
     fields = "__all__"
+    success_message = "Review successfully added"
 
     def get_additional_fields(self):
         return {"user": self.request.user, "product": self.object}

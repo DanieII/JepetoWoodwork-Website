@@ -4,6 +4,7 @@ from products.models import Product
 from .forms import ContactForm
 from django.contrib.auth.models import send_mail
 from django.conf import settings
+from django.contrib import messages
 
 
 class Home(ListView):
@@ -33,6 +34,7 @@ class Contacts(FormView):
             from_email=host_email,
             recipient_list=[host_email],
         )
-        send_mail(subject, message, from_email=host_email, recipient_list=[host_email])
+
+        messages.success(self.request, "Email successfully sent!")
 
         return super().form_valid(form)

@@ -241,6 +241,12 @@ main {
   border: 2px solid var(--caramel);
 }
 
+.form textarea {
+  min-width: 200px;
+  min-height: 100px;
+  transition: all 0ms;
+}
+
 .errorlist li {
   color: red;
 }
@@ -256,6 +262,37 @@ main {
 .light-box {
   background-color: var(--lighter);
   padding: 20px;
+}
+
+.comments-reviews {
+  margin-top: 50px;
+  align-self: center;
+  width: 80%;
+}
+
+.comments-reviews > h3 {
+  color: var(--dark-wood);
+  font-weight: 100;
+  margin-bottom: 10px;
+}
+
+.comments-reviews form {
+  margin-top: 10px;
+}
+
+.comments-reviews form textarea {
+  align-self: flex-start;
+}
+
+.comments-reviews .main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.fade {
+  opacity: 0;
+  transition: opacity 0.5s linear;
 }
 
 @media screen and (max-width: 767px) {

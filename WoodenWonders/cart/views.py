@@ -1,11 +1,12 @@
 from django.shortcuts import redirect, render
 from products.models import Product
 from .models import Order, OrderProduct
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
 from common.mixins import OptionalFormFieldsMixin
 from .helper_functions import get_cart_products, get_total_price, process_cart_quantity
+from django.contrib import messages
 
 
 def add_to_cart(request, slug, quantity=1):
@@ -14,6 +15,7 @@ def add_to_cart(request, slug, quantity=1):
     url = request.META.get("HTTP_REFERER")
 
     if product.quantity <= 0:
+        messages.warning(request, "Product is out of stock")
         return redirect(url)
 
     if not cart.get(slug):
@@ -69,7 +71,7 @@ class CheckoutView(OptionalFormFieldsMixin, LoginRequiredMixin, CreateView):
     ]
     optional_fields = ["apartment_building"]
     template_name = "cart/checkout.html"
-    success_url = reverse_lazy("order_success")
+    success_url = reverse_lazy("home")
 
     @property
     def user_has_products(self):
@@ -124,13 +126,6 @@ class CheckoutView(OptionalFormFieldsMixin, LoginRequiredMixin, CreateView):
 
         self.request.session["cart"] = {}
 
+        messages.success(self.request, "Checkout successful. Your order has been saved")
+
         return super().form_valid(form)
-
-
-class OrderSuccessView(TemplateView):
-    template_name = "cart/success.html"
-
-    def dispatch(self, request, *args, **kwargs):
-        if not request.META.get("HTTP_REFERER"):
-            return redirect("home")
-        return super().dispatch(request, *args, **kwargs)

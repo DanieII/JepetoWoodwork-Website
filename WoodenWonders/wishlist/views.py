@@ -7,9 +7,9 @@ from django.views.generic import ListView
 
 
 @login_required
-def handle_heart_button(request, pk):
+def handle_heart_button(request, slug):
     wishlist = request.user.wishlist
-    product = Product.objects.get(pk=pk)
+    product = Product.objects.get(slug=slug)
 
     if product in wishlist.products.all():
         wishlist.products.remove(product)
@@ -28,6 +28,6 @@ class WishListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         wishlist = self.request.user.wishlist
-        product_ids = [p.pk for p in wishlist.products.all()]
-        queryset = queryset.filter(pk__in=product_ids)
+        product_slugs = [p.slug for p in wishlist.products.all()]
+        queryset = queryset.filter(slug__in=product_slugs)
         return queryset

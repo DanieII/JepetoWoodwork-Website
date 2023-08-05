@@ -13,23 +13,3 @@
   max-height: 50%;
   margin: 20px;
 }
-
-.comments {
-  margin-top: 50px;
-  align-self: center;
-  width: 80%;
-}
-
-.comments h3 {
-  color: var(--dark-wood);
-  font-weight: 100;
-  margin-bottom: 10px;
-}
-
-.form {
-  margin-top: 10px;
-}
-
-.form textarea {
-  align-self: flex-start;
-}

@@ -9,16 +9,20 @@
         <h3 class="title">{{ object.title }}</h3>
         <p>{{ object.content }}</p>
         <img src="{{ object.image.url }}" alt="{{ object.title }}" class="image">
-        <div class="comments light-box">
+        <div class="comments-reviews light-box">
             <h3>Comments</h3>
-            {% for comment in object.blogcomment_set.all %}
-                <div class="comment">
-                    <p>{{ comment.user }} on {{ comment.created_on|date }}</p>
-                    <p>{{ comment.comment }}</p>
-                </div>
-            {% empty %}
-                <p>There are no comments yet.</p>
-            {% endfor %}
+            <div class="main-content">
+                {% for comment in object.blogcomment_set.all %}
+                    <div class="comment">
+                        <p>
+                            <b>Commented on {{ comment.created_on|date }}</b>
+                        </p>
+                        <p>{{ comment.comment }}</p>
+                    </div>
+                {% empty %}
+                    <p>There are no comments yet.</p>
+                {% endfor %}
+            </div>
             <form method="post" class="form" action="{% url 'blog_details' slug=object.slug %}" {% csrf_token %} {% for field in comment_form %}{{ field }}{% endfor %} {% csrf_token %}
                 <button type="submit" class="button">Comment</button>
             </form>

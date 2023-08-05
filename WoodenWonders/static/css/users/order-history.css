@@ -4,12 +4,9 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  color: var(--dark-wood);
 }
 
 .order {
-  background-color: var(--lighter);
-  padding: 30px;
   padding-top: 10px;
   display: flex;
   flex-direction: column;

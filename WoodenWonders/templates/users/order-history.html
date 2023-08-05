@@ -8,15 +8,15 @@
     {% include "users/base-details.html" %}
     <div class="order-history">
         {% if object_list %}
-            <h2>Your Orders</h2>
+            <h2 class="title">Your Orders</h2>
             {% for order in object_list %}
-                <div class="order">
+                <div class="order light-box">
                     <p class="created-on">Created on: {{ order.created_on|date:"F d, Y" }}</p>
                     <ul>
                         {% for ordered_product in order.orderproduct_set.all %}
                             <li>
                                 <p>
-                                    <a href="{% url 'product' pk=ordered_product.pk %}">{{ ordered_product.product.name }}</a> - Quantity: {{ ordered_product.quantity }} - Total: ${{ ordered_product.product_total }}
+                                    <a href="{% url 'product' slug=ordered_product.product.slug %}">{{ ordered_product.product.name }}</a> - Quantity: {{ ordered_product.quantity }} - Total: ${{ ordered_product.product_total }}
                                 </p>
                             </li>
                         {% endfor %}

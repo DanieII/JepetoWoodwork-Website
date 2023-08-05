@@ -6,7 +6,7 @@
         <title>
             {% block title %}Wooden Wonders{% endblock %}
         </title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static "css/bootstrap-alerts/bootstrap.css" %}">
         <link rel="stylesheet" href="{% static 'css/common/base.css' %}">
         <link rel="icon" href="{% static "images/light-lumberjack-icon.png" %}" type="image/x-icon">
         <script src="https://kit.fontawesome.com/9c26499af3.js"
@@ -19,6 +19,7 @@
         </style>
     </head>
     <body>
+        {% include "common/messages.html" %}
         <div class="nav-wrapper">
             <nav>
                 <div class="hamburger">
@@ -99,5 +100,6 @@
             </footer>
         </div>
         <script src="{% static 'javascript/dropdown-menu.js' %}"></script>
+        <script src="{% static 'javascript/hide-alerts.js' %}"></script>
     </body>
 </html>

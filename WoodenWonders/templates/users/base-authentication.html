@@ -12,7 +12,7 @@
         {% csrf_token %}
         <p>{{ form.non_field_errors }}</p>
         {% if state == "Register" %}
-            <div class="username-fields">
+            <div class="username-fields form">
                 {{ form.email.errors }}
                 {{ form.email }}
                 <p>and/or</p>

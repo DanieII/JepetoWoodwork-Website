@@ -1,15 +1,12 @@
-.container {
-  background-color: var(--lighter);
-  margin-left: 20px;
-  margin-right: 20px;
-}
-
 .profile-navigation {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   gap: 30px;
   padding: 30px;
+  margin-left: 20px;
+  margin-right: 20px;
+  height: fit-content;
 }
 
 .profile-navigation li {
@@ -39,7 +36,7 @@ main {
     flex-direction: column;
   }
 
-  .container {
+  .light-box {
     margin-bottom: 20px;
   }
 

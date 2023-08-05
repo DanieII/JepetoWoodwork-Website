@@ -4,4 +4,4 @@ from .models import Blog
 
 @admin.register(Blog)
 class BlogAdmin(admin.ModelAdmin):
-    pass
+    prepopulated_fields = {"slug": ("title",)}

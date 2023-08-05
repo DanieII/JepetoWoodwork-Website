@@ -1,7 +1,6 @@
 from django.urls import path
 from .views import (
     CheckoutView,
-    OrderSuccessView,
     add_to_cart,
     cart,
     decrease_quantity,
@@ -15,5 +14,4 @@ urlpatterns = [
     path("decrease-quantity/<slug>/", decrease_quantity, name="decrease_quantity"),
     path("remove-product/<slug>/", remove_product, name="remove_product"),
     path("checkout/", CheckoutView.as_view(), name="checkout"),
-    path("success/", OrderSuccessView.as_view(), name="order_success"),
 ]

@@ -29,25 +29,27 @@
         </p>
     </div>
 </div>
-<div class="reviews">
+<div class="comments-reviews light-box">
     <h3>Reviews</h3>
-    {% for review in object.productreview_set.all %}
-        <div class="review">
-            {% with empty_stars_count=review.stars|calculate_empty_stars %}
-                {% for _ in review.stars|get_range_from_number %}
-                    {% if forloop.last %}
-                        <i class="fa-solid fa-star last-filled-star"></i>
-                    {% else %}
-                        <i class="fa-solid fa-star"></i>
-                    {% endif %}
-                {% endfor %}
-                {% for _ in empty_stars_count %}<i class="fa-regular fa-star empty-star"></i>{% endfor %}
-            {% endwith %}
-            <p>{{ review.review }}</p>
-        </div>
-    {% empty %}
-        <p>There are not reviews yet.</p>
-    {% endfor %}
+    <div class="main-content">
+        {% for review in object.productreview_set.all %}
+            <div class="review">
+                {% with empty_stars_count=review.stars|calculate_empty_stars %}
+                    {% for _ in review.stars|get_range_from_number %}
+                        {% if forloop.last %}
+                            <i class="fa-solid fa-star last-filled-star"></i>
+                        {% else %}
+                            <i class="fa-solid fa-star"></i>
+                        {% endif %}
+                    {% endfor %}
+                    {% for _ in empty_stars_count %}<i class="fa-regular fa-star empty-star"></i>{% endfor %}
+                {% endwith %}
+                <p>{{ review.review }}</p>
+            </div>
+        {% empty %}
+            <p>There are not reviews yet.</p>
+        {% endfor %}
+    </div>
     <form method="post"
           action="{% url 'product' slug=object.slug %}"
           class="form">

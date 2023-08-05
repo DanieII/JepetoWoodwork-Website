@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from urllib.parse import urlencode
+from django.contrib import messages
 
 
 class ProhibitLoggedUsersMixin:
@@ -59,6 +60,7 @@ class HandleSendLoginRequiredFormInformationMixin:
     mixin_form = None
     fields = []
     additional_fields = {}
+    success_message = ""
 
     def get_fields(self):
         fields = self.fields
@@ -68,6 +70,16 @@ class HandleSendLoginRequiredFormInformationMixin:
 
     def get_additional_fields(self):
         return {}
+
+    # TODO See why this doesn't work
+    # def get_context_data(self, *args, **kwargs):
+    #     context = super().get_context_data(*args, **kwargs)
+
+    #     context[self.mixin_form.__class_.name] = self.mixin_form(
+    #         initial={field: self.request.GET.get(field) for field in self.get_fields()}
+    #     )
+
+    #     return context
 
     def get_query_string(self, form_instance):
         fields = self.get_fields()
@@ -104,5 +116,6 @@ class HandleSendLoginRequiredFormInformationMixin:
                 setattr(form_instance, field, field_value)
 
             form_instance.save()
+            messages.success(request, self.success_message)
 
         return redirect(self.get_success_url())

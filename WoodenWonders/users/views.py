@@ -14,6 +14,7 @@ from cart.models import Order
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 
 
 class UserRegisterView(
@@ -100,9 +101,12 @@ class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
         form.fields["new_password2"].widget.attrs.update(
             {"placeholder": "Confirm your new password"}
         )
+
         return form
 
 
 def logout_view(request):
     logout(request)
+    messages.success(request, "Successfully logged out")
+
     return redirect("login")
