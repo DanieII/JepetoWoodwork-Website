@@ -7,6 +7,8 @@
   margin-left: 20px;
   margin-right: 20px;
   height: fit-content;
+  width: fit-content;
+  position: fixed;
 }
 
 .profile-navigation li {
@@ -31,7 +33,21 @@ main {
   flex-direction: row;
 }
 
-@media screen and (max-width: 767px) {
+.content {
+  align-self: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.content * {
+  color: var(--dark-wood);
+}
+
+@media screen and (max-width: 1050px) {
   main {
     flex-direction: column;
   }
@@ -43,7 +59,9 @@ main {
   .profile-navigation {
     flex-direction: row;
     text-align: center;
-    justify-content: space-around;
+    justify-content: center;
+    position: static;
+    align-self: center;
   }
 
   .profile-navigation i {

@@ -18,12 +18,16 @@ from django.contrib import messages
 
 
 class UserRegisterView(
-    HandleQueryParamsFromLoginRequiredFormsMixin, ProhibitLoggedUsersMixin, CreateView
+    SuccessMessageMixin,
+    HandleQueryParamsFromLoginRequiredFormsMixin,
+    ProhibitLoggedUsersMixin,
+    CreateView,
 ):
     form_class = CustomUserCreationForm
     template_name = "users/base-authentication.html"
     success_url = reverse_lazy("home")
     extra_context = {"state": "Register"}
+    success_message = "Account created"
 
     def get_success_url(self):
         next = self.request.POST.get("next")
@@ -47,11 +51,17 @@ class UserRegisterView(
 
 
 class UserLoginView(
-    HandleQueryParamsFromLoginRequiredFormsMixin, ProhibitLoggedUsersMixin, LoginView
+    SuccessMessageMixin,
+    HandleQueryParamsFromLoginRequiredFormsMixin,
+    ProhibitLoggedUsersMixin,
+    LoginView,
 ):
     form_class = CustomLoginForm
     template_name = "users/base-authentication.html"
     extra_context = {"state": "Login"}
+
+    def get_success_message(self, cleaned_data):
+        return f"Logged in as {cleaned_data.get('username')}"
 
     def form_valid(self, form):
         login(
@@ -59,6 +69,7 @@ class UserLoginView(
             form.get_user(),
             backend="users.authentication.PhoneAndEmailAuthBackend",
         )
+
         return super().form_valid(form)
 
 

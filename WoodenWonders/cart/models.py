@@ -1,9 +1,8 @@
-from re import U
 from django.db import models
 from django.contrib.auth import get_user_model
-from WoodenWonders.settings import USE_TZ
 from products.models import Product
 from phonenumber_field.modelfields import PhoneNumberField
+from common.validators import only_letters_validator
 
 UserModel = get_user_model()
 
@@ -16,9 +15,9 @@ class Order(models.Model):
     ]
 
     user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    city = models.CharField(max_length=100)
+    first_name = models.CharField(max_length=100, validators=[only_letters_validator])
+    last_name = models.CharField(max_length=100, validators=[only_letters_validator])
+    city = models.CharField(max_length=100, validators=[only_letters_validator])
     address = models.CharField(max_length=100)
     apartment_building = models.CharField(max_length=100, null=True, blank=True)
     postal_code = models.IntegerField()

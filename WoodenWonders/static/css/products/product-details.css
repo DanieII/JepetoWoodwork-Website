@@ -76,6 +76,10 @@
   color: var(--caramel);
 }
 
+.add-to-cart input {
+  padding: 4px;
+}
+
 @media screen and (max-width: 767px) {
   .product {
     flex-direction: column;

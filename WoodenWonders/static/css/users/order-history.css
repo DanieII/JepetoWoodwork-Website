@@ -6,6 +6,12 @@
   gap: 20px;
 }
 
+.orders {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
 .order {
   padding-top: 10px;
   display: flex;
@@ -24,4 +30,11 @@
 .order li a {
   text-decoration: none;
   color: var(--caramel);
+}
+
+@media screen and (max-width: 1050px) {
+  .order-history {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
 }

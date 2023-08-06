@@ -1,12 +1,12 @@
 {% extends 'common/base.html' %}
 {% load static %}
-{% block title %}Profile - WoodenWonders{% endblock %}
+{% block title %}Profile | WoodenWonders{% endblock %}
 {% block styles %}
-    <link rel="stylesheet" href="{% static "css/users/details.css" %}">
+    <link rel="stylesheet" href="{% static "css/users/base-details.css" %}">
 {% endblock %}
 {% block content %}
     {% include "users/base-details.html" %}
-    <div class="information">
+    <div class="content">
         <h2>{{ request.user }}</h2>
         <p>Joined on: {{ request.user.date_joined|date }}</p>
     </div>

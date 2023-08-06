@@ -8,13 +8,18 @@
 {% endblock %}
 {% block content %}
     <div class="product">
-        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="image">
+        <div class="heart-parent">
+            {% include "products/heart.html" %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="image">
+        </div>
         <div class="product-information">
             <h1>{{ product.name }}</h1>
             <h3 class="price">${{ product.price|floatformat:2 }}</h3>
             {% if product.description %}<p>{{ product.description }}</p>{% endif %}
             <p class="available">{{ product.quantity }} available</p>
-            <form method="post" action="{% url 'product' slug=object.slug %}">
+            <form method="post"
+                  action="{% url 'product_details' slug=object.slug %}"
+                  class="add-to-cart">
                 {% csrf_token %}
                 {{ form.quantity }}
                 <button type="submit" class="button">Add to cart</button>
@@ -51,7 +56,7 @@
         {% endfor %}
     </div>
     <form method="post"
-          action="{% url 'product' slug=object.slug %}"
+          action="{% url 'product_details' slug=object.slug %}"
           class="form">
         {% csrf_token %}
         <div class="star-rating">

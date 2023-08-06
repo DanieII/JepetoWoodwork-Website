@@ -1,7 +1,7 @@
 {% extends 'common/base.html' %}
 {% load static %}
 {% load product_filters %}
-{% block title %}Cart - WoodenWonders{% endblock %}
+{% block title %}Cart | WoodenWonders{% endblock %}
 {% block styles %}
     <link rel="stylesheet" href="{% static 'css/cart/cart.css' %}">
 {% endblock %}
@@ -10,12 +10,12 @@
         <div class="cart-products">
             {% for product, quantity in cart_products.items %}
                 <div class="cart-product">
-                    <a href="{% url 'product' slug=product.slug %}">
+                    <a href="{% url 'product_details' slug=product.slug %}">
                         <img src="{{ product.image.url }}" alt="{{ product.name }}" class="image">
                     </a>
                     <div class="container">
                         <div class="product-information">
-                            <a href="{% url 'product' slug=product.slug %}">
+                            <a href="{% url 'product_details' slug=product.slug %}">
                                 <h4 class="product-name">{{ product.name }}</h4>
                             </a>
                             <p class="categories">{{ product.categories.all|join:", " }}</p>

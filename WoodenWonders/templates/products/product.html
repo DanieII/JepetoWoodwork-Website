@@ -1,23 +1,13 @@
 {% load static %}
 <link rel="stylesheet" href="{% static "css/products/product.css" %}">
 <div class="product light-box">
-    <div>
-        <a href="{% url 'heart' slug=product.slug %}">
-            {% if request.user.is_authenticated %}
-                {% if product in request.user.wishlist.products.all %}
-                    <i class="fa-solid fa-heart wishlist-heart button"></i>
-                {% else %}
-                    <i class="fa-regular fa-heart wishlist-heart button"></i>
-                {% endif %}
-            {% else %}
-                <i class="fa-regular fa-heart wishlist-heart button"></i>
-            {% endif %}
-        </a>
-        <a href="{% url 'product' slug=product.slug %}">
+    <div class="heart-parent">
+        {% include "products/heart.html" %}
+        <a href="{% url 'product_details' slug=product.slug %}">
             <img src="{{ product.image.url }}" alt="{{ product.name }}" class="image" />
         </a>
     </div>
-    <a href="{% url 'product' slug=product.slug %}">
+    <a href="{% url 'product_details' slug=product.slug %}">
         <p class="product-name">{{ product.name }}</p>
     </a>
     <p class="product-price">${{ product.price|floatformat:2 }}</p>

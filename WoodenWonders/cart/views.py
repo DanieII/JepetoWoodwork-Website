@@ -15,7 +15,7 @@ def add_to_cart(request, slug, quantity=1):
     url = request.META.get("HTTP_REFERER")
 
     if product.quantity <= 0:
-        messages.warning(request, "Product is out of stock")
+        messages.warning(request, f"{product.name} is out of stock")
         return redirect(url)
 
     if not cart.get(slug):
