@@ -39,7 +39,7 @@
 .product img {
   height: 250px;
   object-fit: cover;
-  max-width: 90%;
+  max-width: none;
 }
 
 .categories span * {

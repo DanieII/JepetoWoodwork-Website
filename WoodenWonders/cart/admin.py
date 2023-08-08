@@ -31,7 +31,9 @@ class OrderAdmin(admin.ModelAdmin):
     def products(order):
         result = []
         for product in order.orderproduct_set.all():
-            product_url = reverse("product", kwargs={"slug": product.product.slug})
+            product_url = reverse(
+                "product_details", kwargs={"slug": product.product.slug}
+            )
             product_link = f'<a href="{product_url}">{product.product.name}</a>'
             result.append(
                 f"{product.quantity} {product_link} for ${product.product_total}"

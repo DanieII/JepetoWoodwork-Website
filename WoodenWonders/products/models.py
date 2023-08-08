@@ -15,11 +15,18 @@ class Product(models.Model):
     )
     price = models.FloatField(validators=[MinValueValidator(0)])
     categories = models.ManyToManyField(to="Category")
-    image = models.ImageField(upload_to="product_images/")
     quantity = models.PositiveIntegerField()
     description = models.TextField(null=True, blank=True)
     slug = models.SlugField(unique=True)
     date_added = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def thumbnail_image_url(self):
+        try:
+            image = self.productimage_set.all()[0]
+            return image.image.url
+        except IndexError:
+            return "/static/images/no-image.jpg"
 
     def __str__(self):
         return self.name
@@ -33,6 +40,11 @@ class Product(models.Model):
 
     class Meta:
         ordering = ["pk"]
+
+
+class ProductImage(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to="product_images/")
 
 
 class Category(models.Model):

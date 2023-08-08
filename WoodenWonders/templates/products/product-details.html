@@ -1,8 +1,10 @@
 {% extends 'common/base.html' %}
 {% load static %}
+{% load common_filters %}
 {% load stars_filters %}
 {% block title %}{{ object.name }} - WoodenWonders{% endblock %}
 {% block styles %}
+    <link rel="stylesheet" href="{% static "css/bootstrap-carousel/bootstrap.min.css" %}">
     <link rel="stylesheet"
           href="{% static 'css/products/product-details.css' %}">
 {% endblock %}
@@ -10,7 +12,50 @@
     <div class="product">
         <div class="heart-parent">
             {% include "products/heart.html" %}
-            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="image">
+            <div id="carouselExampleIndicators"
+                 class="carousel slide"
+                 data-ride="carousel">
+                <ol class="carousel-indicators">
+                    {% for indicator_index in object.productimage_set.all.count|get_range_from_number %}
+                        <li data-target="#carouselExampleIndicators"
+                            data-slide-to="{{ indicator_index }}"
+                            class="{% if forloop.first %} active {% endif %}"></li>
+                    {% empty %}
+                        <li data-target="#carouselExampleIndicators"
+                            data-slide-to="0"
+                            class="active"></li>
+                    {% endfor %}
+                </ol>
+                <div class="carousel-inner">
+                    {% for product_image_obj in object.productimage_set.all %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                            <img class="d-block image"
+                                 src="{{ product_image_obj.image.url }}"
+                                 alt="{{ product.name }}">
+                        </div>
+                    {% empty %}
+                        <div class="carousel-item active">
+                            <img class="d-block image"
+                                 src="/static/images/no-image.jpg"
+                                 alt="no image">
+                        </div>
+                    {% endfor %}
+                </div>
+                <a class="carousel-control-prev"
+                   href="#carouselExampleIndicators"
+                   role="button"
+                   data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next"
+                   href="#carouselExampleIndicators"
+                   role="button"
+                   data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
         </div>
         <div class="product-information">
             <h1>{{ product.name }}</h1>
@@ -71,5 +116,7 @@
         <button type="submit" class="button">Submit</button>
     </form>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{% static "javascript/bootstrap-carousel/bootstrap.min.js" %}"></script>
 <script src="{% static "javascript/star-rating.js" %}"></script>
 {% endblock %}
