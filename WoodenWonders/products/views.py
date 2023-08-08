@@ -1,6 +1,5 @@
 from django.views.generic import DetailView, ListView
 from django.urls import reverse
-from django.shortcuts import redirect
 from django.views.generic.edit import FormMixin
 from .forms import ProductFilterForm, ProductReview, ProductReviewForm
 from .models import Product
@@ -73,7 +72,7 @@ class ProductDetails(
         return context
 
     def get_success_url(self):
-        return reverse("product", kwargs={"slug": self.object.slug})
+        return reverse("product_details", kwargs={"slug": self.object.slug})
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
