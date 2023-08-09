@@ -43,7 +43,7 @@
 .product img {
   height: 250px;
   object-fit: cover;
-  max-width: none;
+  max-width: 100%;
 }
 
 .categories span * {
@@ -84,6 +84,10 @@
   padding: 4px;
 }
 
+.carousel {
+  margin-top: 10px;
+}
+
 @media screen and (max-width: 767px) {
   .product {
     flex-direction: column;
@@ -91,7 +95,7 @@
     margin: 0;
   }
 
-  .product img {
-    margin-bottom: 10px;
+  .carousel {
+    margin: 10px;
   }
 }

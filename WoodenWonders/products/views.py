@@ -53,6 +53,20 @@ class ProductDetails(
     mixin_form = ProductReviewForm
     fields = "__all__"
     success_message = "Review successfully added"
+    MAX_LAST_VIEWED_PRODUCTS_LENGTH = 5
+
+    def get_object(self, queryset=None):
+        product = super().get_object(queryset)
+        last_viewed = self.request.session.get("last_viewed", [])
+
+        if len(last_viewed) >= self.MAX_LAST_VIEWED_PRODUCTS_LENGTH:
+            last_viewed.pop(0)
+
+        last_viewed.append(product.slug)
+
+        self.request.session["last_viewed"] = last_viewed
+
+        return product
 
     def get_additional_fields(self):
         return {"user": self.request.user, "product": self.object}
