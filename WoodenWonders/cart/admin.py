@@ -18,6 +18,9 @@ class OrderAdmin(admin.ModelAdmin):
         "total",
         "created_on",
     ]
+    search_fields = ["first_name", "city"]
+    search_help_text = "First Name or City"
+    list_filter = ["delivery_type"]
 
     @staticmethod
     def full_name(order):

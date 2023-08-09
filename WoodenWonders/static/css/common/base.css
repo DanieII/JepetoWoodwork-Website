@@ -23,6 +23,11 @@ h3 {
   color: var(--dark-wood);
 }
 
+nav a,
+footer a {
+  user-select: none;
+}
+
 .title {
   align-self: center;
   color: var(--dark-wood);
@@ -73,7 +78,8 @@ nav ul li a {
   color: var(--light);
 }
 
-nav ul li a:hover {
+nav ul li a:hover,
+nav ul li a:active {
   color: var(--dark-wood);
   transition: none;
 }
@@ -150,7 +156,8 @@ footer ul li a::after {
   transition: width 0.3s;
 }
 
-footer ul li a:hover::after {
+footer ul li a:hover::after,
+footer ul li a:active::after {
   width: 100%;
 }
 
@@ -165,7 +172,8 @@ footer ul li a:hover::after {
   cursor: pointer;
 }
 
-.button:hover {
+.button:hover,
+.button:active {
   background-color: var(--caramel);
 }
 
@@ -295,6 +303,14 @@ main {
   transition: opacity 0.5s linear;
 }
 
+.profile-link {
+  display: none;
+}
+
+.action-menu li.profile-link {
+  display: block;
+}
+
 @media screen and (max-width: 767px) {
   .hamburger {
     display: block;
@@ -321,9 +337,9 @@ main {
     width: 100%;
     text-align: center;
     transition: 0.2s;
-    padding: 0;
-    margin: 0;
     justify-content: center;
+    margin: 0;
+    padding: 0;
   }
 
   .navigation-menu.active {
@@ -331,7 +347,7 @@ main {
   }
 
   .navigation-menu.active li {
-    margin-right: 40px;
+    margin-right: 30px;
   }
 
   .navigation-menu li:last-of-type {
@@ -342,10 +358,6 @@ main {
     justify-content: space-evenly;
   }
 
-  .navbar-icon {
-    transform: translate(10%, -1%);
-  }
-
   footer {
     flex-direction: column;
     gap: 0;
@@ -353,5 +365,13 @@ main {
 
   .action-menu {
     margin-right: 0;
+  }
+
+  .profile-link {
+    display: block;
+  }
+
+  .action-menu li.profile-link {
+    display: none;
   }
 }

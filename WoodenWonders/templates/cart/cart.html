@@ -7,6 +7,7 @@
 {% endblock %}
 {% block content %}
     {% if cart_products %}
+        <h1 class="title">Cart</h1>
         <div class="cart-products">
             {% for product, quantity in cart_products.items %}
                 <div class="cart-product">

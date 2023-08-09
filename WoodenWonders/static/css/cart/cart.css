@@ -1,3 +1,7 @@
+.image {
+  max-width: none;
+}
+
 a {
   text-decoration: none;
 }

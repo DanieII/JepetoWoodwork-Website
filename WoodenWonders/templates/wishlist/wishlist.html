@@ -5,11 +5,14 @@
     <link rel="stylesheet" href="{% static 'css/products/products-list.css' %}">
 {% endblock %}
 {% block content %}
-    <div class="products">
-        {% for product in object_list %}
-            {% include "products/product.html" %}
-        {% empty %}
-            <h1 class="title">No Products In Wishlist</h1>
-        {% endfor %}
-    </div>
+    {% if object_list.count > 0 %}
+        <h1 class="title">Wishlist</h1>
+        <div class="products">
+            {% for product in object_list %}
+                {% include "products/product.html" %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <h1 class="title">No Products In Wishlist</h1>
+    {% endif %}
 {% endblock %}

@@ -1,3 +1,6 @@
+ceertbot/
+postgresql/
+staticfiles/
 .DS_Store
 .idea
 

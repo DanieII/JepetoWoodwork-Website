@@ -12,6 +12,23 @@ class CustomUserAdmin(admin.ModelAdmin):
         "last_login",
         "date_joined",
     ]
-    list_filter = ["is_staff", "is_superuser"]
+    list_filter = ["is_staff", "is_superuser", "groups"]
     search_fields = ["email"]
     search_help_text = "Email"
+
+    fieldsets = (
+        (None, {"fields": ("password", "last_login")}),
+        (
+            "Personal Info",
+            {
+                "fields": (
+                    "email",
+                    "phone_number",
+                )
+            },
+        ),
+        (
+            "Permissions",
+            {"fields": ("is_staff", "is_superuser", "groups", "user_permissions")},
+        ),
+    )

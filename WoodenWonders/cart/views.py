@@ -13,12 +13,16 @@ def add_to_cart(request, slug, quantity=1):
     cart = request.session.get("cart", {})
     product = Product.objects.get(slug=slug)
     url = request.META.get("HTTP_REFERER")
+    current_filled_quantity = cart.get(slug, 0)
 
-    if product.quantity <= 0:
+    if (
+        product.quantity <= 0
+        or product.quantity - (current_filled_quantity + quantity) < 0
+    ):
         messages.warning(request, f"{product.name} is out of stock")
         return redirect(url)
 
-    if not cart.get(slug):
+    if not current_filled_quantity:
         cart[slug] = 0
 
     request.session["cart"] = process_cart_quantity(slug, product, quantity, cart)
