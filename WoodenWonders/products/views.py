@@ -60,10 +60,12 @@ class ProductDetails(
         product = super().get_object(queryset)
         last_viewed = self.request.session.get("last_viewed", [])
 
-        if len(last_viewed) >= self.MAX_LAST_VIEWED_PRODUCTS_LENGTH:
-            last_viewed.pop(0)
-
         if product.slug not in last_viewed:
+            last_viewed.append(product.slug)
+            if len(last_viewed) > self.MAX_LAST_VIEWED_PRODUCTS_LENGTH:
+                last_viewed.pop(0)
+        else:
+            last_viewed.pop(last_viewed.index(product.slug))
             last_viewed.append(product.slug)
 
         self.request.session["last_viewed"] = last_viewed

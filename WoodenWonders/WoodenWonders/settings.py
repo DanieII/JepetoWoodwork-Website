@@ -16,7 +16,6 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = bool(int(os.getenv("DEBUG", 0)))
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split()
-# HTTP FOR NOW
 CSRF_TRUSTED_ORIGINS = [f"http://{host}" for host in os.getenv("ALLOWED_HOSTS").split()]
 
 
@@ -46,6 +45,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "users.middlewares.RestrictAdminAccessMiddleware",
 ]
 
 ROOT_URLCONF = "WoodenWonders.urls"
@@ -112,9 +112,6 @@ USE_TZ = True
 STATIC_ROOT = os.getenv("STATIC_ROOT", os.path.join(BASE_DIR, "staticfiles"))
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
