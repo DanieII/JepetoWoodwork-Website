@@ -5,11 +5,12 @@
 {% block title %}{{ object.name }} - WoodenWonders{% endblock %}
 {% block styles %}
     <link rel="stylesheet" href="{% static "css/bootstrap-carousel/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/products/products-list.css" %}">
     <link rel="stylesheet"
           href="{% static 'css/products/product-details.css' %}">
 {% endblock %}
 {% block content %}
-    <div class="product">
+    <div class="product-details">
         <div class="heart-parent">
             {% include "products/heart.html" %}
             <div id="carouselExampleIndicators"
@@ -112,9 +113,15 @@
             <i class="fa-regular fa-star" rating-value="5"></i>
         </div>
         <input type="hidden" name="rating" value="1">
-        {% for field in review_form %}{{ field }}{% endfor %}
+        {% for field in productreviewform %}{{ field }}{% endfor %}
         <button type="submit" class="button">Submit</button>
     </form>
+</div>
+<h3 style="padding: 20px; align-self: center;">Last Viewed</h3>
+<div class="products">
+    {% for product in last_viewed %}
+        {% include "products/product.html" %}
+    {% endfor %}
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{% static "javascript/bootstrap-carousel/bootstrap.min.js" %}"></script>

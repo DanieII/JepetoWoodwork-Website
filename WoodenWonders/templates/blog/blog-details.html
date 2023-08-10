@@ -23,7 +23,7 @@
                     <p>There are no comments yet.</p>
                 {% endfor %}
             </div>
-            <form method="post" class="form" action="{% url 'blog_details' slug=object.slug %}" {% csrf_token %} {% for field in comment_form %}{{ field }}{% endfor %} {% csrf_token %}
+            <form method="post" class="form" action="{% url 'blog_details' slug=object.slug %}" {% csrf_token %} {% for field in blogcommentform %}{{ field }}{% endfor %} {% csrf_token %}
                 <button type="submit" class="button">Comment</button>
             </form>
         </div>

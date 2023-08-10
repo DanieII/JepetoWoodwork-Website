@@ -10,9 +10,14 @@ from django.contrib import messages
 class Home(ListView):
     model = Product
     template_name = "common/home.html"
+    NEWEST_ARRIVALS_NUMBER = 3
 
     def get_queryset(self):
-        queryset = super().get_queryset().order_by("-date_added")[:5]
+        queryset = (
+            super()
+            .get_queryset()
+            .order_by("-date_added")[: self.NEWEST_ARRIVALS_NUMBER]
+        )
         return queryset
 
 

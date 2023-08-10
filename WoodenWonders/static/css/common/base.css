@@ -193,7 +193,6 @@ main {
 
 .image {
   height: 200px;
-  max-width: 300px;
   object-fit: cover;
 }
 
@@ -365,6 +364,7 @@ main {
 
   .action-menu {
     margin-right: 0;
+    gap: 12px;
   }
 
   .profile-link {

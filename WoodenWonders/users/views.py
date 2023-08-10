@@ -7,7 +7,7 @@ from .forms import CustomUserCreationForm, CustomLoginForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import login
 from .mixins import (
-    HandleQueryParamsFromLoginRequiredFormsMixin,
+    HandleAcceptAndRecoverInformationFromLoginRequiredFormMixin,
     ProhibitLoggedUsersMixin,
 )
 from cart.models import Order
@@ -19,7 +19,7 @@ from django.contrib import messages
 
 class UserRegisterView(
     SuccessMessageMixin,
-    HandleQueryParamsFromLoginRequiredFormsMixin,
+    HandleAcceptAndRecoverInformationFromLoginRequiredFormMixin,
     ProhibitLoggedUsersMixin,
     CreateView,
 ):
@@ -52,7 +52,7 @@ class UserRegisterView(
 
 class UserLoginView(
     SuccessMessageMixin,
-    HandleQueryParamsFromLoginRequiredFormsMixin,
+    HandleAcceptAndRecoverInformationFromLoginRequiredFormMixin,
     ProhibitLoggedUsersMixin,
     LoginView,
 ):

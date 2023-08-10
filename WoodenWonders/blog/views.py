@@ -2,7 +2,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.base import reverse
 from .models import Blog
 from .forms import BlogCommentForm
-from users.mixins import HandleSendLoginRequiredFormInformationMixin
+from users.mixins import HandleSendAndRetrieveLoginRequiredFormInformationMixin
 
 
 class Blogs(ListView):
@@ -10,7 +10,7 @@ class Blogs(ListView):
     template_name = "blog/blog.html"
 
 
-class BlogDetails(HandleSendLoginRequiredFormInformationMixin, DetailView):
+class BlogDetails(HandleSendAndRetrieveLoginRequiredFormInformationMixin, DetailView):
     model = Blog
     template_name = "blog/blog-details.html"
     mixin_form = BlogCommentForm
@@ -22,11 +22,3 @@ class BlogDetails(HandleSendLoginRequiredFormInformationMixin, DetailView):
 
     def get_additional_fields(self):
         return {"user": self.request.user, "blog": self.get_object()}
-
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        comment = self.request.GET.get("comment")
-
-        context["comment_form"] = BlogCommentForm(initial={"comment": comment})
-
-        return context

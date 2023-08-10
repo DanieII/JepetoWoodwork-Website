@@ -5,7 +5,8 @@ from .forms import ProductFilterForm, ProductReview, ProductReviewForm
 from .models import Product
 from .forms import ProductSearchForm, ProductAddToCartForm
 from cart.views import add_to_cart
-from users.mixins import HandleSendLoginRequiredFormInformationMixin
+from users.mixins import HandleSendAndRetrieveLoginRequiredFormInformationMixin
+from .helper_functions import get_last_viewed_products
 
 
 class Products(ListView):
@@ -45,7 +46,7 @@ class Products(ListView):
 
 
 class ProductDetails(
-    HandleSendLoginRequiredFormInformationMixin, FormMixin, DetailView
+    HandleSendAndRetrieveLoginRequiredFormInformationMixin, FormMixin, DetailView
 ):
     model = Product
     template_name = "products/product-details.html"
@@ -53,7 +54,7 @@ class ProductDetails(
     mixin_form = ProductReviewForm
     fields = "__all__"
     success_message = "Review successfully added"
-    MAX_LAST_VIEWED_PRODUCTS_LENGTH = 5
+    MAX_LAST_VIEWED_PRODUCTS_LENGTH = 3
 
     def get_object(self, queryset=None):
         product = super().get_object(queryset)
@@ -62,7 +63,8 @@ class ProductDetails(
         if len(last_viewed) >= self.MAX_LAST_VIEWED_PRODUCTS_LENGTH:
             last_viewed.pop(0)
 
-        last_viewed.append(product.slug)
+        if product.slug not in last_viewed:
+            last_viewed.append(product.slug)
 
         self.request.session["last_viewed"] = last_viewed
 
@@ -74,14 +76,7 @@ class ProductDetails(
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 
-        stars = self.request.GET.get("stars")
-        message = self.request.GET.get("review")
-        context["review_form"] = ProductReviewForm(
-            initial={
-                "stars": int(stars) if stars else ProductReviewForm.INITIAL_STARS,
-                "review": message,
-            }
-        )
+        context["last_viewed"] = get_last_viewed_products(self.request.session)
 
         return context
 
