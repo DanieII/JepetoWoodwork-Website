@@ -1,7 +1,7 @@
 from django.views.generic import DetailView, ListView
 from django.urls import reverse
 from django.views.generic.edit import FormMixin
-from .forms import ProductFilterForm, ProductReview, ProductReviewForm
+from .forms import ProductFilterForm, ProductReviewForm
 from .models import Product
 from .forms import ProductSearchForm, ProductAddToCartForm
 from cart.views import add_to_cart

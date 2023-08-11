@@ -1,6 +1,5 @@
-from django.contrib.auth import get_user
 from django.shortcuts import redirect, render
-from cart.forms import EditSavedCheckoutInformationForm, OrderForm
+from .forms import EditSavedCheckoutInformationForm, OrderForm
 from products.models import Product
 from .models import Order, OrderProduct, SavedCheckoutInformation
 from django.views.generic import CreateView, UpdateView
