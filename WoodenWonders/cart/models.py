@@ -43,3 +43,8 @@ class OrderProduct(models.Model):
     @property
     def product_total(self):
         return f"{self.product.price * self.quantity:.2f}"
+
+
+class SavedCheckoutInformation(models.Model):
+    user = models.OneToOneField(UserModel, on_delete=models.CASCADE)
+    order = models.OneToOneField(Order, on_delete=models.CASCADE)

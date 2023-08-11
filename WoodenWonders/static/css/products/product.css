@@ -4,6 +4,7 @@
   align-items: center;
   gap: 10px;
   max-width: 340px;
+  text-align: center;
 }
 
 .product-name {

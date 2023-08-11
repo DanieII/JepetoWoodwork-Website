@@ -1,12 +1,19 @@
+from django.contrib.auth import get_user
 from django.shortcuts import redirect, render
+from cart.forms import EditSavedCheckoutInformationForm, OrderForm
 from products.models import Product
-from .models import Order, OrderProduct
-from django.views.generic import CreateView
+from .models import Order, OrderProduct, SavedCheckoutInformation
+from django.views.generic import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
-from common.mixins import OptionalFormFieldsMixin
-from .helper_functions import get_cart_products, get_total_price, process_cart_quantity
+from .helper_functions import (
+    get_cart_products,
+    get_total_price,
+    process_cart_quantity,
+    get_user_saved_checkout_information,
+)
 from django.contrib import messages
+from .mixins import FillOrderFormMixin
 
 
 def add_to_cart(request, slug, quantity=1):
@@ -60,43 +67,32 @@ def remove_product(request, slug):
     return redirect(reverse("cart"))
 
 
-class CheckoutView(OptionalFormFieldsMixin, LoginRequiredMixin, CreateView):
+class CheckoutView(FillOrderFormMixin, LoginRequiredMixin, CreateView):
     model = Order
-    fields = [
-        "first_name",
-        "last_name",
-        "email",
-        "phone_number",
-        "city",
-        "address",
-        "apartment_building",
-        "postal_code",
-        "delivery_type",
-    ]
-    optional_fields = ["apartment_building"]
+    form_class = OrderForm
     template_name = "cart/checkout.html"
     success_url = reverse_lazy("home")
+
+    def handle_save_information(self, save, order):
+        if save:
+            (
+                checkout_information,
+                saved,
+            ) = SavedCheckoutInformation.objects.get_or_create(
+                user=self.request.user, order=order
+            )
+
+            if saved:
+                message = "Checkout information saved"
+            else:
+                message = "Checkout information updated"
+                checkout_information.order = order
+
+            messages.success(self.request, message)
 
     @property
     def user_has_products(self):
         return self.request.session.get("cart")
-
-    def get_form(self):
-        form = super().get_form()
-
-        if self.request.user.email:
-            form.fields["email"].initial = self.request.user.email
-        if self.request.user.phone_number:
-            form.fields["phone_number"].initial = self.request.user.phone_number
-
-        for field_name, field in form.fields.items():
-            placeholder = field.widget.attrs.get("placeholder")
-            field.widget.attrs["placeholder"] = field_name.title().replace("_", " ")
-
-            if placeholder:
-                field.widget.attrs["placeholder"] += placeholder
-
-        return form
 
     def get(self, request, *args, **kwargs):
         if self.user_has_products:
@@ -129,7 +125,41 @@ class CheckoutView(OptionalFormFieldsMixin, LoginRequiredMixin, CreateView):
             OrderProduct.objects.create(order=order, product=product, quantity=quantity)
 
         self.request.session["cart"] = {}
+        self.handle_save_information(self.request.POST.get("save_information"), order)
 
         messages.success(self.request, "Checkout successful. Your order has been saved")
 
         return super().form_valid(form)
+
+
+class SavedCheckoutInformationView(FillOrderFormMixin, UpdateView):
+    model = SavedCheckoutInformation
+    form_class = EditSavedCheckoutInformationForm
+    template_name = "users/saved-checkout-information.html"
+    success_url = reverse_lazy("saved_checkout_information")
+
+    def dispatch(self, request, *args, **kwargs):
+        self.saved_checkout_information = get_user_saved_checkout_information(request)
+        if not self.saved_checkout_information:
+            return redirect("home")
+
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        print(kwargs)
+        return kwargs
+
+    def get_object(self, *args, **kwargs):
+        return self.saved_checkout_information
+
+
+def delete_saved_checkout_information_view(request):
+    checkout_information = get_user_saved_checkout_information(request)
+
+    if not checkout_information:
+        return redirect("home")
+
+    checkout_information.delete()
+
+    return redirect(reverse("user_details"))

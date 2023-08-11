@@ -1,4 +1,5 @@
 from products.models import Product
+from django.core.exceptions import ObjectDoesNotExist
 
 
 def get_cart_products(session):
@@ -26,3 +27,11 @@ def process_cart_quantity(product_slug, product, quantity, cart):
         cart[product_slug] += product.quantity
 
     return cart
+
+
+def get_user_saved_checkout_information(request):
+    try:
+        checkout_information = request.user.savedcheckoutinformation
+        return checkout_information
+    except ObjectDoesNotExist:
+        return None

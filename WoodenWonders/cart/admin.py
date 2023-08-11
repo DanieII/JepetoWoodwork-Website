@@ -1,7 +1,12 @@
 from django.contrib import admin
-from .models import Order
+from .models import Order, SavedCheckoutInformation
 from django.urls import reverse
 from django.utils.safestring import mark_safe
+
+
+@admin.register(SavedCheckoutInformation)
+class CheckoutInfromationAdmin(admin.ModelAdmin):
+    pass
 
 
 @admin.register(Order)

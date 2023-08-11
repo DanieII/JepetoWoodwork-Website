@@ -9,5 +9,8 @@
     <div class="content">
         <h2>{{ request.user }}</h2>
         <p>Joined on: {{ request.user.date_joined|date }}</p>
+        {% if request.user.savedcheckoutinformation %}
+            <a href="{% url 'saved_checkout_information' %}" class="button">Saved Checkout Information</a>
+        {% endif %}
     </div>
 {% endblock %}

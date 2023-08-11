@@ -15,6 +15,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
+from cart.forms import OrderForm
 
 
 class UserRegisterView(
@@ -76,6 +77,7 @@ class UserLoginView(
 class UserDetailsView(LoginRequiredMixin, DetailView):
     model = get_user_model()
     template_name = "users/details.html"
+    extra_context = {"form": OrderForm}
 
     def get_object(self, queryset=None):
         return self.request.user

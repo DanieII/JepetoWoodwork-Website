@@ -48,7 +48,7 @@
   align-items: normal;
 }
 
-.form input {
+.form > input {
   width: 100%;
 }
 
