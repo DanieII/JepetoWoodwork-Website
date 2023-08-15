@@ -23,10 +23,17 @@
         {% include "common/messages.html" %}
         <div class="nav-wrapper">
             <nav>
-                <div class="hamburger">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
+                <div class="mobile-navigation">
+                    <div class="hamburger">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </div>
+                    <a href="{% url 'home' %}">
+                        <img src="{% static 'images/light-lumberjack-icon.png' %}"
+                             alt="lumberjack icon"
+                             class="lumberjack-icon">
+                    </a>
                 </div>
                 <a href="{% url 'home' %}">
                     <img src="{% static 'images/light-lumberjack-icon.png' %}"
@@ -101,5 +108,6 @@
         </div>
         <script src="{% static 'javascript/dropdown-menu.js' %}"></script>
         <script src="{% static 'javascript/hide-alerts.js' %}"></script>
+        <script src="{% static "javascript/hide-show-navbar.js" %}"></script>
     </body>
 </html>

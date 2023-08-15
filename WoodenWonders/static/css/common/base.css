@@ -43,10 +43,26 @@ body {
   flex-direction: column;
 }
 
+.mobile-navigation {
+  display: none;
+}
+
 .nav-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 3;
   background-color: var(--caramel);
   display: flex;
   justify-content: center;
+  visibility: visible;
+  opacity: 1;
+}
+
+.nav-wrapper.hidden {
+  visibility: hidden;
+  opacity: 0;
 }
 
 nav {
@@ -57,6 +73,11 @@ nav {
   justify-content: space-between;
   max-height: 100px;
 }
+
+/* .nav-with-logo { */
+/*   display: flex; */
+/*   align-items: center; */
+/* } */
 
 .lumberjack-icon {
   width: auto;
@@ -182,7 +203,7 @@ footer ul li a:active::after {
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
-  margin-top: 20px;
+  margin-top: 120px;
 }
 
 main {
@@ -314,6 +335,19 @@ main {
     display: block;
   }
 
+  .hamburger + a img {
+    display: block;
+  }
+
+  .mobile-navigation {
+    display: flex;
+    align-items: center;
+  }
+
+  .mobile-navigation + a img {
+    display: none;
+  }
+
   .hamburger.active .bar:nth-child(2) {
     opacity: 0;
   }
@@ -327,17 +361,20 @@ main {
   }
 
   .navigation-menu {
-    position: absolute;
+    position: fixed;
     left: -100%;
     top: 100px;
     flex-direction: column;
     background-color: var(--caramel);
-    width: 100%;
-    text-align: center;
+    width: fit-content;
+    height: 100vh;
     transition: 0.2s;
-    justify-content: center;
     margin: 0;
     padding: 0;
+  }
+
+  .nav .lumberjack-icon {
+    align-self: flex-start;
   }
 
   .navigation-menu.active {
@@ -345,7 +382,8 @@ main {
   }
 
   .navigation-menu.active li {
-    margin-right: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
   }
 
   .navigation-menu li:last-of-type {
@@ -353,7 +391,8 @@ main {
   }
 
   nav {
-    justify-content: space-evenly;
+    margin-left: 20px;
+    margin-right: 20px;
   }
 
   footer {
