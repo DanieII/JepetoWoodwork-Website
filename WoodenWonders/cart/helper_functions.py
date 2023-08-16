@@ -18,13 +18,15 @@ def get_total_price(products):
     return total_price
 
 
-def process_cart_quantity(product_slug, product, quantity, cart):
+def process_cart_quantity(product_slug, product, quantity, cart, pre_order):
     product = Product.objects.get(slug=product.slug)
     cart[product_slug] += quantity
-    product.quantity -= cart[product_slug]
 
-    if product.quantity < 0:
-        cart[product_slug] += product.quantity
+    if not pre_order:
+        product.quantity -= cart[product_slug]
+
+        if product.quantity < 0:
+            cart[product_slug] += product.quantity
 
     return cart
 

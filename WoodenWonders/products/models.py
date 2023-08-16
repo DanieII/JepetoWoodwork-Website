@@ -1,4 +1,3 @@
-from operator import ge
 from django.core.validators import MinLengthValidator, MinValueValidator
 from django.db import models
 from django.utils.text import slugify
@@ -17,8 +16,13 @@ class Product(models.Model):
     categories = models.ManyToManyField(to="Category")
     quantity = models.PositiveIntegerField()
     description = models.TextField(null=True, blank=True)
+    pre_order = models.BooleanField(default=False)
     slug = models.SlugField(unique=True)
     date_added = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def available(self):
+        return self.quantity >= 1
 
     @property
     def thumbnail_image_url(self):

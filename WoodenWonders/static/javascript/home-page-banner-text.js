@@ -1,3 +1,5 @@
+// Another animation for the home page
+
 const nameLetters = document.querySelectorAll(".banner div p span");
 
 const changeColorsAnimation = () => {

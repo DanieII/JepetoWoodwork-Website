@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.views.generic import CreateView, DetailView, ListView
 from .forms import CustomUserCreationForm, CustomLoginForm
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, login_required
 from django.contrib.auth import login
 from .mixins import (
     HandleAcceptAndRecoverInformationFromLoginRequiredFormMixin,
@@ -86,7 +86,7 @@ class UserDetailsView(LoginRequiredMixin, DetailView):
         return super().get(request, *args, **kwargs)
 
 
-class UserOrders(ListView):
+class UserOrders(LoginRequiredMixin, ListView):
     model = Order
     template_name = "users/order-history.html"
 
@@ -97,7 +97,7 @@ class UserOrders(ListView):
         return queryset
 
 
-class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
+class ChangePasswordView(LoginRequiredMixin, SuccessMessageMixin, PasswordChangeView):
     form_class = PasswordChangeForm
     template_name = "users/change-password.html"
     success_url = reverse_lazy("user_details")
@@ -118,6 +118,7 @@ class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
         return form
 
 
+@login_required
 def logout_view(request):
     logout(request)
     messages.success(request, "Successfully logged out")

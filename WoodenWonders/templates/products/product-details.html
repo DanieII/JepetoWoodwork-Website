@@ -2,12 +2,14 @@
 {% load static %}
 {% load common_filters %}
 {% load stars_filters %}
-{% block title %}{{ object.name }} - WoodenWonders{% endblock %}
+{% block title %}WoodenWonders | {{ object.name }}{% endblock %}
 {% block styles %}
     <link rel="stylesheet" href="{% static "css/bootstrap-carousel/bootstrap.min.css" %}">
     <link rel="stylesheet" href="{% static "css/products/products-list.css" %}">
+    <link rel="stylesheet" href="{% static "css/products/product.css" %}">
     <link rel="stylesheet"
           href="{% static 'css/products/product-details.css' %}">
+    <link rel="stylesheet" href="{% static "css/products/heart.css" %}">
 {% endblock %}
 {% block content %}
     <div class="product-details">
@@ -62,7 +64,13 @@
             <h1>{{ product.name }}</h1>
             <h3 class="price">${{ product.price|floatformat:2 }}</h3>
             {% if product.description %}<p>{{ product.description }}</p>{% endif %}
-            <p class="available">{{ product.quantity }} available</p>
+            <p class="available">
+                {% if product.pre_order %}
+                    Налично за предварителни поръчки
+                {% else %}
+                    {{ product.quantity }} Налични
+                {% endif %}
+            </p>
             <form method="post"
                   action="{% url 'product_details' slug=object.slug %}"
                   class="add-to-cart">

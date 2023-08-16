@@ -20,7 +20,6 @@
         </style>
     </head>
     <body>
-        {% include "common/messages.html" %}
         <div class="nav-wrapper">
             <nav>
                 <div class="mobile-navigation">
@@ -79,6 +78,7 @@
             </nav>
         </div>
         <div class="main-wrapper">
+            {% include "common/messages.html" %}
             <main>
                 {% block content %}{% endblock %}
             </main>

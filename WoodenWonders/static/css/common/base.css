@@ -74,11 +74,6 @@ nav {
   max-height: 100px;
 }
 
-/* .nav-with-logo { */
-/*   display: flex; */
-/*   align-items: center; */
-/* } */
-
 .lumberjack-icon {
   width: auto;
   max-height: 100px;
@@ -108,10 +103,6 @@ nav ul li a:active {
 
 .action-menu {
   margin-right: 20px;
-}
-
-.action-menu i {
-  font-size: 17px;
 }
 
 .navigation-menu a {
@@ -201,9 +192,10 @@ footer ul li a:active::after {
 
 .main-wrapper {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   margin-bottom: 20px;
-  margin-top: 120px;
+  margin-top: 100px;
 }
 
 main {
@@ -402,7 +394,6 @@ main {
 
   .action-menu {
     margin-right: 0;
-    gap: 12px;
   }
 
   .profile-link {

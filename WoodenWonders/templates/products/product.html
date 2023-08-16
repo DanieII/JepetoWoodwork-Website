@@ -1,7 +1,7 @@
 {% load static %}
-<link rel="stylesheet" href="{% static "css/products/product.css" %}">
 <div class="product light-box">
     <div class="heart-parent">
+        {% if product.pre_order %}<div class="button pre-order">pre order</div>{% endif %}
         {% include "products/heart.html" %}
         <a href="{% url 'product_details' slug=product.slug %}">
             <img src="{{ product.thumbnail_image_url }}"

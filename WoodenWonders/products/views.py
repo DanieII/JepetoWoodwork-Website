@@ -2,14 +2,14 @@ from django.views.generic import DetailView, ListView
 from django.urls import reverse
 from django.views.generic.edit import FormMixin
 from .forms import ProductFilterForm, ProductReviewForm
-from .models import Product
+from .models import Category, Product
 from .forms import ProductSearchForm, ProductAddToCartForm
 from cart.views import add_to_cart
 from users.mixins import HandleSendAndRetrieveLoginRequiredFormInformationMixin
 from .helper_functions import get_last_viewed_products
 
 
-class Products(ListView):
+class BaseProductsView(ListView):
     model = Product
     template_name = "products/products.html"
     paginate_by = 10
@@ -18,16 +18,18 @@ class Products(ListView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(object_list=self.get_queryset())
         context["form"] = self.filter_form
+        context["categories"] = [category.name for category in Category.objects.all()]
 
         return context
 
-    def get_queryset(self):
-        queryset = super().get_queryset()
-
+    def filter_by_search_field(self, queryset):
         search_query = self.request.GET.get("search_field")
         if search_query:
             queryset = queryset.filter(name__icontains=search_query)
 
+        return queryset
+
+    def filter_by_filter_form(self, queryset):
         self.filter_form = ProductFilterForm(self.request.GET or None)
         if self.filter_form.is_valid():
             categories = self.filter_form.cleaned_data.get("categories")
@@ -44,8 +46,31 @@ class Products(ListView):
 
         return queryset
 
+    def perform_filtering(self, queryset):
+        queryset = self.filter_by_search_field(queryset)
+        queryset = self.filter_by_filter_form(queryset)
 
-class ProductDetails(
+        return queryset
+
+
+class ProductsView(BaseProductsView):
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = self.perform_filtering(queryset)
+
+        return queryset
+
+
+class ProductsCategoryView(BaseProductsView):
+    def get_queryset(self):
+        category = self.kwargs.get("category")
+        queryset = Product.objects.filter(categories__name=category)
+        queryset = self.perform_filtering(queryset)
+
+        return queryset
+
+
+class ProductDetailsView(
     HandleSendAndRetrieveLoginRequiredFormInformationMixin, FormMixin, DetailView
 ):
     model = Product

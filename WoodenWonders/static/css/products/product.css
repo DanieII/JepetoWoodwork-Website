@@ -28,3 +28,10 @@
   height: 200px;
   max-width: 75vw;
 }
+
+.pre-order {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+}

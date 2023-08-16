@@ -1,5 +1,4 @@
 {% load static %}
-<link rel="stylesheet" href="{% static "css/products/heart.css" %}">
 <a href="{% url 'heart' slug=product.slug %}" class="wishlist-heart">
     {% if request.user.is_authenticated %}
         {% if product in request.user.wishlist.products.all %}

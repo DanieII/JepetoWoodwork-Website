@@ -16,7 +16,7 @@
                         {% for ordered_product in order.orderproduct_set.all %}
                             <li>
                                 <p>
-                                    <a href="{% url 'product_details' slug=ordered_product.product.slug %}">{{ ordered_product.product.name }}</a> - Quantity: {{ ordered_product.quantity }} - Total: ${{ ordered_product.product_total }}
+                                    <a href="{% url 'product_details' slug=ordered_product.product.slug %}">{{ ordered_product.product.name }}</a> &times; {{ ordered_product.quantity }} - ${{ ordered_product.product_total }}
                                 </p>
                             </li>
                         {% endfor %}
