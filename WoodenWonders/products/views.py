@@ -32,13 +32,10 @@ class BaseProductsView(ListView):
     def filter_by_filter_form(self, queryset):
         self.filter_form = ProductFilterForm(self.request.GET or None)
         if self.filter_form.is_valid():
-            categories = self.filter_form.cleaned_data.get("categories")
             min_field, max_field = self.filter_form.cleaned_data.get(
                 "min_price"
             ), self.filter_form.cleaned_data.get("max_price")
 
-            if categories:
-                queryset = queryset.filter(categories__name__in=categories)
             if min_field:
                 queryset = queryset.filter(price__gte=min_field)
             if max_field:

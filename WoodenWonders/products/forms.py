@@ -10,9 +10,6 @@ class ProductSearchForm(forms.Form):
 
 
 class ProductFilterForm(forms.Form):
-    categories = forms.MultipleChoiceField(
-        widget=forms.CheckboxSelectMultiple, label="Select categories", required=False
-    )
     min_price = forms.FloatField(
         validators=[MinValueValidator(1)],
         widget=forms.NumberInput(attrs={"placeholder": "Min"}),
@@ -23,10 +20,6 @@ class ProductFilterForm(forms.Form):
         widget=forms.NumberInput(attrs={"placeholder": "Max"}),
         required=False,
     )
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields["categories"].choices = Category.get_choices()
 
     def clean(self):
         super().clean()

@@ -10,6 +10,7 @@
     <link rel="stylesheet"
           href="{% static 'css/products/product-details.css' %}">
     <link rel="stylesheet" href="{% static "css/products/heart.css" %}">
+    <link rel="stylesheet" href="{% static "css/lightbox/lightbox.min.css" %}">
 {% endblock %}
 {% block content %}
     <div class="product-details">
@@ -32,10 +33,11 @@
                 <div class="carousel-inner">
                     {% for product_image_obj in object.productimage_set.all %}
                         <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                            <img class="d-block image"
+          <a href="{{product_image_obj.image.url}}" data-lightbox="image"><img class="d-block image"
                                  src="{{ product_image_obj.image.url }}"
                                  alt="{{ product.name }}">
-                        </div>
+</a>
+                                                    </div>
                     {% empty %}
                         <div class="carousel-item active">
                             <img class="d-block image"
@@ -134,4 +136,5 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{% static "javascript/bootstrap-carousel/bootstrap.min.js" %}"></script>
 <script src="{% static "javascript/star-rating.js" %}"></script>
+<script src="{% static "javascript/lightbox/lightbox.min.js" %}"></script>
 {% endblock %}
