@@ -25,7 +25,7 @@
                     <a href="{% url 'products_category' category=category %}">{{ category }}</a>
                 {% endfor %}
             </div>
-            <form method="get" action="{% url 'products' %}" class="form">
+            <form method="get" class="form">
                 <div class="form-error">{{ form.non_field_errors }}</div>
                 <div class="label-with-input">
                     <label for="{{ form.min_price.id_for_label }}">Цена</label>

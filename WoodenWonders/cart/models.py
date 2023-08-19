@@ -9,20 +9,31 @@ UserModel = get_user_model()
 
 class Order(models.Model):
     DELIVERY_CHOICES = [
-        ("", "Delivery Type"),
-        ("courier", "With Courier"),
-        ("self_delivery", "Delivered by Us (for Sofia)"),
+        ("", "Вид доставка"),
+        ("courier", "С куриер: 7.00 лв."),
+        ("self_delivery", "Лично предаване (за гр. София)"),
     ]
 
     user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=100, validators=[only_letters_validator])
-    last_name = models.CharField(max_length=100, validators=[only_letters_validator])
-    city = models.CharField(max_length=100, validators=[only_letters_validator])
-    address = models.CharField(max_length=100)
-    apartment_building = models.CharField(max_length=100, null=True, blank=True)
-    postal_code = models.IntegerField()
-    phone_number = PhoneNumberField()
-    email = models.EmailField()
+    first_name = models.CharField(
+        max_length=100, validators=[only_letters_validator], verbose_name="Име"
+    )
+    last_name = models.CharField(
+        max_length=100, validators=[only_letters_validator], verbose_name="Фамилия"
+    )
+    city = models.CharField(
+        max_length=100, validators=[only_letters_validator], verbose_name="Град"
+    )
+    address = models.CharField(max_length=100, verbose_name="Адрес")
+    apartment_building = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True,
+        verbose_name="Апартамент, блок и т.н",
+    )
+    postal_code = models.IntegerField(verbose_name="Пощенски код")
+    phone_number = PhoneNumberField(verbose_name="Телефонен номер")
+    email = models.EmailField(verbose_name="Имейл")
     delivery_type = models.CharField(
         max_length=100, choices=DELIVERY_CHOICES, default=""
     )

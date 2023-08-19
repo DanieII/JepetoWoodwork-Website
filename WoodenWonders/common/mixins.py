@@ -6,7 +6,7 @@ class OptionalFormFieldsMixin:
             if field_name in self.optional_fields:
                 placeholder = field.widget.attrs.get("placeholder", "")
                 if placeholder:
-                    placeholder += " (optional)"
+                    placeholder += " (по избор)"
                 else:
-                    placeholder = " (optional)"
+                    placeholder = " (по избор)"
                 field.widget.attrs["placeholder"] = placeholder

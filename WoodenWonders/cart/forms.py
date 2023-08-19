@@ -13,8 +13,8 @@ class BaseOrderForm(OptionalFormFieldsMixin, forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        for field_name, field in self.fields.items():
-            field.widget.attrs["placeholder"] = field_name.title().replace("_", " ")
+        for field in self.fields.values():
+            field.widget.attrs["placeholder"] = field.label
 
         self.apply_placeholders(self)
 
