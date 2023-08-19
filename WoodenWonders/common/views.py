@@ -30,7 +30,7 @@ class Contacts(FormView):
         name = form.cleaned_data["name"]
         email = form.cleaned_data["email"]
         subject = form.cleaned_data["subject"]
-        message = f"from {name}({email})\n" + form.cleaned_data["message"]
+        message = f"От {name}({email})\n" + form.cleaned_data["message"]
         host_email = settings.EMAIL_HOST_USER
 
         send_mail(
@@ -40,6 +40,6 @@ class Contacts(FormView):
             recipient_list=[host_email],
         )
 
-        messages.success(self.request, "Email successfully sent!")
+        messages.success(self.request, "Емейлът е изпратен!")
 
         return super().form_valid(form)

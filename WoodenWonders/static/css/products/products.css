@@ -34,7 +34,7 @@
 }
 
 .price-range input {
-  width: 80px;
+  width: 128px;
 }
 
 .price-range-hyphen {
@@ -124,6 +124,10 @@
 
 .categories a:hover {
   color: var(--caramel);
+}
+
+.filters .button {
+  width: 100%;
 }
 
 @media screen and (max-width: 767px) {

@@ -4,7 +4,7 @@
     <link rel="stylesheet"
           href="{% static 'css/users/base-authentication.css' %}">
 {% endblock %}
-{% block title %}{{ state }} - WoodenWonders{% endblock %}
+{% block title %}{{ state }} - Jepeto Woodwork{% endblock %}
 {% block content %}
     <form method="post"
           action="{% if request.META.QUERY_STRING %}?{{ request.META.QUERY_STRING }}{% elif state == 'Login' %} {% url 'login' %} {% else %} {% url 'register' %} {% endif %} "
@@ -15,7 +15,7 @@
             <div class="username-fields form">
                 {{ form.email.errors }}
                 {{ form.email }}
-                <p>and/or</p>
+                <p>и/или</p>
                 {{ form.phone_number.errors }}
                 {{ form.phone_number }}
             </div>
@@ -36,15 +36,21 @@
                    name="login_required_form_fields"
                    value="{{ login_required_form_fields }}">
         {% endif %}
-        <button type="submit" class="button">{{ state }}</button>
+        <button type="submit" class="button">
+            {% if state == "Login" %}
+                Влизане
+            {% else %}
+                Регистрация
+            {% endif %}
+        </button>
     </form>
     {% if state == 'Login' %}
         <p>
-            Don't have an account? <a href="{% url 'register' %}?{{ request.META.QUERY_STRING }}">Register</a>
+            Нямаш профил? <a href="{% url 'register' %}?{{ request.META.QUERY_STRING }}">Регистрация</a>
         </p>
     {% else %}
         <p>
-            Already have an account? <a href="{% url 'login' %}?{{ request.META.QUERY_STRING }}">Login</a>
+            Вече имаш профил? <a href="{% url 'login' %}?{{ request.META.QUERY_STRING }}">Влизане в профил</a>
         </p>
     {% endif %}
 {% endblock %}

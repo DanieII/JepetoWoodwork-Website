@@ -5,19 +5,19 @@ from .models import Category, ProductReview
 
 class ProductSearchForm(forms.Form):
     search_field = forms.CharField(
-        widget=forms.TextInput(attrs={"placeholder": "Search..."})
+        widget=forms.TextInput(attrs={"placeholder": "Търси..."})
     )
 
 
 class ProductFilterForm(forms.Form):
     min_price = forms.FloatField(
         validators=[MinValueValidator(1)],
-        widget=forms.NumberInput(attrs={"placeholder": "Min"}),
+        widget=forms.NumberInput(attrs={"placeholder": "Минимална"}),
         required=False,
     )
     max_price = forms.FloatField(
         validators=[MinValueValidator(1)],
-        widget=forms.NumberInput(attrs={"placeholder": "Max"}),
+        widget=forms.NumberInput(attrs={"placeholder": "Максимална"}),
         required=False,
     )
 
@@ -29,7 +29,7 @@ class ProductFilterForm(forms.Form):
         if min_price and max_price:
             if min_price > max_price:
                 raise forms.ValidationError(
-                    "The minimal price should be less than the max"
+                    "Минималната цена трябва да е по-малка от максималната!"
                 )
 
         return self.cleaned_data
@@ -50,6 +50,6 @@ class ProductReviewForm(forms.ModelForm):
         widgets = {
             "stars": forms.HiddenInput(attrs={"class": "stars-field"}),
             "review": forms.Textarea(
-                attrs={"placeholder": "Your review", "class": "review-field"}
+                attrs={"placeholder": "Вашият отзив", "class": "review-field"}
             ),
         }

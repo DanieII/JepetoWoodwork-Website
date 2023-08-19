@@ -75,7 +75,7 @@ class ProductDetailsView(
     form_class = ProductAddToCartForm
     mixin_form = ProductReviewForm
     fields = "__all__"
-    success_message = "Review successfully added"
+    success_message = "Отзивът е изпратен"
     MAX_LAST_VIEWED_PRODUCTS_LENGTH = 3
 
     def get_object(self, queryset=None):

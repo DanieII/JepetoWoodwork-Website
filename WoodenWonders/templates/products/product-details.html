@@ -2,7 +2,7 @@
 {% load static %}
 {% load common_filters %}
 {% load stars_filters %}
-{% block title %}WoodenWonders | {{ object.name }}{% endblock %}
+{% block title %}{{ object.name }} | Jepeto Woodwork{% endblock %}
 {% block styles %}
     <link rel="stylesheet" href="{% static "css/bootstrap-carousel/bootstrap.min.css" %}">
     <link rel="stylesheet" href="{% static "css/products/products-list.css" %}">
@@ -36,8 +36,8 @@
           <a href="{{product_image_obj.image.url}}" data-lightbox="image"><img class="d-block image"
                                  src="{{ product_image_obj.image.url }}"
                                  alt="{{ product.name }}">
-</a>
-                                                    </div>
+          </a>
+                        </div>
                     {% empty %}
                         <div class="carousel-item active">
                             <img class="d-block image"
@@ -64,7 +64,7 @@
         </div>
         <div class="product-information">
             <h1>{{ product.name }}</h1>
-            <h3 class="price">${{ product.price|floatformat:2 }}</h3>
+            <h3 class="price">{{ product.price|floatformat:2 }} лв.</h3>
             {% if product.description %}<p>{{ product.description }}</p>{% endif %}
             <p class="available">
                 {% if product.pre_order %}
@@ -78,10 +78,10 @@
                   class="add-to-cart">
                 {% csrf_token %}
                 {{ form.quantity }}
-                <button type="submit" class="button">Add to cart</button>
+                <button type="submit" class="button"><i class="fa-solid fa-cart-shopping"></i> Добави</button>
             </form>
             <p class="categories">
-                Categories: <span>
+                Категории: <span>
                 {% for category in product.categories.all %}
                     <a href="{% url 'products' %}?categories={{ category.name }}">{{ category.name }}</a>
                     {% if not forloop.last %}<span class="comma">,</span>{% endif %}
@@ -91,7 +91,7 @@
     </div>
 </div>
 <div class="comments-reviews light-box">
-    <h3>Reviews</h3>
+    <h3>Отзиви</h3>
     <div class="main-content">
         {% for review in object.productreview_set.all %}
             <div class="review">
@@ -108,7 +108,7 @@
                 <p>{{ review.review }}</p>
             </div>
         {% empty %}
-            <p>There are not reviews yet.</p>
+            <p>Все още няма отзиви.</p>
         {% endfor %}
     </div>
     <form method="post"
@@ -124,10 +124,10 @@
         </div>
         <input type="hidden" name="rating" value="1">
         {% for field in productreviewform %}{{ field }}{% endfor %}
-        <button type="submit" class="button">Submit</button>
+        <button type="submit" class="button">Изпрати</button>
     </form>
 </div>
-<h3 style="padding: 20px; align-self: center;">Last Viewed</h3>
+<h3 style="padding: 20px; align-self: center;">Последно разгледани</h3>
 <div class="products">
     {% for product in last_viewed %}
         {% include "products/product.html" %}

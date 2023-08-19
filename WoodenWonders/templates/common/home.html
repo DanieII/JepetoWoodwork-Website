@@ -18,19 +18,17 @@
 {% block content %}
     <div class="banner">
         <div>
-            <p style="text-align: center;">
-                IMPORTANT: This website is under development and is only for testing purposes. DO NOT ORDER ANYTHING
-            </p>
             <p>
-                Welcome to
+                Добре дошли в
                 <span>J</span><span>e</span><span>p</span><span>e</span><span>t</span><span>o</span>
+                <span>W</span><span>o</span><span>o</span><span>d</span><span>w</span><span>o</span><span>r</span><span>k</span>
             </p>
-            <a href="{% url 'products' %}">Shop now</a>
+            <a href="{% url 'products' %}">Пазарувай</a>
         </div>
     </div>
     <div class="container">
         <div class="newest-arrivals">
-            <h1>Newest Arrivals</h1>
+            <h1>Последно добавени</h1>
             <ul class="products">
                 {% for product in object_list %}
                     <li>{% include "products/product.html" %}</li>

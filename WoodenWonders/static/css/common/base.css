@@ -215,11 +215,11 @@ main {
   filter: brightness(90%);
 }
 
-.fa-cart-shopping {
+nav .fa-cart-shopping {
   position: relative;
 }
 
-.fa-cart-shopping::after {
+nav .fa-cart-shopping::after {
   content: attr(value);
   font-size: 12px;
   font-weight: 100;
@@ -234,7 +234,7 @@ main {
   transition: inherit;
 }
 
-.fa-cart-shopping[value=""]::after {
+nav .fa-cart-shopping[value=""]::after {
   display: none;
 }
 
@@ -307,7 +307,7 @@ main {
 .comments-reviews .main-content {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 15px;
 }
 
 .fade {

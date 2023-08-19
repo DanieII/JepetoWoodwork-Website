@@ -26,11 +26,11 @@ def add_to_cart(request, slug, quantity=1):
             product.quantity <= 0
             or product.quantity - (current_filled_quantity + quantity) < 0
         ):
-            messages.warning(request, f"{product.name} is out of stock")
+            messages.warning(request, f"{product.name} не е наличен продукт")
             return redirect(url)
 
-        if not current_filled_quantity:
-            cart[slug] = 0
+    if not current_filled_quantity:
+        cart[slug] = 0
 
     request.session["cart"] = process_cart_quantity(
         slug, product, quantity, cart, product.pre_order
@@ -85,9 +85,9 @@ class CheckoutView(FillOrderFormMixin, LoginRequiredMixin, CreateView):
             )
 
             if saved:
-                message = "Checkout information saved"
+                message = "Информацията за поръчване е запазена"
             else:
-                message = "Checkout information updated"
+                message = "Информацията за поръчване е подновена"
                 checkout_information.order = order
 
             messages.success(self.request, message)
@@ -129,7 +129,7 @@ class CheckoutView(FillOrderFormMixin, LoginRequiredMixin, CreateView):
         self.request.session["cart"] = {}
         self.handle_save_information(self.request.POST.get("save_information"), order)
 
-        messages.success(self.request, "Checkout successful. Your order has been saved")
+        messages.success(self.request, "Поръчката е запазена")
 
         return super().form_valid(form)
 

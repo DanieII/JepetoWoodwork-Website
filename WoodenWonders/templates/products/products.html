@@ -1,6 +1,6 @@
 {% extends 'common/base.html' %}
 {% load static %}
-{% block title %}Products | WoodenWonders{% endblock %}
+{% block title %}Продукти | Jepeto Woodwork{% endblock %}
 {% block styles %}
     <link rel="stylesheet" href="{% static 'css/products/products.css' %}">
     <link rel="stylesheet" href="{% static 'css/products/products-list.css' %}">
@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{% static "css/products/heart.css" %}">
 {% endblock %}
 {% block content %}
-    <h1 class="title">Products</h1>
+    <h1 class="title">Продукти</h1>
     <div class="main-content">
         <div class="filters light-box">
             <form method="get" action="{% url 'products' %}" class="form">
@@ -20,7 +20,7 @@
                 </div>
             </form>
             <div class="categories">
-                <a href="{% url 'products' %}">All</a>
+                <a href="{% url 'products' %}">Всички</a>
                 {% for category in categories %}
                     <a href="{% url 'products_category' category=category %}">{{ category }}</a>
                 {% endfor %}
@@ -28,14 +28,14 @@
             <form method="get" action="{% url 'products' %}" class="form">
                 <div class="form-error">{{ form.non_field_errors }}</div>
                 <div class="label-with-input">
-                    <label for="{{ form.min_price.id_for_label }}">Price Range</label>
+                    <label for="{{ form.min_price.id_for_label }}">Цена</label>
                     <div class="price-range">
                         {{ form.min_price }}
                         <span class="price-range-hyphen">-</span>
                         {{ form.max_price }}
                     </div>
                 </div>
-                <button type="submit" class="button">Filter</button>
+                <button type="submit" class="button">Филтър</button>
             </form>
         </div>
         {% if page_obj %}
@@ -46,7 +46,7 @@
             </ul>
         {% else %}
             <div class="no-results-container">
-                <h1>No results</h1>
+                <h1>Няма резултат</h1>
             </div>
         {% endif %}
     </div>

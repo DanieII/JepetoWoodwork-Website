@@ -1,13 +1,13 @@
 {% extends 'common/base.html' %}
 {% load static %}
 {% load product_filters %}
-{% block title %}Cart | WoodenWonders{% endblock %}
+{% block title %}Количка | Jepeto Woodwork{% endblock %}
 {% block styles %}
     <link rel="stylesheet" href="{% static 'css/cart/cart.css' %}">
 {% endblock %}
 {% block content %}
     {% if cart_products %}
-        <h1 class="title">Cart</h1>
+        <h1 class="title">Количка</h1>
         <div class="cart-products">
             {% for product, quantity in cart_products.items %}
                 <div class="cart-product">
@@ -29,18 +29,18 @@
                             <a href="{% url "add_to_cart" slug=product.slug %}">&plus;</a>
                         </div>
                         <div>
-                            <p>${{ product.price|calculate_total_price:quantity }}</p>
-                            <a href="{% url 'remove_product' slug=product.slug %}">remove</a>
+                            <p>{{ product.price|calculate_total_price:quantity }} лв.</p>
+                            <a href="{% url 'remove_product' slug=product.slug %}">Премахни</a>
                         </div>
                     </div>
                 </div>
             {% endfor %}
         </div>
         <div>
-            <h3>Total: ${{ total_price|floatformat:2 }}</h3>
-            <a href="{% url "checkout" %}">Checkout</a>
+            <h3>{{ total_price|floatformat:2 }} лв.</h3>
+            <a href="{% url "checkout" %}">Приключване на поръчката</a>
         </div>
     {% else %}
-        <h1 class="title">No Products In Cart</h1>
+        <h1 class="title">Няма продукти в количката</h1>
     {% endif %}
 {% endblock %}

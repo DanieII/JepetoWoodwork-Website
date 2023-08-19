@@ -11,17 +11,17 @@ class CustomUserCreationForm(UserCreationForm):
         model = UserModel
         fields = ["email", "phone_number", "password1", "password2"]
         widgets = {
-            "email": forms.EmailInput(attrs={"placeholder": "Email"}),
-            "phone_number": forms.TextInput(attrs={"placeholder": "Phone Number"}),
+            "email": forms.EmailInput(attrs={"placeholder": "Имейл"}),
+            "phone_number": forms.TextInput(attrs={"placeholder": "Телефонен номер"}),
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["password1"].widget = forms.PasswordInput(
-            attrs={"placeholder": "Password"}
+            attrs={"placeholder": "Парола"}
         )
         self.fields["password2"].widget = forms.PasswordInput(
-            attrs={"placeholder": "Repeat Password"}
+            attrs={"placeholder": "Повторете паролата"}
         )
 
     def clean(self):
@@ -31,7 +31,7 @@ class CustomUserCreationForm(UserCreationForm):
 
         if not self.email and not self.phone_number:
             raise forms.ValidationError(
-                "Either email or phone number must be provided."
+                "Трябва да бъде въведен поне един имейл или телефонен номер."
             )
 
         return cleaned_data
@@ -39,12 +39,12 @@ class CustomUserCreationForm(UserCreationForm):
 
 class CustomLoginForm(AuthenticationForm):
     username = forms.CharField(
-        widget=forms.TextInput(attrs={"placeholder": "Email or Phone Number"})
+        widget=forms.TextInput(attrs={"placeholder": "Имейл или телефонен номер"})
     )
     password = forms.CharField(
-        widget=forms.PasswordInput(attrs={"placeholder": "Password"})
+        widget=forms.PasswordInput(attrs={"placeholder": "Парола"})
     )
 
     error_messages = {
-        "invalid_login": "Please enter a correct email/phone number and password. Note that both fields may be case-sensitive.",
+        "invalid_login": "Моля въведете правилен имейл/телефонен номер и парола.",
     }

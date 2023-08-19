@@ -23,7 +23,7 @@ class OrderForm(BaseOrderForm):
     save_information = forms.BooleanField(
         initial=False,
         required=False,
-        label="Save/Update Information for Future Purchases",
+        label="Запази/Поднови информацията за бъдещи поръчки",
     )
 
 

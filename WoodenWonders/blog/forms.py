@@ -10,4 +10,4 @@ class BlogCommentForm(forms.ModelForm):
     class Meta:
         model = BlogComment
         fields = ["comment"]
-        widgets = {"comment": forms.Textarea(attrs={"placeholder": "Your comment"})}
+        widgets = {"comment": forms.Textarea(attrs={"placeholder": "Вашият коментар"})}

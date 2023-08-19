@@ -12,7 +12,9 @@ class CustomUserManager(BaseUserManager):
         self, email=None, phone_number=None, password=None, commit=True, **extra_fields
     ):
         if not email and not phone_number:
-            raise ValueError("Either email or phone number must be provided.")
+            raise ValueError(
+                "Трябва да бъде въведен поне един имейл или телефонен номер."
+            )
 
         email = self.normalize_email(email) if email else None
         user = self.model(email=email, phone_number=phone_number, **extra_fields)

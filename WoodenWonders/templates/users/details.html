@@ -1,6 +1,6 @@
 {% extends 'common/base.html' %}
 {% load static %}
-{% block title %}Profile | WoodenWonders{% endblock %}
+{% block title %}Профил | Jepeto Woodwork{% endblock %}
 {% block styles %}
     <link rel="stylesheet" href="{% static "css/users/base-details.css" %}">
 {% endblock %}
@@ -8,9 +8,9 @@
     {% include "users/base-details.html" %}
     <div class="content">
         <h2>{{ request.user }}</h2>
-        <p>Joined on: {{ request.user.date_joined|date }}</p>
+        <p>Включил се на: {{ request.user.date_joined|date:"m.d.Y" }}</p>
         {% if request.user.savedcheckoutinformation %}
-            <a href="{% url 'saved_checkout_information' %}" class="button">Saved Checkout Information</a>
+            <a href="{% url 'saved_checkout_information' %}" class="button">Запазена информация за поръчване</a>
         {% endif %}
     </div>
 {% endblock %}

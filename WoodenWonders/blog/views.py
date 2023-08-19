@@ -15,7 +15,7 @@ class BlogDetails(HandleSendAndRetrieveLoginRequiredFormInformationMixin, Detail
     template_name = "blog/blog-details.html"
     mixin_form = BlogCommentForm
     fields = "__all__"
-    success_message = "Comment successfully added"
+    success_message = "Коментарът е добавен"
 
     def get_success_url(self):
         return reverse("blog_details", kwargs={"slug": self.get_object().slug})

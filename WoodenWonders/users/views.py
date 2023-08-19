@@ -28,7 +28,7 @@ class UserRegisterView(
     template_name = "users/base-authentication.html"
     success_url = reverse_lazy("home")
     extra_context = {"state": "Register"}
-    success_message = "Account created"
+    success_message = "Профилът е създаден"
 
     def get_success_url(self):
         next = self.request.POST.get("next")
@@ -62,7 +62,7 @@ class UserLoginView(
     extra_context = {"state": "Login"}
 
     def get_success_message(self, cleaned_data):
-        return f"Logged in as {cleaned_data.get('username')}"
+        return f"Влязохте като {cleaned_data.get('username')}"
 
     def form_valid(self, form):
         login(
@@ -101,18 +101,18 @@ class ChangePasswordView(LoginRequiredMixin, SuccessMessageMixin, PasswordChange
     form_class = PasswordChangeForm
     template_name = "users/change-password.html"
     success_url = reverse_lazy("user_details")
-    success_message = "Your password has been changed successfully."
+    success_message = "Паролата е сменена"
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
         form.fields["old_password"].widget.attrs.update(
-            {"placeholder": "Enter your current password"}
+            {"placeholder": "Въведете сегашната си парола"}
         )
         form.fields["new_password1"].widget.attrs.update(
-            {"placeholder": "Enter a new password"}
+            {"placeholder": "Въведете нова парола"}
         )
         form.fields["new_password2"].widget.attrs.update(
-            {"placeholder": "Confirm your new password"}
+            {"placeholder": "Повторете новата си парола"}
         )
 
         return form
@@ -121,6 +121,6 @@ class ChangePasswordView(LoginRequiredMixin, SuccessMessageMixin, PasswordChange
 @login_required
 def logout_view(request):
     logout(request)
-    messages.success(request, "Successfully logged out")
+    messages.success(request, "Успешно излязохте от профила си")
 
     return redirect("login")

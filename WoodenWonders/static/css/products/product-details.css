@@ -1,3 +1,12 @@
+.fa-cart-shopping {
+  color: var(--lighter) !important;
+}
+
+.product-information form input:focus {
+  outline: none !important;
+  border: 2px solid var(--caramel);
+}
+
 .product-details {
   display: flex;
   justify-content: flex-start;
