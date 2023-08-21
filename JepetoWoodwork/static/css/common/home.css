@@ -1,0 +1,118 @@
+.main-wrapper {
+  margin-top: 100px;
+}
+
+.alert {
+  margin-top: 0;
+}
+
+.banner {
+  position: relative;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.banner div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.banner div p {
+  color: var(--light);
+  font-size: 20px;
+}
+
+.banner div a {
+  text-decoration: none;
+  background-color: var(--light);
+  color: var(--dark-wood);
+  padding: 7px;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.newest-arrivals {
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  max-width: var(--max-width);
+  text-align: center;
+}
+
+.newest-arrivals h1 {
+  margin-bottom: 10px;
+  color: var(--dark-wood);
+}
+
+main {
+  width: 100vw;
+  max-width: none;
+}
+
+.banner div p span {
+  display: inline-block;
+  animation: waveAnimation 2.8s linear infinite;
+}
+
+@keyframes waveAnimation {
+  0% {
+    color: var(--caramel);
+  }
+  100% {
+    color: var(--lighter);
+  }
+}
+
+.banner div p span:nth-child(1) {
+  animation-delay: 0s;
+}
+.banner div p span:nth-child(2) {
+  animation-delay: 200ms;
+}
+.banner div p span:nth-child(3) {
+  animation-delay: 400ms;
+}
+.banner div p span:nth-child(4) {
+  animation-delay: 600ms;
+}
+.banner div p span:nth-child(5) {
+  animation-delay: 800ms;
+}
+.banner div p span:nth-child(6) {
+  animation-delay: 1000ms;
+}
+
+.banner div p span:nth-child(7) {
+  animation-delay: 1200ms;
+}
+.banner div p span:nth-child(8) {
+  animation-delay: 1400ms;
+}
+.banner div p span:nth-child(9) {
+  animation-delay: 1600ms;
+}
+.banner div p span:nth-child(10) {
+  animation-delay: 1800ms;
+}
+.banner div p span:nth-child(11) {
+  animation-delay: 2000ms;
+}
+.banner div p span:nth-child(12) {
+  animation-delay: 2200ms;
+}
+.banner div p span:nth-child(13) {
+  animation-delay: 2400ms;
+}
+.banner div p span:nth-child(14) {
+  animation-delay: 2600ms;
+}

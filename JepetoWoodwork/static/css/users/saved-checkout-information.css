@@ -1,0 +1,20 @@
+.form select option:first-of-type {
+  color: #888;
+}
+
+.form {
+  align-items: normal;
+}
+
+.form button {
+  align-self: center;
+}
+
+.light-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  align-self: center;
+  width: fit-content;
+}

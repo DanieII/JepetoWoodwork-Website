@@ -1,0 +1,16 @@
+.products {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2em;
+}
+
+.products li {
+  display: inline-block;
+}
+
+.products h1 {
+  color: var(--dark-wood);
+  font-weight: bold;
+}

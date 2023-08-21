@@ -1,0 +1,25 @@
+{% extends "common/base.html" %}
+{% load static %}
+{% block title %}Блог | Jepeto Woodwork{% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static "css/blog/blog.css" %}">
+{% endblock %}
+{% block content %}
+    <h1 class="title">Блог</h1>
+    <div class="blog-posts">
+        {% for blog_post in object_list %}
+            <div class="blog-post">
+                <a href="{% url "blog_details" blog_post.slug %}">
+                    <img src="{{ blog_post.image.url }}"
+                         alt="{{ blog_post.title }}"
+                         class="image">
+                    <p class="blog-title">{{ blog_post.title|truncatechars:50 }}</p>
+                    <p>
+                        <i class="fa-regular fa-calendar-days"></i>
+                        {{ blog_post.created_on|date:"m.d.Y" }}
+                    </p>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

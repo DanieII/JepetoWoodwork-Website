@@ -1,0 +1,146 @@
+{% extends 'common/base.html' %}
+{% load static %}
+{% load common_filters %}
+{% load stars_filters %}
+{% block title %}{{ object.name }} | Jepeto Woodwork{% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static "css/bootstrap-carousel/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/products/products-list.css" %}">
+    <link rel="stylesheet" href="{% static "css/products/product.css" %}">
+    <link rel="stylesheet"
+          href="{% static 'css/products/product-details.css' %}">
+    <link rel="stylesheet" href="{% static "css/products/heart.css" %}">
+    <link rel="stylesheet" href="{% static "css/lightbox/lightbox.min.css" %}">
+{% endblock %}
+{% block content %}
+    <div class="product-details">
+        <div class="heart-parent">
+            {% include "products/heart.html" %}
+            <div id="carouselExampleIndicators"
+                 class="carousel slide"
+                 data-ride="carousel">
+                <ol class="carousel-indicators">
+                    {% for indicator_index in object.productimage_set.all.count|get_range_from_number %}
+                        <li data-target="#carouselExampleIndicators"
+                            data-slide-to="{{ indicator_index }}"
+                            class="{% if forloop.first %} active {% endif %}"></li>
+                    {% empty %}
+                        <li data-target="#carouselExampleIndicators"
+                            data-slide-to="0"
+                            class="active"></li>
+                    {% endfor %}
+                </ol>
+                <div class="carousel-inner">
+                    {% for product_image_obj in object.productimage_set.all %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+          <a href="{{product_image_obj.image.url}}" data-lightbox="image"><img class="d-block image"
+                                 src="{{ product_image_obj.image.url }}"
+                                 alt="{{ product.name }}">
+          </a>
+                        </div>
+                    {% empty %}
+                        <div class="carousel-item active">
+                            <img class="d-block image"
+                                 src="/static/images/no-image.jpg"
+                                 alt="no image">
+                        </div>
+                    {% endfor %}
+                </div>
+                <a class="carousel-control-prev"
+                   href="#carouselExampleIndicators"
+                   role="button"
+                   data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next"
+                   href="#carouselExampleIndicators"
+                   role="button"
+                   data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+        <div class="product-information">
+            <h1>{{ product.name }}</h1>
+            <h3 class="price">{{ product.price|floatformat:2 }} лв.</h3>
+    {% if product.description %}    <p>{{ product.description|safe }}</p>{% endif %}
+            <p class="available">
+                {% if product.pre_order %}
+                    Налично за предварителни поръчки
+                {% else %}
+                    {{ product.quantity }} Налични
+                {% endif %}
+            </p>
+            <form method="post"
+                  action="{% url 'product_details' slug=object.slug %}"
+                  class="add-to-cart">
+                {% csrf_token %}
+                {{ form.quantity }}
+                <button type="submit" class="button"><i class="fa-solid fa-cart-shopping"></i> Добави</button>
+            </form>
+            <p class="categories">
+                Категории: <span>
+                {% for category in product.categories.all %}
+        <a href="{% url 'products_category' category=category.name %}">{{ category.name }}</a>
+                    {% if not forloop.last %}<span class="comma">,</span>{% endif %}
+                {% endfor %}
+            </span>
+        </p>
+    </div>
+</div>
+<div class="comments-reviews light-box">
+    <h3>Отзиви</h3>
+    <div class="review-content">
+        {% for review in object.productreview_set.all %}
+            <div class="review">
+                {% with empty_stars_count=review.stars|calculate_empty_stars %}
+                    {% for _ in review.stars|get_range_from_number %}
+                        {% if forloop.last %}
+                            <i class="fa-solid fa-star last-filled-star"></i>
+                        {% else %}
+                            <i class="fa-solid fa-star"></i>
+                        {% endif %}
+                    {% endfor %}
+                    {% for _ in empty_stars_count %}<i class="fa-regular fa-star empty-star"></i>{% endfor %}
+                {% endwith %}
+      <div class="main-content">
+        <p>{{ review.review }}</p>
+      {% if review.user == request.user %}
+      <a href="{% url 'delete_review' pk=review.pk %}" class="delete"><i class="fa-solid fa-xmark"></i></a>
+      {% endif %}
+
+      </div>
+                            </div>
+        {% empty %}
+            <p>Все още няма отзиви.</p>
+        {% endfor %}
+    </div>
+    <form method="post"
+          action="{% url 'product_details' slug=object.slug %}"
+          class="form">
+        {% csrf_token %}
+        <div class="star-rating">
+            <i class="fa-solid fa-star" rating-value="1"></i>
+            <i class="fa-regular fa-star" rating-value="2"></i>
+            <i class="fa-regular fa-star" rating-value="3"></i>
+            <i class="fa-regular fa-star" rating-value="4"></i>
+            <i class="fa-regular fa-star" rating-value="5"></i>
+        </div>
+        <input type="hidden" name="rating" value="1">
+        {% for field in productreviewform %}{{ field }}{% endfor %}
+        <button type="submit" class="button">Изпрати</button>
+    </form>
+</div>
+<h3 style="padding: 20px; align-self: center;">Последно разгледани</h3>
+<div class="products">
+    {% for product in last_viewed %}
+        {% include "products/product.html" %}
+    {% endfor %}
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{% static "javascript/bootstrap-carousel/bootstrap.min.js" %}"></script>
+<script src="{% static "javascript/star-rating.js" %}"></script>
+<script src="{% static "javascript/lightbox/lightbox.min.js" %}"></script>
+{% endblock %}

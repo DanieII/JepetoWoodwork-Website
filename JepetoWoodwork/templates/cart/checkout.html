@@ -1,0 +1,44 @@
+{% extends "common/base.html" %}
+{% load static %}
+{% load product_filters %}
+{% block title %}Приключване на поръчка| Jepeto Woodwork{% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/cart/checkout.css' %}">
+{% endblock %}
+{% block content %}
+    <h1 class="title">Приключване на поръчка</h1>
+    <div class="checkout">
+        <div class="checkout-information">
+            <h3>Информация за поръчване</h3>
+            <form method="post" action="{% url 'checkout' %}" class="form">
+                {% csrf_token %}
+                {% for field in form %}
+                    {% if field.errors %}{{ field.errors }}{% endif %}
+                    {% if forloop.last %}
+                        <label for="{{ field.id_for_label }}" class="checkbox-label">
+                            {{ field }}
+                            {{ field.label }}
+                        </label>
+                    {% else %}
+                        {{ field }}
+                    {% endif %}
+                {% endfor %}
+                <button type="submit" class="button">Поръчай</button>
+            </form>
+        </div>
+        <div class="order-information-wrapper">
+            <h3>Информация ча поръчка</h3>
+            <div class="order-information light-box">
+                {% for product, quantity in cart_products.items %}
+                    <p>
+                        {{ product }} &times; <b>{{ quantity }}</b> - <b>{{ product.price|calculate_total_price:quantity }} лв.
+                    </b>
+                </p>
+            {% endfor %}
+            <p>
+                Общо: <b>{{ total_price|floatformat:2 }} лв.</b>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

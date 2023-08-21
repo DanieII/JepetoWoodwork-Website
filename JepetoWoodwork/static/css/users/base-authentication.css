@@ -1,0 +1,30 @@
+main {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+main > p {
+  color: var(--dark-wood);
+}
+
+main > p a {
+  text-decoration: none;
+}
+
+.form button {
+  align-self: center;
+}
+
+.username-fields {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 0;
+  gap: 5px;
+}
+
+.username-fields * {
+  color: var(--dark-wood);
+}
