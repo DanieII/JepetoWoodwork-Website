@@ -37,13 +37,23 @@ class Order(models.Model):
     delivery_type = models.CharField(
         max_length=100, choices=DELIVERY_CHOICES, default=""
     )
+    notes = models.TextField(
+        verbose_name="Бележки към поръчката (относно доставката или друго)",
+        null=True,
+        blank=True,
+    )
     created_on = models.DateTimeField(auto_now=True)
 
     @property
     def total_price(self):
-        return sum(
+        products_sum = sum(
             float(product.product_total) for product in self.orderproduct_set.all()
         )
+
+        if self.delivery_type == "courier":
+            products_sum += 7
+
+        return products_sum
 
 
 class OrderProduct(models.Model):

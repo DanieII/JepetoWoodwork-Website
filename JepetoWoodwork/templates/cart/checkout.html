@@ -27,7 +27,7 @@
             </form>
         </div>
         <div class="order-information-wrapper">
-            <h3>Информация ча поръчка</h3>
+            <h3>Информация за поръчка</h3>
             <div class="order-information light-box">
                 {% for product, quantity in cart_products.items %}
                     <p>
@@ -36,9 +36,10 @@
                 </p>
             {% endfor %}
             <p>
-                Общо: <b>{{ total_price|floatformat:2 }} лв.</b>
+                Общо: <b><span class="total-price">{{ total_price|floatformat:2 }}</span> лв.</b>
             </p>
         </div>
     </div>
 </div>
+<script src="{% static "javascript/handle-delivery-type.js" %}"></script>
 {% endblock %}

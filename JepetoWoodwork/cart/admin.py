@@ -14,6 +14,7 @@ class OrderAdmin(admin.ModelAdmin):
         "apartment_building",
         "postal_code",
         "delivery_type",
+        "notes",
         "products",
         "total",
         "created_on",

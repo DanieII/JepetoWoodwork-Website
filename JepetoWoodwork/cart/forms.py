@@ -4,11 +4,12 @@ from common.mixins import OptionalFormFieldsMixin
 
 
 class BaseOrderForm(OptionalFormFieldsMixin, forms.ModelForm):
-    optional_fields = ["apartment_building"]
+    optional_fields = ["apartment_building", "notes"]
 
     class Meta:
         model = Order
         exclude = ["user", "created_on"]
+        widgets = {"notes": forms.Textarea(attrs={"class": "notes"})}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -28,4 +29,6 @@ class OrderForm(BaseOrderForm):
 
 
 class EditSavedCheckoutInformationForm(BaseOrderForm):
-    pass
+    class Meta:
+        model = Order
+        exclude = ["user", "created_on", "notes"]

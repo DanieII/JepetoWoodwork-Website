@@ -23,6 +23,7 @@ class ProductFilterForm(forms.Form):
 
     def clean(self):
         super().clean()
+
         min_price, max_price = self.cleaned_data.get(
             "min_price"
         ), self.cleaned_data.get("max_price")

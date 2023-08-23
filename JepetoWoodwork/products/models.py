@@ -44,7 +44,7 @@ class Product(models.Model):
         super().save(*args, **kwargs)
 
     class Meta:
-        ordering = ["pk"]
+        ordering = ["-date_added"]
 
 
 class ProductImage(models.Model):

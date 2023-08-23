@@ -29,10 +29,6 @@
   font-size: 18px;
 }
 
-main {
-  flex-direction: row;
-}
-
 .content {
   align-self: center;
   display: flex;

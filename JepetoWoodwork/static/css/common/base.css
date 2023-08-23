@@ -24,6 +24,24 @@ label {
   color: var(--dark-wood);
 }
 
+.active {
+  opacity: 1 !important;
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  border-radius: 2px;
+  padding: 0 !important;
+  opacity: 0;
+}
+
+.fa-arrow-up {
+  font-size: 20px;
+  margin: 15px;
+}
+
 nav a,
 footer a {
   user-select: none;
@@ -71,13 +89,13 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-height: 100px;
+  height: 100px;
 }
 
-.lumberjack-icon {
-  width: auto;
-  max-height: 100px;
+.jepeto-logo {
+  width: 150px;
   margin-right: auto;
+  margin-left: 20px;
 }
 
 nav ul {
@@ -377,7 +395,7 @@ nav .fa-cart-shopping[value=""]::after {
     padding: 0;
   }
 
-  .nav .lumberjack-icon {
+  .nav .jepeto-logo {
     align-self: flex-start;
   }
 

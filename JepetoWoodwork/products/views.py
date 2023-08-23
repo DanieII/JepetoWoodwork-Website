@@ -9,6 +9,7 @@ from .forms import ProductSearchForm, ProductAddToCartForm
 from cart.views import add_to_cart
 from users.mixins import HandleSendAndRetrieveLoginRequiredFormInformationMixin
 from .helper_functions import get_last_viewed_products
+from django.contrib import messages
 
 
 class BaseProductsView(ListView):
@@ -131,4 +132,6 @@ def delete_review_view(request, pk):
 
     product_slug = review.product.slug
     product_details_url = reverse("product_details", kwargs={"slug": product_slug})
+    messages.success(request, "Отзивът е изтрит")
+
     return redirect(product_details_url)

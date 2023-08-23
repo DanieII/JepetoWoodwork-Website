@@ -33,4 +33,6 @@ def delete_comment_view(request, pk):
 
     blog_slug = comment.blog.slug
     blog_details_url = reverse("blog_details", kwargs={"slug": blog_slug})
+    messages.success(request, "Коментарът е изтрит")
+
     return redirect(blog_details_url)
