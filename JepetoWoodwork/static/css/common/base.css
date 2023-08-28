@@ -16,6 +16,10 @@
   font-family: "Poppins", sans-serif;
 }
 
+*:focus {
+  outline: none;
+}
+
 p,
 h1,
 h2,
@@ -35,6 +39,7 @@ label {
   border-radius: 2px;
   padding: 0 !important;
   opacity: 0;
+  z-index: 1000;
 }
 
 .fa-arrow-up {
@@ -49,6 +54,7 @@ footer a {
 
 .title {
   align-self: center;
+  text-align: center;
   color: var(--dark-wood);
   padding-bottom: 40px;
 }
@@ -70,7 +76,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 3;
+  z-index: 1000;
   background-color: var(--caramel);
   display: flex;
   justify-content: center;
@@ -101,7 +107,7 @@ nav {
 nav ul {
   display: flex;
   gap: 1em;
-  z-index: 3;
+  z-index: 1000;
 }
 
 nav ul li {
@@ -385,7 +391,7 @@ nav .fa-cart-shopping[value=""]::after {
   .navigation-menu {
     position: fixed;
     left: -100%;
-    top: 100px;
+    top: 85px;
     flex-direction: column;
     background-color: var(--caramel);
     width: fit-content;
@@ -395,8 +401,8 @@ nav .fa-cart-shopping[value=""]::after {
     padding: 0;
   }
 
-  .nav .jepeto-logo {
-    align-self: flex-start;
+  nav .jepeto-logo {
+    width: 130px;
   }
 
   .navigation-menu.active {
@@ -415,6 +421,11 @@ nav .fa-cart-shopping[value=""]::after {
   nav {
     margin-left: 20px;
     margin-right: 20px;
+    height: 85px;
+  }
+
+  .main-wrapper {
+    margin-top: 105px;
   }
 
   footer {

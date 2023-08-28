@@ -1,3 +1,4 @@
+from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect, render
 from .forms import EditSavedCheckoutInformationForm, OrderForm
 from products.models import Product
@@ -134,11 +135,12 @@ class CheckoutView(FillOrderFormMixin, LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class SavedCheckoutInformationView(FillOrderFormMixin, UpdateView):
+class SavedCheckoutInformationView(SuccessMessageMixin, FillOrderFormMixin, UpdateView):
     model = SavedCheckoutInformation
     form_class = EditSavedCheckoutInformationForm
     template_name = "users/saved-checkout-information.html"
     success_url = reverse_lazy("saved_checkout_information")
+    success_message = "Информацията е подновена"
 
     def dispatch(self, request, *args, **kwargs):
         self.saved_checkout_information = get_user_saved_checkout_information(request)

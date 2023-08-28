@@ -1,7 +1,8 @@
 let prevScrollPos = window.pageYOffset;
+const nav = document.querySelector("nav");
+const navHeight = nav.height;
 const navbar = document.querySelector(".nav-wrapper");
 const navMenu = document.querySelector(".navigation-menu");
-const navbarHeight = 100;
 const backToTopArrow = document.querySelector(".back-to-top");
 
 backToTopArrow.addEventListener("click", () => {
@@ -14,7 +15,7 @@ backToTopArrow.addEventListener("click", () => {
 window.onscroll = function () {
   let currentScrollPos = window.scrollY;
 
-  if (currentScrollPos <= navbarHeight) {
+  if (currentScrollPos <= navHeight) {
     navbar.classList.remove("hidden");
     backToTopArrow.classList.remove("active");
   } else {

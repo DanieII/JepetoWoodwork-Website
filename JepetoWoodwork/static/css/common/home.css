@@ -1,7 +1,3 @@
-.main-wrapper {
-  margin-top: 100px;
-}
-
 .alert {
   margin-top: 0;
 }
@@ -52,6 +48,10 @@
 .newest-arrivals h1 {
   margin-bottom: 10px;
   color: var(--dark-wood);
+}
+
+.main-wrapper {
+  margin-top: 100px;
 }
 
 main {
@@ -115,4 +115,10 @@ main {
 }
 .banner div p span:nth-child(14) {
   animation-delay: 2600ms;
+}
+
+@media screen and (width <= 767px) {
+  .main-wrapper {
+    margin-top: 85px;
+  }
 }

@@ -1,7 +1,10 @@
 from django.urls import path
-from common.views import Home, Contacts
+from common.views import AboutUsView, HomeView, ContactsView, PrivacyPolicyView, TermsOfUseView
 
 urlpatterns = [
-    path("", Home.as_view(), name="home"),
-    path("contacts/", Contacts.as_view(), name="contacts"),
+    path("", HomeView.as_view(), name="home"),
+    path("contacts/", ContactsView.as_view(), name="contacts"),
+    path("about-us/", AboutUsView.as_view(), name="about_us"),
+    path("privacy-policy/", PrivacyPolicyView.as_view(), name="privacy_policy"),
+    path("terms-of-use/", TermsOfUseView.as_view(), name="terms_of_use"),
 ]

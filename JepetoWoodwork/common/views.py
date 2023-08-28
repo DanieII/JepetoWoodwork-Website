@@ -1,3 +1,4 @@
+from django.contrib.auth.views import TemplateView
 from django.urls import reverse_lazy
 from django.views.generic import ListView, FormView
 from products.models import Product
@@ -7,7 +8,7 @@ from django.conf import settings
 from django.contrib import messages
 
 
-class Home(ListView):
+class HomeView(ListView):
     model = Product
     template_name = "common/home.html"
     NEWEST_ARRIVALS_NUMBER = 3
@@ -21,7 +22,7 @@ class Home(ListView):
         return queryset
 
 
-class Contacts(FormView):
+class ContactsView(FormView):
     template_name = "common/contacts.html"
     form_class = ContactForm
     success_url = reverse_lazy("contacts")
@@ -43,3 +44,13 @@ class Contacts(FormView):
         messages.success(self.request, "Емейлът е изпратен!")
 
         return super().form_valid(form)
+
+
+class AboutUsView(TemplateView):
+    template_name = "common/about-us.html"
+
+class PrivacyPolicyView(TemplateView):
+    template_name = "common/privacy-policy.html"
+
+class TermsOfUseView(TemplateView):
+    template_name = "common/terms-of-use.html"

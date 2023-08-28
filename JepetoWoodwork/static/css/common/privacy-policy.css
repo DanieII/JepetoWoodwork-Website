@@ -1,0 +1,13 @@
+.privacy-policy {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.privacy-policy li {
+  list-style: none;
+}
+
+.privacy-policy li span {
+  font-weight: bold;
+}

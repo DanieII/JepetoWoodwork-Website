@@ -2,18 +2,18 @@ version: "3.4"
 
 services:
   web:
-    image: danieii/woodenwonders
+    image: danieii/jepetowoodwork
     platform: linux/amd64
     build: .
-    command: gunicorn --bind=0.0.0.0:8000 WoodenWonders.wsgi:application
+    command: gunicorn --bind=0.0.0.0:8000 JepetoWoodwork.wsgi:application
     ports:
       - "8000:8000"
     env_file:
       - ./.env
     volumes:
       - .:/app
-      - /tmp/woodenwonders/staticfiles:/app/staticfiles
-      - /tmp/woodenwonders/media:/app/media
+      - /tmp/jepetowoodwork/staticfiles:/app/staticfiles
+      - /tmp/jepetowoodwork/media:/app/media
     depends_on:
       - db
 
@@ -25,7 +25,7 @@ services:
     environment:
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
-      POSTGRES_DB: woodenwonders_db
+      POSTGRES_DB: jepeto_db
       PGDATA: /var/lib/postgresql/data/pgdata
     env_file:
       - ./.env
@@ -38,8 +38,8 @@ services:
       - "81:80"
       - "443:443"
     volumes:
-      - /tmp/woodenwonders/staticfiles:/home/app/web/staticfiles
-      - /tmp/woodenwonders/media:/home/app/web/media
+      - /tmp/jepetowoodwork/staticfiles:/home/app/web/staticfiles
+      - /tmp/jepetowoodwork/media:/home/app/web/media
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/logs:/var/log/nginx
       - ./certbot/www:/var/www/certbot/:ro
