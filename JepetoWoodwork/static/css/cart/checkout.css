@@ -54,6 +54,11 @@
   max-height: 300px;
 }
 
+form p a {
+  text-decoration: none;
+  color: var(--caramel);
+}
+
 @media screen and (max-width: 767px) {
   .checkout {
     align-items: center;

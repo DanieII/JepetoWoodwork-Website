@@ -40,15 +40,11 @@ class OrderAdmin(admin.ModelAdmin):
             )
             product_link = f'<a href="{product_url}">{product.product.name}</a>'
             result.append(
-                f"{product.quantity} {product_link} for ${product.product_total}"
+                f"{product.quantity} {product_link} за {product.product_total} лв."
             )
 
         return mark_safe(", ".join(result))
 
     @staticmethod
     def total(order):
-        return "$" + str(
-            sum(
-                float(product.product_total) for product in order.orderproduct_set.all()
-            )
-        )
+        return f"{order.total_price} лв."

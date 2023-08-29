@@ -109,7 +109,7 @@ USE_I18N = True
 USE_TZ = True
 
 
-STATIC_ROOT = os.getenv("STATIC_ROOT", os.path.join(BASE_DIR, "staticfiles"))
+STATIC_ROOT = os.path.join(os.getenv("STATIC_ROOT", BASE_DIR), "staticfiles")
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
@@ -132,7 +132,7 @@ AUTHENTICATION_BACKENDS = [
 
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = os.path.join(os.getenv("MEDIA_ROOT", BASE_DIR), "media")
 
 AUTH_USER_MODEL = "users.CustomUser"
 
@@ -146,3 +146,5 @@ MESSAGE_TAGS = {
     messages.WARNING: "alert-warning",
     messages.ERROR: "alert-danger",
 }
+
+PHONENUMBER_DEFAULT_REGION = "BG"

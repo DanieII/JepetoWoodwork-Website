@@ -1,6 +1,6 @@
 let prevScrollPos = window.pageYOffset;
 const nav = document.querySelector("nav");
-const navHeight = nav.height;
+const navHeight = nav.offsetHeight;
 const navbar = document.querySelector(".nav-wrapper");
 const navMenu = document.querySelector(".navigation-menu");
 const backToTopArrow = document.querySelector(".back-to-top");

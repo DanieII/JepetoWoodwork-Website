@@ -20,6 +20,11 @@
                                 </p>
                             </li>
                         {% endfor %}
+                        {% if order.delivery_type == "courier" %}
+                            <li>
+                                <p>Куриер - 7.00 лв.</p>
+                            </li>
+                        {% endif %}
                     </ul>
                     <p>Общо: {{ order.total_price|floatformat:2 }} лв.</p>
                 </div>

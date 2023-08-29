@@ -24,8 +24,20 @@ class OrderForm(BaseOrderForm):
     save_information = forms.BooleanField(
         initial=False,
         required=False,
-        label="Запази/Поднови информацията за бъдещи поръчки",
+        label="Запази/Поднови информацията за бъдещи поръчки.",
     )
+    agree_with_terms_of_use = forms.BooleanField(
+        required=True, label="Запознат съм и съм съгласен с правила и условия на сайта."
+    )
+
+    def clean_agree_with_terms_of_use(self):
+        agreed = self.cleaned_data.get("agree_with_terms_of_use")
+        if not agreed:
+            raise forms.ValidationError(
+                "Трябва да се съгласите с правилата на сайта, преди да поръчате"
+            )
+
+        return agreed
 
 
 class EditSavedCheckoutInformationForm(BaseOrderForm):

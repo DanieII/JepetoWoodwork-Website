@@ -34,7 +34,7 @@
 }
 
 .price-range input {
-  width: 128px;
+  width: 50%;
 }
 
 .price-range-hyphen {
@@ -153,6 +153,7 @@
 
   .filters {
     width: fit-content;
+    max-width: 90vw;
     align-self: center;
   }
 

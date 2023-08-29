@@ -14,7 +14,7 @@
                 {% csrf_token %}
                 {% for field in form %}
                     {% if field.errors %}{{ field.errors }}{% endif %}
-                    {% if forloop.last %}
+                    {% if field.field.widget.input_type == "checkbox" %}
                         <label for="{{ field.id_for_label }}" class="checkbox-label">
                             {{ field }}
                             {{ field.label }}
@@ -23,6 +23,9 @@
                         {{ field }}
                     {% endif %}
                 {% endfor %}
+                <p>
+                    Вашите лични данни ще бъдат използвани за обработване на поръчката и за целите, посочени в нашата <a href="{% url 'privacy_policy' %}">политика за поверителност</a>.
+                </p>
                 <button type="submit" class="button">Поръчай</button>
             </form>
         </div>

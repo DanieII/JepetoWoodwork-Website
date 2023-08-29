@@ -32,7 +32,10 @@ class Order(models.Model):
         verbose_name="Апартамент, блок и т.н",
     )
     postal_code = models.IntegerField(verbose_name="Пощенски код")
-    phone_number = PhoneNumberField(verbose_name="Телефонен номер")
+    phone_number = PhoneNumberField(
+        verbose_name="Телефонен номер",
+        error_messages={"invalid": "Въведете валиден телефонен номер"},
+    )
     email = models.EmailField(verbose_name="Имейл")
     delivery_type = models.CharField(
         max_length=100, choices=DELIVERY_CHOICES, default=""

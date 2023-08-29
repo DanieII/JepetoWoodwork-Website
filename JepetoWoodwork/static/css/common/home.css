@@ -20,6 +20,8 @@
 .banner div p {
   color: var(--light);
   font-size: 20px;
+  text-align: center;
+  margin: 10px;
 }
 
 .banner div a {

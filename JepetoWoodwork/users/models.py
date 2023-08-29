@@ -38,7 +38,12 @@ class CustomUserManager(BaseUserManager):
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True, blank=True, null=True)
-    phone_number = PhoneNumberField(unique=True, null=True, blank=True)
+    phone_number = PhoneNumberField(
+        unique=True,
+        null=True,
+        blank=True,
+        error_messages={"invalid": "Въведете валиден телефонен номер"},
+    )
     date_joined = models.DateTimeField(auto_now=True)
     is_staff = models.BooleanField(default=False)
 
