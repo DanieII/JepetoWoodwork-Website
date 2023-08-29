@@ -1,6 +1,6 @@
 # WoodenWonders-Website
 
-An e-commerce website for wooden products. Made with Django, HTML, CSS and Javascript.
+An e-commerce website for wooden products. Made with Django, HTML, CSS and JavaScript.
 
 ## Deployed to AWS 🚀
-[Go to website](http://woodenwonders.ddns.net/)
+[Go to website](http://jepeto-test.ddns.net/)
