@@ -1,0 +1,21 @@
+from django.contrib.sitemaps import Sitemap
+from .models import Product, Category
+
+
+class ProductSitemap(Sitemap):
+    changefreq = "monthly"
+    priority = 0.9
+
+    def items(self):
+        return Product.objects.all()
+
+    def lastmod(self, obj):
+        return obj.modified
+
+
+class ProductCategorySitemap(Sitemap):
+    changefreq = "montly"
+    priority = 1
+
+    def items(self):
+        return Category.objects.all()

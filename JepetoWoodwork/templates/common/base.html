@@ -4,16 +4,29 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="description"
+              property="og:description"
+              content="{% block meta_description %}Jepeto Woodwork предлага ръчно изработени бутикови продукти от масивна дървесина.  Всички наши изделия са с уникален дизайн и модерна визия - стилен акцент за всеки дом.  За нас качеството и вниманието към детайла са на първо място.{% endblock %}">
+        <meta name="keywords"
+              content="{% block meta_keywords %}дърво, дървени продукти, купи, дъски за сервиране, кутии за бижута, кутии, маси, мебели, химикалки, ръчна изработка, смола{% endblock %}">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+        {% block meta %}
+          <meta property="og:title" content="Jepeto Woodwork | Ръчно изработени бутикови продукти от масивна дървесина">
+          <meta property="og:type" content="website">
+          <meta property="og:image" content="{% static "images/jepeto-logo.png" %}">
+          <meta property="og:description" content="Jepeto Woodwork предлага ръчно изработени бутикови продукти от масивна дървесина.  Всички наши изделия са с уникален дизайн и модерна визия - стилен акцент за всеки дом.  За нас качеството и вниманието към детайла са на първо място.">
+        {% endblock %}
+        <title>
+            {% block title %}Jepeto Woodwork | Ръчно изработени бутикови продукти от масивна дървесина{% endblock %}
+        </title>
         <link rel="apple-touch-icon" sizes="180x180" href="{% static "images/apple-touch-icon.png" %}">
         <link rel="icon" type="image/png" sizes="32x32" href="{% static "images/favicon-32x32.png" %}">
         <link rel="icon" type="image/png" sizes="16x16" href="{% static "images/favicon-16x16.png" %}">
         <link rel="manifest" href="{% static "/site.webmanifest" %}">
         <link rel="mask-icon" href="{% static "images/safari-pinned-tab.svg" %}" color="#5bbad5">
-        <meta name="msapplication-TileColor" content="#da532c">
-        <meta name="theme-color" content="#ffffff">
-        <title>
-            {% block title %}Jepeto Woodwork | Ръчно изработени бутикови продукти от масивна дървесина{% endblock %}
-        </title>
         <link rel="stylesheet" href="{% static "css/bootstrap-alerts/bootstrap.css" %}">
         <link rel="stylesheet" href="{% static 'css/common/base.css' %}">
         <link rel="icon" href="{% static "images/light-jepeto-logo.png" %}" type="image/x-icon">

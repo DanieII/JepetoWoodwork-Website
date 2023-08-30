@@ -1,5 +1,17 @@
 {% extends 'common/base.html' %}
 {% load static %}
+{% block meta_description %}
+    {% with category=request.resolver_match.kwargs.category %}
+        Битови продукти от масивна дървесинa
+        {% if category %}- {{ category }}{% endif %}
+    {% endwith %}
+{% endblock %}
+{% block meta_keywords %}
+    {% with category=request.resolver_match.kwargs.category %}
+        масивна дървесина, дърввени продукти
+        {% if category %}, {{ category }}{% endif %}
+    {% endwith %}
+{% endblock %}
 {% block title %}Продукти | Jepeto Woodwork{% endblock %}
 {% block styles %}
     <link rel="stylesheet" href="{% static 'css/products/products.css' %}">

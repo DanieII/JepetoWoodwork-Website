@@ -19,7 +19,7 @@ def create_images_for_product(model, product, image_urls):
     session = requests.session()
     for url in image_urls:
         response = session.get(url, headers=headers)
-        img_name = f"{product.name}.jpg"
+        img_name = f"{product.slug}.jpg"
         img_data = BytesIO(response.content)
         image_file = File(img_data, name=img_name)
         product_image = model(product=product, image=image_file)

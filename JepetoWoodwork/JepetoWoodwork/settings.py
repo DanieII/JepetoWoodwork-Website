@@ -26,6 +26,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
+    "django.contrib.sitemaps",
     # Third Party
     "phonenumber_field",
     # Project
@@ -148,3 +150,5 @@ MESSAGE_TAGS = {
 }
 
 PHONENUMBER_DEFAULT_REGION = "BG"
+
+SITE_ID = 2

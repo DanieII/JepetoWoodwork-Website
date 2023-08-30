@@ -1,5 +1,6 @@
 from django.core.validators import MinValueValidator
 from django.db import models
+from django.urls import reverse
 from django.utils.text import slugify
 from .validators import validate_first_character
 from django.contrib.auth import get_user_model
@@ -18,6 +19,7 @@ class Product(models.Model):
     pre_order = models.BooleanField(default=False)
     slug = models.SlugField(unique=True, null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
 
     @property
     def available(self):
@@ -42,6 +44,9 @@ class Product(models.Model):
             self.slug = f"{slugify(ascii_name)}-{self.id}"
 
         super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse("product_details", kwargs={"slug": self.slug})
 
     class Meta:
         ordering = ["-date_added"]

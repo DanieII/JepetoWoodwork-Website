@@ -2,6 +2,50 @@
 {% load static %}
 {% load common_filters %}
 {% load stars_filters %}
+{% block meta_description %}
+  {{ object.description|striptags }}
+{% endblock %}
+{% block meta_keywords %}
+  {% with categories=object.categories.all|join:", " %}
+      дървен, дървена, ръчна изработка, {{object.name}}, {{ categories }}
+  {% endwith %}
+{% endblock %}
+{% block meta %}
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org/",
+      "@type": "Product",
+      "name": "{{ object.name }}",
+      "image": "{{ product.thumbnail_image_url }}",
+      "description": "{{ object.description|striptags }}",
+      "brand": {
+            "@type": "Brand",
+            "name": "JepetoWoodwork"
+        },
+      "offers": {
+            "@type": "Offer",
+            "price": "{{ object.price }}",
+            "priceCurrency": "BGN",
+            "availability": "{{ object.available }}"
+        },
+       "url": "{{ request.build_absolute_uri }}"
+    }
+    </script>
+      <meta itemprop="name" content="{{object.name}}"> 
+      <meta itemprop="description" content="{{object.description|striptags}}"> 
+      <meta itemprop="image" content="{{object.thumbnail_image_url}}"> 
+      <meta property="og:title" content="{{object.name}}">
+      <meta property="og:type" content="product.item">
+      <meta property="og:url" content="{{request.build_absolute_uri}}">
+      <meta property="og:image" content="{{object.thumbnail_image_url}}">
+      <meta property="og:site_name" content="JepetoWoodwork.eu">
+      <meta property="og:price:amount" content="{{ object.price }}">
+      <meta property="og:price:currency" content="BGN">
+      <meta property="product:condition" content="new">
+      <meta property="product:availability" content="{{ object.available }}">
+      <meta property="product:price:amount" content="{{ object.price }}">
+      <meta property="product:price:currency" content="BGN">
+{% endblock %}
 {% block title %}{{ object.name }} | Jepeto Woodwork{% endblock %}
 {% block styles %}
     <link rel="stylesheet" href="{% static "css/bootstrap-carousel/bootstrap.min.css" %}">
