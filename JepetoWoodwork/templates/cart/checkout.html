@@ -1,15 +1,19 @@
 {% extends "common/base.html" %}
 {% load static %}
 {% load product_filters %}
-{% block title %}Приключване на поръчка| Jepeto Woodwork{% endblock %}
+{% block meta_description %}
+    Завършете поръчката си за ръчно изработени продукти от Jepeto Woodwork. Въведете необходимите данни за доставка за успешно приключване на поръчката си.
+{% endblock %}
+{% block meta_keywords %}поръчка, ръчно изработени продукти, доставка, плащане, завършване на поръчка{% endblock %}
+{% block title %}Завършване на поръчка| Jepeto Woodwork{% endblock %}
 {% block styles %}
     <link rel="stylesheet" href="{% static 'css/cart/checkout.css' %}">
 {% endblock %}
 {% block content %}
-    <h1 class="title">Приключване на поръчка</h1>
+    <h1 class="title">Завършване на поръчка</h1>
     <div class="checkout">
         <div class="checkout-information">
-            <h3>Информация за поръчване</h3>
+            <h3>Информация за поръчка</h3>
             <form method="post" action="{% url 'checkout' %}" class="form">
                 {% csrf_token %}
                 {% for field in form %}
@@ -30,7 +34,7 @@
             </form>
         </div>
         <div class="order-information-wrapper">
-            <h3>Информация за поръчка</h3>
+            <h3>Количка</h3>
             <div class="order-information light-box">
                 {% for product, quantity in cart_products.items %}
                     <p>

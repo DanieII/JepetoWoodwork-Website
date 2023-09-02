@@ -1,3 +1,4 @@
+from django.contrib.auth.views import login_required
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect, render
 from .forms import EditSavedCheckoutInformationForm, OrderForm
@@ -11,6 +12,7 @@ from .helper_functions import (
     get_total_price,
     process_cart_quantity,
     get_user_saved_checkout_information,
+    set_saved_checkout_information_values,
 )
 from django.contrib import messages
 from .mixins import FillOrderFormMixin
@@ -78,18 +80,26 @@ class CheckoutView(FillOrderFormMixin, LoginRequiredMixin, CreateView):
 
     def handle_save_information(self, save, order):
         if save:
-            (
-                checkout_information,
-                saved,
-            ) = SavedCheckoutInformation.objects.get_or_create(
-                user=self.request.user, order=order
+            saved_checkout_information = get_user_saved_checkout_information(
+                self.request
             )
+            message = "Информацията за поръчки е запазена"
+            if saved_checkout_information:
+                message = "Информацията за поръчки е подновена"
+                saved_checkout_information.delete()
 
-            if saved:
-                message = "Информацията за поръчване е запазена"
-            else:
-                message = "Информацията за поръчване е подновена"
-                checkout_information.order = order
+            SavedCheckoutInformation.objects.create(
+                user=self.request.user,
+                first_name=order.first_name,
+                last_name=order.last_name,
+                city=order.city,
+                address=order.address,
+                apartment_building=order.apartment_building,
+                postal_code=order.postal_code,
+                phone_number=order.phone_number,
+                email=order.email,
+                delivery_type=order.delivery_type,
+            )
 
             messages.success(self.request, message)
 
@@ -135,12 +145,14 @@ class CheckoutView(FillOrderFormMixin, LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class SavedCheckoutInformationView(SuccessMessageMixin, FillOrderFormMixin, UpdateView):
+class SavedCheckoutInformationView(
+    LoginRequiredMixin, SuccessMessageMixin, FillOrderFormMixin, UpdateView
+):
     model = SavedCheckoutInformation
     form_class = EditSavedCheckoutInformationForm
     template_name = "users/saved-checkout-information.html"
     success_url = reverse_lazy("saved_checkout_information")
-    success_message = "Информацията е подновена"
+    success_message = "Информацията за поръчки е подновена"
 
     def dispatch(self, request, *args, **kwargs):
         self.saved_checkout_information = get_user_saved_checkout_information(request)
@@ -149,15 +161,11 @@ class SavedCheckoutInformationView(SuccessMessageMixin, FillOrderFormMixin, Upda
 
         return super().dispatch(request, *args, **kwargs)
 
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        print(kwargs)
-        return kwargs
-
     def get_object(self, *args, **kwargs):
         return self.saved_checkout_information
 
 
+@login_required
 def delete_saved_checkout_information_view(request):
     checkout_information = get_user_saved_checkout_information(request)
 

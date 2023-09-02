@@ -12,8 +12,8 @@ services:
     env_file:
       - ./.env
     volumes:
-      - /tmp/jepetowoodwork/staticfiles:/app/staticfiles
-      - /tmp/jepetowoodwork/media:/app/media
+      - /home/ubuntu/app/staticfiles:/app/staticfiles
+      - /home/ubuntu/app/media:/app/media
     depends_on:
       - db
 
@@ -38,8 +38,8 @@ services:
       - "81:80"
       - "443:443"
     volumes:
-      - /tmp/jepetowoodwork/staticfiles:/app/staticfiles
-      - /tmp/jepetowoodwork/media:/app/media
+      - /home/ubuntu/app/staticfiles:/app/staticfiles
+      - /home/ubuntu/app/media:/app/media
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./certbot/www:/var/www/certbot/:ro
       - ./certbot/conf/:/etc/nginx/ssl/:ro

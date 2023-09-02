@@ -2,17 +2,27 @@
 {% load static %}
 {% block meta_description %}
     {% with category=request.resolver_match.kwargs.category %}
-        Битови продукти от масивна дървесинa
-        {% if category %}- {{ category }}{% endif %}
+        Изберете най-добрите битови продукти от масивна дървесина за вашия дом. Ръчно изработени дъски за сервиране, кутии, кутии за бижута, купи и други.
+        {% if category %}Разгледайте {{ category }} и още.{% endif %}
     {% endwith %}
 {% endblock %}
 {% block meta_keywords %}
     {% with category=request.resolver_match.kwargs.category %}
-        масивна дървесина, дърввени продукти
-        {% if category %}, {{ category }}{% endif %}
+        масивна дървесина, дървени продукти, дървен, дървена, ръчно, ръзна изработка,
+        {% if category %}
+            , {{ category }}
+        {% else %}
+            , аксесоари, кутии за бижута, маси, мебели, дъски за сервиране, купи, кутии, промоционални, химикалки
+        {% endif %}
     {% endwith %}
 {% endblock %}
-{% block title %}Продукти | Jepeto Woodwork{% endblock %}
+{% block title %}
+    {% with category=request.resolver_match.kwargs.category %}
+        Битови продукти от масивна дървесина
+        {% if category %}- {{ category }}{% endif %}
+        | Jepeto Woodwork
+    {% endwith %}
+{% endblock %}
 {% block styles %}
     <link rel="stylesheet" href="{% static 'css/products/products.css' %}">
     <link rel="stylesheet" href="{% static 'css/products/products-list.css' %}">

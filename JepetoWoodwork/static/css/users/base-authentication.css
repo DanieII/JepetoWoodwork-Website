@@ -28,3 +28,8 @@ main > p a {
 .username-fields * {
   color: var(--dark-wood);
 }
+
+.forgot-password {
+  margin-top: -15px;
+  text-decoration: none;
+}

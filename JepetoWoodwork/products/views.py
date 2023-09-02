@@ -129,9 +129,9 @@ def delete_review_view(request, pk):
 
     if review.user == request.user:
         review.delete()
+        messages.success(request, "Отзивът е изтрит")
 
     product_slug = review.product.slug
     product_details_url = reverse("product_details", kwargs={"slug": product_slug})
-    messages.success(request, "Отзивът е изтрит")
 
     return redirect(product_details_url)

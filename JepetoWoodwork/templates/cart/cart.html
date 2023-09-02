@@ -1,6 +1,12 @@
 {% extends 'common/base.html' %}
 {% load static %}
 {% load product_filters %}
+{% block meta_description %}
+    Вашата кошница с продукти в Jepeto Woodwork. Преглед на продуктите, които сте добавили към вашата кошница. Пригответе се за следващата стъпка в онлайн пазаруването с най-новите дизайни и стилни ръчно изработени продукти от масивна дървесина.
+{% endblock %}
+{% block meta_keywords %}
+    кошница, пазаруване, продукти, добавени продукти, ръчно изработени, масивна дървесина, онлайн магазин, дървени изделия, електронна кошница
+{% endblock %}
 {% block title %}Количка | Jepeto Woodwork{% endblock %}
 {% block styles %}
     <link rel="stylesheet" href="{% static 'css/cart/cart.css' %}">
@@ -38,7 +44,7 @@
         </div>
         <div>
             <h3>{{ total_price|floatformat:2 }} лв.</h3>
-            <a href="{% url "checkout" %}">Приключване на поръчката</a>
+            <a href="{% url "checkout" %}">Завършване на поръчката</a>
         </div>
     {% else %}
         <h1 class="title">Няма продукти в количката</h1>

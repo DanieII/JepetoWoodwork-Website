@@ -1,9 +1,15 @@
 {% extends "common/base.html" %}
 {% load static %}
+{% block meta_description %}
+    Преглед и управление на вашите запазени данни за доставка и плащане в Jepeto Woodwork. Улеснете бъдещите си поръчки с предварително попълнени данни.
+{% endblock %}
+{% block meta_keywords %}
+    запазени данни за доставка, запазени данни за плащане, управление на данни, бъдещи поръчки, лесни поръчки
+{% endblock %}
 {% block styles %}
     <link rel="stylesheet" href="{% static "css/users/saved-checkout-information.css" %}">
 {% endblock %}
-{% block title %}Запазена информация| WoodenWonders{% endblock %}
+{% block title %}Запазена информация за поръчка | Jepeto Woodwork{% endblock %}
 {% block content %}
     {% include "users/base-details.html" %}
     <div class="saved-checkout-information light-box">

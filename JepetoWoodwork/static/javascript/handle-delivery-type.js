@@ -38,12 +38,15 @@ function removeCourierPrice() {
   }
 }
 
-deliverySelect.addEventListener("change", function (event) {
-  const selectedValue = event.target.value;
+function handleDeliveryType() {
+  const selectedValue = deliverySelect.value;
 
   if (selectedValue === "courier") {
     addCourierPrice();
   } else {
     removeCourierPrice();
   }
-});
+}
+
+document.addEventListener("DOMContentLoaded", handleDeliveryType);
+deliverySelect.addEventListener("change", handleDeliveryType);

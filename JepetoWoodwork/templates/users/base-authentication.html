@@ -53,4 +53,5 @@
             Вече имаш профил? <a href="{% url 'login' %}?{{ request.META.QUERY_STRING }}">Влизане в профил</a>
         </p>
     {% endif %}
+    <a href="{% url 'password_reset' %}" class="forgot-password">Забравена парола?</a>
 {% endblock %}

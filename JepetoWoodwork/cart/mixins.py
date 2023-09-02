@@ -10,9 +10,11 @@ class FillOrderFormMixin:
         )
 
         if saved_checkout_information_obj:
-            order = saved_checkout_information_obj.order
             initial_values.update(
-                {field.name: getattr(order, field.name) for field in order._meta.fields}
+                {
+                    field.name: getattr(saved_checkout_information_obj, field.name)
+                    for field in saved_checkout_information_obj._meta.fields
+                }
             )
 
         user_contacts = {

@@ -46,6 +46,9 @@
       <meta property="product:price:amount" content="{{ object.price }}">
       <meta property="product:price:currency" content="BGN">
 {% endblock %}
+{% block meta_image %}
+  {{object.thumbnail_image_url}} 
+{% endblock %}
 {% block title %}{{ object.name }} | Jepeto Woodwork{% endblock %}
 {% block styles %}
     <link rel="stylesheet" href="{% static "css/bootstrap-carousel/bootstrap.min.css" %}">

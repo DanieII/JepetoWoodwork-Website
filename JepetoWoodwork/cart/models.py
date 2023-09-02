@@ -71,4 +71,15 @@ class OrderProduct(models.Model):
 
 class SavedCheckoutInformation(models.Model):
     user = models.OneToOneField(UserModel, on_delete=models.CASCADE)
-    order = models.OneToOneField(Order, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    address = models.CharField(max_length=100)
+    apartment_building = models.CharField(
+        max_length=100,
+        null=True,
+    )
+    postal_code = models.IntegerField()
+    phone_number = PhoneNumberField()
+    email = models.EmailField()
+    delivery_type = models.CharField(max_length=100)
