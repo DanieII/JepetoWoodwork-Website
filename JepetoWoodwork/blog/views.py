@@ -1,3 +1,4 @@
+from django.contrib.auth.views import login_required
 from django.views.generic import ListView, DetailView
 from django.views.generic.base import reverse
 from django.shortcuts import redirect
@@ -25,6 +26,7 @@ class BlogDetails(HandleSendAndRetrieveLoginRequiredFormInformationMixin, Detail
         return {"user": self.request.user, "blog": self.get_object()}
 
 
+@login_required
 def delete_comment_view(request, pk):
     comment = BlogComment.objects.get(pk=pk)
 

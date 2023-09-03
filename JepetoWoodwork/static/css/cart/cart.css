@@ -28,10 +28,12 @@ a {
   gap: 10px;
 }
 
-.quantity a {
+.quantity button {
   color: var(--dark-wood);
-
-  font-size: 25px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
 }
 
 .cart-product .container {

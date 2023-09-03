@@ -8,3 +8,7 @@
 .heart-parent {
   position: relative;
 }
+
+button.wishlist-heart {
+  border: none;
+}

@@ -37,11 +37,3 @@ def get_user_saved_checkout_information(request):
         return checkout_information
     except (ObjectDoesNotExist, AttributeError):
         return None
-
-
-def set_saved_checkout_information_values(saved_checkout_information, fields):
-    for k, v in fields.items():
-        if getattr(saved_checkout_information, k):
-            setattr(saved_checkout_information, k, v)
-
-    return saved_checkout_information

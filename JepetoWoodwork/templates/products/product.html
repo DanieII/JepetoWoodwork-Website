@@ -17,5 +17,11 @@
         <p class="product-name">{{ product.name }}</p>
     </a>
     <p class="product-price">{{ product.price|floatformat:2 }} лв.</p>
-    <a href="{% url 'add_to_cart' slug=product.slug %}" class="button"><i class="fa-solid fa-cart-shopping"></i> Добави</a>
+    <form method="post" action="{% url 'add_to_cart' slug=product.slug %}">
+        {% csrf_token %}
+        <input type="hidden" name="redirect_to" value="{{ request.path }}">
+        <button type="submit" class="button">
+            <i class="fa-solid fa-cart-shopping"></i> Добави
+        </button>
+    </form>
 </div>

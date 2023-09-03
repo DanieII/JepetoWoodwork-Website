@@ -1,6 +1,5 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from products.models import Product
-from wishlist.models import Wishlist
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
@@ -8,17 +7,22 @@ from django.views.generic import ListView
 
 @login_required
 def handle_heart_button(request, slug):
-    wishlist = request.user.wishlist
-    product = Product.objects.get(slug=slug)
+    url = request.POST.get("redirect_to")
 
-    if product in wishlist.products.all():
-        wishlist.products.remove(product)
-    else:
-        wishlist.products.add(product)
+    if url:
+        wishlist = request.user.wishlist
+        product = Product.objects.get(slug=slug)
 
-    wishlist.save()
+        if product in wishlist.products.all():
+            wishlist.products.remove(product)
+        else:
+            wishlist.products.add(product)
 
-    return redirect(request.META.get("HTTP_REFERER"))
+        wishlist.save()
+
+        return redirect(url)
+
+    return redirect("home")
 
 
 class WishListView(LoginRequiredMixin, ListView):

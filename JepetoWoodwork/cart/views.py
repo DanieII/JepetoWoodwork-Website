@@ -12,34 +12,37 @@ from .helper_functions import (
     get_total_price,
     process_cart_quantity,
     get_user_saved_checkout_information,
-    set_saved_checkout_information_values,
 )
 from django.contrib import messages
 from .mixins import FillOrderFormMixin
 
 
 def add_to_cart(request, slug, quantity=1):
-    cart = request.session.get("cart", {})
-    product = Product.objects.get(slug=slug)
-    url = request.META.get("HTTP_REFERER")
-    current_filled_quantity = cart.get(slug, 0)
+    url = request.POST.get("redirect_to")
 
-    if not product.pre_order:
-        if (
-            product.quantity <= 0
-            or product.quantity - (current_filled_quantity + quantity) < 0
-        ):
-            messages.warning(request, f"{product.name} не е наличен продукт")
-            return redirect(url)
+    if url:
+        cart = request.session.get("cart", {})
+        product = Product.objects.get(slug=slug)
+        current_filled_quantity = cart.get(slug, 0)
 
-    if not current_filled_quantity:
-        cart[slug] = 0
+        if not product.pre_order:
+            if (
+                product.quantity <= 0
+                or product.quantity - (current_filled_quantity + quantity) < 0
+            ):
+                messages.warning(request, f"{product.name} не е наличен продукт")
+                return redirect(url)
 
-    request.session["cart"] = process_cart_quantity(
-        slug, product, quantity, cart, product.pre_order
-    )
+        if not current_filled_quantity:
+            cart[slug] = 0
 
-    return redirect(url)
+        request.session["cart"] = process_cart_quantity(
+            slug, product, quantity, cart, product.pre_order
+        )
+
+        return redirect(url)
+
+    return redirect("home")
 
 
 def cart(request):

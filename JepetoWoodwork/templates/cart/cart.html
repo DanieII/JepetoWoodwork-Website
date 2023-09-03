@@ -30,9 +30,17 @@
                             <p class="categories">{{ product.categories.all|join:", " }}</p>
                         </div>
                         <div class="quantity">
-                            <a href="{% url 'decrease_quantity' slug=product.slug %}">&minus;</a>
+                            <form method="post"
+                                  action="{% url 'decrease_quantity' slug=product.slug %}">
+                                {% csrf_token %}
+                                <button type="submit">&minus;</button>
+                            </form>
                             <p>{{ quantity }}</p>
-                            <a href="{% url "add_to_cart" slug=product.slug %}">&plus;</a>
+                            <form method="post" action="{% url 'add_to_cart' slug=product.slug %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="redirect_to" value="{{ request.path }}">
+                                <button type="submit">&plus;</button>
+                            </form>
                         </div>
                         <div>
                             <p>{{ product.price|calculate_total_price:quantity }} лв.</p>
