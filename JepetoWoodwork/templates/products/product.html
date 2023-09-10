@@ -10,6 +10,7 @@
         <a href="{% url 'product_details' slug=product.slug %}">
             <img src="{{ product.thumbnail_image_url }}"
                  alt="{{ product.name }}"
+                 loading="lazy"
                  class="image" />
         </a>
     </div>

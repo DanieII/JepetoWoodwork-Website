@@ -113,22 +113,37 @@
                          alt="jepeto logo"
                          class="jepeto-logo">
                 </a>
-                <ul>
-                    <li>
-                        <a href="{% url 'about_us' %}">За нас</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'faq' %}">Често задавани въпроси</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'privacy_policy' %}">Политика за поверителност</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'terms_of_use' %}">Условия за ползване</a>
-                    </li>
-                </ul>
+              <div>
+                  <ul class="social">
+                    <li><a href="https://www.facebook.com/jepeto.woodwork"><i class="fa-brands fa-facebook"></i></a></li>
+                    <li><a href="https://www.instagram.com/jepeto.woodwork"><i class="fa-brands fa-instagram"></i></a></li>
+                    <li><a href="https://api.whatsapp.com/send?phone=359888861071"><i class="fa-brands fa-whatsapp"></i></a></li>
+                  </ul>
+                  <ul>
+                      <li>
+                          <a href="{% url 'about_us' %}">За нас</a>
+                      </li>
+                      <li>
+                          <a href="{% url 'faq' %}">Често задавани въпроси</a>
+                      </li>
+                      <li>
+                          <a href="{% url 'privacy_policy' %}">Политика за поверителност</a>
+                      </li>
+                      <li>
+                          <a href="{% url 'terms_of_use' %}">Условия за ползване</a>
+                      </li>
+                  </ul>
+                  <p class="copyright"></p>
+              </div>
             </footer>
         </div>
+        <script>
+          const date = new Date();
+          const currentYear = date.getFullYear();
+          const copyrightElement = document.querySelector(".copyright");
+          const copyrightMessage = `&copy; ${currentYear} Jepeto Woodwork`;
+          copyrightElement.innerHTML = copyrightMessage;
+        </script>
         <script src="{% static 'javascript/dropdown-menu.js' %}"></script>
         <script src="{% static 'javascript/hide-alerts.js' %}"></script>
         <script src="{% static "javascript/hide-show-navbar-and-arrow.js" %}"></script>

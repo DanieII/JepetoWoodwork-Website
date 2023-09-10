@@ -13,7 +13,12 @@
             <h2 class="title">Твоите поръчки</h2>
             {% for order in object_list %}
                 <div class="order light-box">
-                    <p class="created-on">Създадена на: {{ order.created_on|date:"m.d.Y" }}</p>
+                    <p class="additional-information">
+                        Създадена на: <span>{{ order.created_on|date:"m.d.Y" }}</span>
+                    </p>
+                    <p class="additional-information">
+                        Номер на поръчка: <span>{{ order.number }}</span>
+                    </p>
                     <ul class="orders">
                         {% for ordered_product in order.orderproduct_set.all %}
                             <li>

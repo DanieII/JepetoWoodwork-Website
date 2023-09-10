@@ -75,11 +75,11 @@ def remove_product(request, slug):
     return redirect(reverse("cart"))
 
 
-class CheckoutView(FillOrderFormMixin, LoginRequiredMixin, CreateView):
+class CheckoutView(LoginRequiredMixin, FillOrderFormMixin, CreateView):
     model = Order
     form_class = OrderForm
     template_name = "cart/checkout.html"
-    success_url = reverse_lazy("home")
+    success_url = reverse_lazy("user_orders")
 
     def handle_save_information(self, save, order):
         if save:

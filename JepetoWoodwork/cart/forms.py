@@ -8,7 +8,7 @@ class BaseOrderForm(OptionalFormFieldsMixin, forms.ModelForm):
 
     class Meta:
         model = Order
-        exclude = ["user", "created_on"]
+        exclude = ["user", "created_on", "number"]
         widgets = {"notes": forms.Textarea(attrs={"class": "notes"})}
 
     def __init__(self, *args, **kwargs):
@@ -43,4 +43,4 @@ class OrderForm(BaseOrderForm):
 class EditSavedCheckoutInformationForm(BaseOrderForm):
     class Meta:
         model = Order
-        exclude = ["user", "created_on", "notes"]
+        exclude = ["user", "created_on", "notes", "number"]

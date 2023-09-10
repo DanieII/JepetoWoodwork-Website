@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from products.models import Product
 from phonenumber_field.modelfields import PhoneNumberField
 from common.validators import only_letters_validator
+import uuid
 
 UserModel = get_user_model()
 
@@ -46,6 +47,12 @@ class Order(models.Model):
         blank=True,
     )
     created_on = models.DateTimeField(auto_now=True)
+    number = models.CharField(null=True, blank=True)
+
+    def save(self):
+        if not self.number:
+            self.number = uuid.uuid4().hex[:5]
+        return super().save()
 
     @property
     def total_price(self):

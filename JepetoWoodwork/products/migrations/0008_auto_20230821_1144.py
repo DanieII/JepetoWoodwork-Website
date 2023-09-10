@@ -102,8 +102,8 @@ def load_data(apps, schema_editor):
 
             product.save()
 
-            images = row.get("Изображения").split(", ")
-            create_images_for_product(ProductImage, product, images)
+            # images = row.get("Изображения").split(", ")
+            # create_images_for_product(ProductImage, product, images)
 
 
 class Migration(migrations.Migration):

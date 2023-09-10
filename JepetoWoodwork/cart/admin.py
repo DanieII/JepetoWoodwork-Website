@@ -18,6 +18,7 @@ class OrderAdmin(admin.ModelAdmin):
         "products",
         "total",
         "created_on",
+        "number",
     ]
     search_fields = ["first_name", "city"]
     search_help_text = "First Name or City"

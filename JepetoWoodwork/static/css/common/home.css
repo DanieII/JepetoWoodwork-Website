@@ -123,4 +123,8 @@ main {
   .main-wrapper {
     margin-top: 85px;
   }
+
+  .banner div p {
+    white-space: pre-line;
+  }
 }

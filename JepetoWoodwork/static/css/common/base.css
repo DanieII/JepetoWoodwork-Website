@@ -172,6 +172,7 @@ footer ul {
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
+  margin: 10px;
 }
 
 footer ul li {
@@ -357,6 +358,20 @@ nav .fa-cart-shopping[value=""]::after {
   display: block;
 }
 
+.social i {
+  font-size: 20px;
+}
+
+.social {
+  display: flex;
+  gap: 10px;
+}
+
+.copyright {
+  color: var(--lighter);
+  text-align: center;
+}
+
 @media screen and (max-width: 767px) {
   .hamburger {
     display: block;
@@ -385,6 +400,14 @@ nav .fa-cart-shopping[value=""]::after {
 
   .hamburger.active .bar:nth-child(3) {
     transform: translateY(-8px) rotate(-45deg);
+  }
+
+  footer {
+    flex-direction: column;
+  }
+
+  footer .jepeto-logo {
+    margin-left: 0;
   }
 
   .navigation-menu {
@@ -425,11 +448,6 @@ nav .fa-cart-shopping[value=""]::after {
 
   .main-wrapper {
     margin-top: 105px;
-  }
-
-  footer {
-    flex-direction: column;
-    gap: 0;
   }
 
   .action-menu {

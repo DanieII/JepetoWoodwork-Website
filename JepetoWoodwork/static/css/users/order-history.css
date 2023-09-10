@@ -19,8 +19,12 @@
   gap: 10px;
 }
 
-.created-on {
+.additional-information {
   text-align: center;
+}
+
+.additional-information span {
+  color: var(--caramel);
 }
 
 .order li {

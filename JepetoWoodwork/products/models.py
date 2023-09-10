@@ -5,6 +5,10 @@ from django.utils.text import slugify
 from .validators import validate_first_character
 from django.contrib.auth import get_user_model
 from unidecode import unidecode
+from PIL import Image, ImageOps
+from io import BytesIO
+from django.core.files import File
+import os
 
 
 UserModel = get_user_model()
@@ -55,6 +59,20 @@ class Product(models.Model):
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     image = models.ImageField(upload_to="product_images/")
+
+    def save(self, *args, **kwargs):
+        im = Image.open(self.image)
+        im = im.convert("RGB")
+        im = ImageOps.exif_transpose(im)
+        im_io = BytesIO()
+        im.save(im_io, "JPEG", quality=70)
+        new_image = File(im_io, name=self.image.name)
+
+        if os.path.isfile(self.image.path):
+            os.remove(self.image.path)
+
+        self.image = new_image
+        super().save(*args, **kwargs)
 
 
 class Category(models.Model):
