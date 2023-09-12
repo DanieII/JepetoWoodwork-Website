@@ -270,10 +270,12 @@ nav .fa-cart-shopping[value=""]::after {
   max-width: 100%;
 }
 
-.form *:not(button) {
+.form input,
+textarea {
+  min-width: 300px;
   padding: 5px;
   box-sizing: border-box;
-  max-width: 100%;
+  width: 100%;
 }
 
 .form button {

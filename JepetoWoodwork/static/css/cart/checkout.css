@@ -59,6 +59,11 @@ form p a {
   color: var(--caramel);
 }
 
+label input {
+  width: inherit !important;
+  min-width: inherit !important;
+}
+
 @media screen and (max-width: 767px) {
   .checkout {
     align-items: center;

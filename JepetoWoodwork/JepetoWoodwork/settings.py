@@ -15,8 +15,10 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = bool(int(os.getenv("DEBUG", 0)))
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split()
-CSRF_TRUSTED_ORIGINS = [f"http://{host}" for host in os.getenv("ALLOWED_HOSTS").split()]
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split()
+CSRF_TRUSTED_ORIGINS = [
+    f"http://{host}" for host in os.getenv("ALLOWED_HOSTS", "").split()
+]
 
 
 INSTALLED_APPS = [
@@ -88,7 +90,7 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+        "NAME": "common.validators.CustomMinLengthValidator",
     },
     {
         "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",

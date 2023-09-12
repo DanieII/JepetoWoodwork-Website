@@ -24,6 +24,7 @@ class Product(models.Model):
     slug = models.SlugField(unique=True, null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
+    special = models.BooleanField(default=False)
 
     @property
     def available(self):

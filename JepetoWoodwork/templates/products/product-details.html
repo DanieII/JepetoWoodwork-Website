@@ -124,6 +124,7 @@
                   action="{% url 'product_details' slug=object.slug %}"
                   class="add-to-cart">
                 {% csrf_token %}
+                <input type="hidden" name="redirect_to" value="{{request.path}}">
                 {{ form.quantity }}
                 <button type="submit" class="button"><i class="fa-solid fa-cart-shopping"></i> Добави</button>
             </form>
