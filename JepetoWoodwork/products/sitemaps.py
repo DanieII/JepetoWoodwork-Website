@@ -3,7 +3,7 @@ from .models import Product, Category
 
 
 class ProductSitemap(Sitemap):
-    changefreq = "monthly"
+    changefreq = "weekly"
     priority = 0.9
 
     def items(self):

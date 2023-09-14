@@ -22,6 +22,7 @@ h1,
 h2,
 h3,
 label {
+  word-break: break-all;
   color: var(--dark-wood);
 }
 
@@ -81,6 +82,10 @@ body {
   opacity: 1;
 }
 
+nav > * {
+  flex: 1;
+}
+
 .nav-wrapper.hidden {
   visibility: hidden;
   opacity: 0;
@@ -124,6 +129,12 @@ nav ul li a:active {
 
 .action-menu {
   margin-right: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.navigation-menu {
+  justify-content: center;
 }
 
 .navigation-menu a {
@@ -272,10 +283,10 @@ nav .fa-cart-shopping[value=""]::after {
 
 .form input,
 textarea {
-  min-width: 300px;
   padding: 5px;
   box-sizing: border-box;
   width: 100%;
+  max-width: 90vw;
 }
 
 .form button {
@@ -413,6 +424,7 @@ textarea {
   }
 
   .navigation-menu {
+    justify-content: initial;
     position: fixed;
     left: -100%;
     top: 85px;

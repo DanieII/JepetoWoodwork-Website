@@ -31,6 +31,9 @@
        "url": "{{ request.build_absolute_uri }}"
     }
     </script>
+      <meta name="twitter:title" content="{{object.name}} | Jepeto Woodwork">
+      <meta name="twitter:description" content="{{object.description|striptags}}">
+      <meta name="twitter:image" content="{{object.thumbnail_image_url}}">
       <meta itemprop="name" content="{{object.name}}"> 
       <meta itemprop="description" content="{{object.description|striptags}}"> 
       <meta itemprop="image" content="{{object.thumbnail_image_url}}"> 

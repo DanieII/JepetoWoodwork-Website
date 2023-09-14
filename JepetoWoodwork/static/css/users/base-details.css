@@ -30,6 +30,7 @@
 }
 
 .content {
+  text-align: center;
   align-self: center;
   display: flex;
   justify-content: center;
@@ -71,5 +72,9 @@
   }
   .profile-navigation li a {
     font-size: 16px;
+  }
+
+  .content {
+    margin: 5px;
   }
 }

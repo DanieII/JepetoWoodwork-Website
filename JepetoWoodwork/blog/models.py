@@ -11,6 +11,7 @@ class Blog(models.Model):
     content = models.TextField()
     image = models.ImageField(upload_to="blog_images")
     created_on = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
     slug = models.SlugField(max_length=200, blank=True)
 
     def save(self, *args, **kwargs):

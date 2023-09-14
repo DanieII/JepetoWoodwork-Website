@@ -21,8 +21,13 @@ from django.urls import path, include
 from django.contrib.sitemaps.views import sitemap
 from django.contrib.auth import views as auth_views
 from products.sitemaps import ProductCategorySitemap, ProductSitemap
+from blog.sitemaps import BlogSitemap
 
-sitemaps = {"products": ProductSitemap, "categories": ProductCategorySitemap}
+sitemaps = {
+    "products": ProductSitemap,
+    "categories": ProductCategorySitemap,
+    "blog": BlogSitemap,
+}
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -56,4 +61,7 @@ urlpatterns = [
         auth_views.PasswordResetCompleteView.as_view(),
         name="password_reset_complete",
     ),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

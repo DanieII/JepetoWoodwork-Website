@@ -10,6 +10,7 @@ from cart.views import add_to_cart
 from users.mixins import HandleSendAndRetrieveLoginRequiredFormInformationMixin
 from .helper_functions import get_last_viewed_products
 from django.contrib import messages
+from django.core.cache import cache
 
 
 class BaseProductsView(ListView):
@@ -17,11 +18,35 @@ class BaseProductsView(ListView):
     template_name = "products/products.html"
     paginate_by = 10
     extra_context = {"search_form": ProductSearchForm}
+    CATEGORIES_CACHE_KEY = "categories"
+    CATEGORIES_TTL = 60 * 10
+    PRODUCTS_CACHE_KEY = "products"
+    PRODUCTS_TTL = 60 * 10
+
+    def get_categories(self):
+        cache_key = BaseProductsView.CATEGORIES_CACHE_KEY
+        categories = cache.get(cache_key)
+
+        if not categories:
+            categories = [category.name for category in Category.objects.all()]
+            cache.set(cache_key, categories, BaseProductsView.CATEGORIES_TTL)
+
+        return categories
+
+    def get_queryset(self):
+        cache_key = BaseProductsView.PRODUCTS_CACHE_KEY
+        products = cache.get(cache_key)
+
+        if products is None:
+            products = super().get_queryset()
+            cache.set(cache_key, products, BaseProductsView.PRODUCTS_TTL)
+
+        return products
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(object_list=self.get_queryset())
         context["form"] = self.filter_form
-        context["categories"] = [category.name for category in Category.objects.all()]
+        context["categories"] = self.get_categories()
 
         return context
 
@@ -62,12 +87,25 @@ class ProductsView(BaseProductsView):
 
 
 class ProductsCategoryView(BaseProductsView):
+    PRODUCTS_CATEGORY_TTL = 60 * 10
+
+    def get_cache_key(self, category):
+        return "products_category_" + category
+
     def get_queryset(self):
         category = self.kwargs.get("category")
-        queryset = Product.objects.filter(categories__name=category)
-        queryset = self.perform_filtering(queryset)
+        cache_key = self.get_cache_key(category)
 
-        return queryset
+        products = cache.get(cache_key)
+
+        if not products:
+            all_products = super().get_queryset()
+            products = all_products.filter(categories__name=category)
+            cache.set(cache_key, products, ProductsCategoryView.PRODUCTS_CATEGORY_TTL)
+
+        products = self.perform_filtering(products)
+
+        return products
 
 
 class ProductDetailsView(
