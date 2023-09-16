@@ -1,7 +1,7 @@
 {% extends "common/base.html" %}
 {% load static %}
 {% block meta_description %}
-    {{ object.title }} - Четете интересна статия в блога на Jepeto Woodwork.{{ object.content|truncatechars:80 }}
+    {{ object.title }} - Четете интересна статия в блога на Jepeto Woodwork. {{ object.content|truncatechars:80 }}
 {% endblock %}
 {% block meta_keywords %}
     {% with title=object.title.split|join:", " %}блог, статия, съвети, масивна дървесина, {{ title }}{% endwith %}

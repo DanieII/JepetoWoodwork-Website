@@ -16,11 +16,6 @@ class ProductImageInline(admin.TabularInline):
         )
 
 
-@admin.register(ProductImage)
-class ProductImageAdmin(admin.ModelAdmin):
-    pass
-
-
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     inlines = [ProductImageInline]

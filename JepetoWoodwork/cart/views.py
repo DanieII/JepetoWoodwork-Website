@@ -15,6 +15,8 @@ from .helper_functions import (
 )
 from django.contrib import messages
 from .mixins import FillOrderFormMixin
+from django.contrib.auth.models import send_mail
+from django.conf import settings
 
 
 def add_to_cart(request, slug, quantity=1):
@@ -106,6 +108,19 @@ class CheckoutView(LoginRequiredMixin, FillOrderFormMixin, CreateView):
 
             messages.success(self.request, message)
 
+    def send_order_email(self, order):
+        host_email = settings.EMAIL_HOST_USER
+        host = self.request.META.get("HTTP_HOST", "jepetowoodwork.com")
+        order_details_url = reverse("admin:cart_order_change", args=[order.pk])
+        message = f"Нова поръчка е заявена: {host}{order_details_url}"
+
+        send_mail(
+            subject="Нова Поръчка",
+            message=message,
+            from_email=host_email,
+            recipient_list=[host_email],
+        )
+
     @property
     def user_has_products(self):
         return self.request.session.get("cart")
@@ -144,6 +159,7 @@ class CheckoutView(LoginRequiredMixin, FillOrderFormMixin, CreateView):
         self.handle_save_information(self.request.POST.get("save_information"), order)
 
         messages.success(self.request, "Поръчката е запазена")
+        self.send_order_email(order)
 
         return super().form_valid(form)
 

@@ -3,11 +3,11 @@
 }
 
 .filters {
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-inline: 20px;
   display: flex;
   flex-direction: column;
   height: fit-content;
+  min-width: 290px;
 }
 
 .search-field input {
@@ -44,10 +44,15 @@
 
 .price-range input {
   width: 100px;
+  flex-grow: 1;
 }
 
 .price-range-hyphen {
   margin: 0 5px;
+}
+
+.label-with-input {
+  width: 100%;
 }
 
 .label-with-input > label {
@@ -157,20 +162,18 @@
   }
 
   .products {
-    margin-top: 20px;
     justify-content: center !important;
   }
 
   .filters {
-    margin-left: 0;
-    margin-right: 0;
-    width: fit-content;
+    margin-top: 20px;
+    margin-inline: 0;
     max-width: 90vw;
     align-self: center;
   }
 
   .main-content {
-    flex-direction: column;
+    flex-direction: column-reverse;
     margin-left: 20px;
     margin-right: 20px;
   }

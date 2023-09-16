@@ -14,14 +14,20 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
 }
 
-.banner div p {
+.banner div h3 {
+  color: var(--light);
+  text-align: center;
+  word-break: break-word;
+  margin-inline: 10px;
+}
+
+.banner div h1 {
   color: var(--light);
   font-size: 20px;
   text-align: center;
-  margin: 10px;
 }
 
 .banner div a {
@@ -61,7 +67,7 @@ main {
   max-width: none;
 }
 
-.banner div p span {
+.banner div h1 span {
   display: inline-block;
   animation: waveAnimation 2.8s linear infinite;
 }
@@ -75,47 +81,47 @@ main {
   }
 }
 
-.banner div p span:nth-child(1) {
+.banner div h1 span:nth-child(1) {
   animation-delay: 0s;
 }
-.banner div p span:nth-child(2) {
+.banner div h1 span:nth-child(2) {
   animation-delay: 200ms;
 }
-.banner div p span:nth-child(3) {
+.banner div h1 span:nth-child(3) {
   animation-delay: 400ms;
 }
-.banner div p span:nth-child(4) {
+.banner div h1 span:nth-child(4) {
   animation-delay: 600ms;
 }
-.banner div p span:nth-child(5) {
+.banner div h1 span:nth-child(5) {
   animation-delay: 800ms;
 }
-.banner div p span:nth-child(6) {
+.banner div h1 span:nth-child(6) {
   animation-delay: 1000ms;
 }
 
-.banner div p span:nth-child(7) {
+.banner div h1 span:nth-child(7) {
   animation-delay: 1200ms;
 }
-.banner div p span:nth-child(8) {
+.banner div h1 span:nth-child(8) {
   animation-delay: 1400ms;
 }
-.banner div p span:nth-child(9) {
+.banner div h1 span:nth-child(9) {
   animation-delay: 1600ms;
 }
-.banner div p span:nth-child(10) {
+.banner div h1 span:nth-child(10) {
   animation-delay: 1800ms;
 }
-.banner div p span:nth-child(11) {
+.banner div h1 span:nth-child(11) {
   animation-delay: 2000ms;
 }
-.banner div p span:nth-child(12) {
+.banner div h1 span:nth-child(12) {
   animation-delay: 2200ms;
 }
-.banner div p span:nth-child(13) {
+.banner div h1 span:nth-child(13) {
   animation-delay: 2400ms;
 }
-.banner div p span:nth-child(14) {
+.banner div h1 span:nth-child(14) {
   animation-delay: 2600ms;
 }
 
@@ -124,7 +130,7 @@ main {
     margin-top: 85px;
   }
 
-  .banner div p {
+  .banner div h1 {
     white-space: pre-line;
   }
 }

@@ -11,8 +11,8 @@
   gap: 5%;
 }
 
-.checkout-information h3,
-.order-information-wrapper h3 {
+h3 {
+  text-align: center;
   margin-bottom: 10px;
 }
 
@@ -67,12 +67,13 @@ label input {
 @media screen and (max-width: 767px) {
   .checkout {
     align-items: center;
-    flex-direction: column;
+    flex-direction: column-reverse;
     gap: 20px;
   }
 
-  .checkout-information {
-    margin-left: 0;
+  .checkout-information,
+  .order-information {
+    margin-inline: 0;
   }
 
   .order-information-wrapper {
