@@ -125,10 +125,34 @@ class CheckoutView(LoginRequiredMixin, FillOrderFormMixin, CreateView):
     def user_has_products(self):
         return self.request.session.get("cart")
 
+    def validate_cart(self):
+        cart = self.request.session.get("cart")
+        new_cart = cart.copy()
+        valid = True
+
+        if cart:
+            for slug, quantity in cart.items():
+                product = Product.objects.get(slug=slug)
+
+                if not product.pre_order and (
+                    not product.available or (product.quantity - quantity < 0)
+                ):
+                    new_cart.pop(slug)
+                    valid = False
+
+        self.request.session["cart"] = new_cart
+        return valid
+
     def get(self, request, *args, **kwargs):
-        if self.user_has_products:
+        valid_cart = self.validate_cart()
+
+        if valid_cart:
             return super().get(request)
-        return redirect("products")
+
+        messages.warning(
+            self.request, "Някои продукти вече не са налични. Опитайте отново."
+        )
+        return redirect("cart")
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data()
