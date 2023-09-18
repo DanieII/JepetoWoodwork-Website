@@ -17,6 +17,7 @@ from django.contrib import messages
 from .mixins import FillOrderFormMixin
 from django.contrib.auth.models import send_mail
 from django.conf import settings
+from django.utils.html import format_html
 
 
 def add_to_cart(request, slug, quantity=1):
@@ -110,13 +111,15 @@ class CheckoutView(LoginRequiredMixin, FillOrderFormMixin, CreateView):
 
     def send_order_email(self, order):
         host_email = settings.EMAIL_HOST_USER
-        host = self.request.META.get("HTTP_HOST", "jepetowoodwork.com")
         order_details_url = reverse("admin:cart_order_change", args=[order.pk])
-        message = f"Нова поръчка е заявена: {host}{order_details_url}"
+        link_url = self.request.build_absolute_uri(order_details_url)
+        link_html = format_html('<a href="{}">Виж</a>', link_url)
+        message = f"Нова поръчка е направена: {link_html}"
 
         send_mail(
             subject="Нова Поръчка",
             message=message,
+            html_message=message,
             from_email=host_email,
             recipient_list=[host_email],
         )
@@ -143,11 +146,11 @@ class CheckoutView(LoginRequiredMixin, FillOrderFormMixin, CreateView):
         self.request.session["cart"] = new_cart
         return valid
 
-    def get(self, request, *args, **kwargs):
+    def dispatch(self, request, *args, **kwargs):
         valid_cart = self.validate_cart()
 
         if valid_cart:
-            return super().get(request)
+            return super().dispatch(request)
 
         messages.warning(
             self.request, "Някои продукти вече не са налични. Опитайте отново."
@@ -175,8 +178,11 @@ class CheckoutView(LoginRequiredMixin, FillOrderFormMixin, CreateView):
         cart = self.request.session["cart"]
         for product_slug, quantity in cart.items():
             product = Product.objects.get(slug=product_slug)
-            product.quantity -= quantity
-            product.save()
+
+            if not product.pre_order:
+                product.quantity -= quantity
+                product.save()
+
             OrderProduct.objects.create(order=order, product=product, quantity=quantity)
 
         self.request.session["cart"] = {}

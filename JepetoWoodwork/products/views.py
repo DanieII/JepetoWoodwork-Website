@@ -19,9 +19,9 @@ class BaseProductsView(ListView):
     paginate_by = 10
     extra_context = {"search_form": ProductSearchForm}
     CATEGORIES_CACHE_KEY = "categories"
-    CATEGORIES_TTL = 60 * 10
+    CATEGORIES_TTL = 60 * 60 * 24 * 7
     PRODUCTS_CACHE_KEY = "products"
-    PRODUCTS_TTL = 60 * 10
+    PRODUCTS_TTL = 60 * 60 * 24 * 7
 
     def get_categories(self):
         cache_key = BaseProductsView.CATEGORIES_CACHE_KEY
@@ -87,7 +87,7 @@ class ProductsView(BaseProductsView):
 
 
 class ProductsCategoryView(BaseProductsView):
-    PRODUCTS_CATEGORY_TTL = 60 * 10
+    PRODUCTS_CATEGORY_TTL = 60 * 60 * 24 * 7
 
     def get_cache_key(self, category):
         return "products_category_" + category
