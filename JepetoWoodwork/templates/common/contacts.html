@@ -1,5 +1,7 @@
 {% extends "common/base.html" %}
 {% load static %}
+{% load cache %}
+{% cache 604800 contacts %}
 {% block meta_description %}
     Свържете се с Jepeto Woodwork чрез нашата страница за контакти. Разберете как можете да се свържете с нас, да зададете въпроси или да получите информация за нашите продукти.ървени продукти
 {% endblock %}
@@ -12,7 +14,7 @@
 {% endblock %}
 {% block content %}
     <h1 class="title">Контакти</h1>
-    <div class="content">
+    <section class="content">
         <div class="contact-information">
             <h3>
                 <i class="fa-solid fa-location-dot"></i> Sofia
@@ -39,5 +41,6 @@
                 <button type="submit" class="button">Изпрати</button>
             </form>
         </div>
-    </div>
+    </section>
 {% endblock %}
+{% endcache %}

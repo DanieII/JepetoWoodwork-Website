@@ -2,6 +2,9 @@
 {% load static %}
 {% load common_filters %}
 {% load stars_filters %}
+{% load cache %}
+{% with object.slug as name %}
+{% cache 604800 name_meta using name %}
 {% block meta_description %}
   {{ object.description|striptags }}
 {% endblock %}
@@ -62,10 +65,14 @@
     <link rel="stylesheet" href="{% static "css/products/heart.css" %}">
     <link rel="stylesheet" href="{% static "css/lightbox/lightbox.min.css" %}">
 {% endblock %}
+{% endcache %}
+{% endwith %}
 {% block content %}
+{% with object.slug as name %}
     <div class="product-details">
         <div class="heart-parent">
             {% include "products/heart.html" %}
+            {% cache 604800 name_details using name %}
             <div id="carouselExampleIndicators"
                  class="carousel slide"
                  data-ride="carousel">
@@ -141,6 +148,8 @@
         </p>
     </div>
 </div>
+{% endcache %}
+{% endwith %}
 <div class="comments-reviews light-box">
     <h3>Отзиви</h3>
     <div class="review-content">

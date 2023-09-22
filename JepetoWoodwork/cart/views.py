@@ -18,14 +18,16 @@ from .mixins import FillOrderFormMixin
 from django.contrib.auth.models import send_mail
 from django.conf import settings
 from django.utils.html import format_html
+from products.helper_functions import get_products_queryset
 
 
 def add_to_cart(request, slug, quantity=1):
     url = request.POST.get("redirect_to")
 
     if url:
+        products = get_products_queryset()
+        product = products.get(slug=slug)
         cart = request.session.get("cart", {})
-        product = Product.objects.get(slug=slug)
         current_filled_quantity = cart.get(slug, 0)
 
         if not product.pre_order:
@@ -131,11 +133,12 @@ class CheckoutView(LoginRequiredMixin, FillOrderFormMixin, CreateView):
     def validate_cart(self):
         cart = self.request.session.get("cart")
         new_cart = cart.copy()
-        valid = True
+        valid = cart != {}
 
-        if cart:
+        if valid:
+            products = get_products_queryset()
             for slug, quantity in cart.items():
-                product = Product.objects.get(slug=slug)
+                product = products.get(slug=slug)
 
                 if not product.pre_order and (
                     not product.available or (product.quantity - quantity < 0)
@@ -153,7 +156,7 @@ class CheckoutView(LoginRequiredMixin, FillOrderFormMixin, CreateView):
             return super().dispatch(request)
 
         messages.warning(
-            self.request, "Някои продукти вече не са налични. Опитайте отново."
+            self.request, "Празна количка или неналични продукти. Опитайте отново."
         )
         return redirect("cart")
 
@@ -169,15 +172,16 @@ class CheckoutView(LoginRequiredMixin, FillOrderFormMixin, CreateView):
 
     def form_valid(self, form):
         if not self.user_has_products:
-            return redirect("products")
+            return redirect("cart")
 
         order = form.save(commit=False)
         order.user = self.request.user
         order.save()
 
         cart = self.request.session["cart"]
+        products = get_products_queryset()
         for product_slug, quantity in cart.items():
-            product = Product.objects.get(slug=product_slug)
+            product = products.get(slug=product_slug)
 
             if not product.pre_order:
                 product.quantity -= quantity

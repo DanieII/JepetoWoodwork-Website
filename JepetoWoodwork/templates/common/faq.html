@@ -1,5 +1,7 @@
 {% extends "common/base.html" %}
 {% load static %}
+{% load cache %}
+{% cache 604800 faq %}
 {% block meta_description %}
     Търсите отговори на въпроси за поръчки, доставка, гравиране и други? Научете повече в нашата секция "Често задавани въпроси".
 {% endblock %}
@@ -65,3 +67,4 @@
         </li>
     </ul>
 {% endblock %}
+{% endcache %}

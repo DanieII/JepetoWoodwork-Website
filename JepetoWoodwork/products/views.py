@@ -6,9 +6,9 @@ from django.shortcuts import redirect
 from .forms import ProductFilterForm, ProductReviewForm
 from .models import Category, Product, ProductReview
 from .forms import ProductSearchForm, ProductAddToCartForm
+from .helper_functions import get_last_viewed_products, get_products_queryset
 from cart.views import add_to_cart
 from users.mixins import HandleSendAndRetrieveLoginRequiredFormInformationMixin
-from .helper_functions import get_last_viewed_products
 from django.contrib import messages
 from django.core.cache import cache
 
@@ -20,8 +20,6 @@ class BaseProductsView(ListView):
     extra_context = {"search_form": ProductSearchForm}
     CATEGORIES_CACHE_KEY = "categories"
     CATEGORIES_TTL = 60 * 60 * 24 * 7
-    PRODUCTS_CACHE_KEY = "products"
-    PRODUCTS_TTL = 60 * 60 * 24 * 7
 
     def get_categories(self):
         cache_key = BaseProductsView.CATEGORIES_CACHE_KEY
@@ -34,14 +32,7 @@ class BaseProductsView(ListView):
         return categories
 
     def get_queryset(self):
-        cache_key = BaseProductsView.PRODUCTS_CACHE_KEY
-        products = cache.get(cache_key)
-
-        if products is None:
-            products = super().get_queryset()
-            cache.set(cache_key, products, BaseProductsView.PRODUCTS_TTL)
-
-        return products
+        return get_products_queryset()
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(object_list=self.get_queryset())
