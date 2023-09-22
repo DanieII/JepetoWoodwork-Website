@@ -30,13 +30,13 @@
                 <span>J</span><span>e</span><span>p</span><span>e</span><span>t</span><span>o</span>
                 <span>W</span><span>o</span><span>o</span><span>d</span><span>w</span><span>o</span><span>r</span><span>k</span>
             </h1>
-            <h3>Ръчно изработени продукти от масивна дървесина</h3>
+            <h2>Ръчно изработени продукти от масивна дървесина</h2>
             <a href="{% url 'products' %}">Пазарувай</a>
         </div>
     </section>
     <section>
         <article class="special-products">
-            <h1>Специални продукти</h1>
+            <h2>Специални продукти</h2>
             <ul class="products">
                 {% for product in object_list %}
                     <li>{% include "products/product.html" %}</li>

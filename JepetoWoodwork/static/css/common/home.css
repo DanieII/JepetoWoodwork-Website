@@ -17,7 +17,7 @@
   gap: 20px;
 }
 
-.banner div h3 {
+.banner div h2 {
   color: var(--light);
   text-align: center;
   word-break: break-word;
@@ -26,7 +26,6 @@
 
 .banner div h1 {
   color: var(--light);
-  font-size: 20px;
   text-align: center;
 }
 
@@ -37,7 +36,7 @@
   padding: 7px;
 }
 
-.section:last-of-type {
+section:last-of-type {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -53,7 +52,7 @@
   text-align: center;
 }
 
-.special-products h1 {
+.special-products h2 {
   margin-bottom: 10px;
   color: var(--dark-wood);
 }

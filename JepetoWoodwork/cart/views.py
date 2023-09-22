@@ -2,7 +2,6 @@ from django.contrib.auth.views import login_required
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect, render
 from .forms import EditSavedCheckoutInformationForm, OrderForm
-from products.models import Product
 from .models import Order, OrderProduct, SavedCheckoutInformation
 from django.views.generic import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
