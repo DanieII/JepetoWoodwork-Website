@@ -1,7 +1,6 @@
 {% extends 'common/base.html' %}
 {% load static %}
 {% load cache %}
-{% cache 604800 home %}
 {% block meta_description %}
     Jepeto Woodwork предлага ръчно изработени бутикови продукти от масивна дървесина.  Всички наши изделия са с уникален дизайн и модерна визия - стилен акцент за всеки дом.  За нас качеството и вниманието към детайла са на първо място.
 {% endblock %}
@@ -24,6 +23,7 @@
     </style>
 {% endblock %}
 {% block content %}
+    {% cache 604800 home %}
     <section class="banner">
         <div>
             <h1>
@@ -44,5 +44,5 @@
             </ul>
         </article>
     </section>
-{% endblock %}
 {% endcache %}
+{% endblock %}

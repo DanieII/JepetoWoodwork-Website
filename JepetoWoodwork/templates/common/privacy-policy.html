@@ -1,7 +1,6 @@
 {% extends "common/base.html" %}
 {% load static %}
 {% load cache %}
-{% cache 604800 privacy_policy %}
 {% block meta_description %}
     Научете как Jepeto Woodwork обработва вашата лична информация чрез нашата политика за поверителност. Разберете кои данни събираме, как ги използваме и как гарантираме вашата поверителност.
 {% endblock %}
@@ -13,6 +12,7 @@
     <link rel="stylesheet" href="{% static "css/common/ul-style.css" %}">
 {% endblock %}
 {% block content %}
+    {% cache 604800 privacy_policy %}
     <h1 class="title">Политика за поверителност</h1>
     <ul class="ul-style">
         <li>
@@ -38,5 +38,5 @@
             </p>
         </li>
     </ul>
-{% endblock %}
 {% endcache %}
+{% endblock %}

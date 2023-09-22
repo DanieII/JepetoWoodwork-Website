@@ -1,6 +1,5 @@
 {% extends "common/base.html" %}
 {% load cache %}
-{% cache 604800 about_us %}
 {% block meta_description %}
     Научете повече за Jepeto Woodwork - нашият екип, страст и ценности. Разберете какво ни вдъхновява да създаваме ръчно изработени бутикови продукти от масивна дървесина за вашия дом.
 {% endblock %}
@@ -9,6 +8,7 @@
 {% endblock %}
 {% block title %}За нас | JepetoWoodwork{% endblock %}
 {% block content %}
+    {% cache 604800 about_us %}
     <h1 class="title">За нас</h1>
     <p style="align-self: center;text-align: center; font-size: 20px;">
         Jepeto Woodwork предлага ръчно изработени бутикови продукти от масивна дървесина.
@@ -17,5 +17,5 @@
         <br>
         За нас качеството и вниманието към детайла са на първо място.
     </p>
-{% endblock %}
 {% endcache %}
+{% endblock %}

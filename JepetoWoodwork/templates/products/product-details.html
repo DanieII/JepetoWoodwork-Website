@@ -3,8 +3,6 @@
 {% load common_filters %}
 {% load stars_filters %}
 {% load cache %}
-{% with object.slug as name %}
-{% cache 604800 name_meta using name %}
 {% block meta_description %}
   {{ object.description|striptags }}
 {% endblock %}
@@ -14,6 +12,8 @@
   {% endwith %}
 {% endblock %}
 {% block meta %}
+{% with object.slug as name %}
+{% cache 604800 name_meta using name %}
 <script type="application/ld+json">
     {
       "@context": "https://schema.org/",
@@ -51,6 +51,8 @@
       <meta property="product:availability" content="{{ object.available }}">
       <meta property="product:price:amount" content="{{ object.price }}">
       <meta property="product:price:currency" content="BGN">
+{% endcache %}
+{% endwith %}
 {% endblock %}
 {% block meta_image %}
   {{object.thumbnail_image_url}} 
@@ -65,8 +67,6 @@
     <link rel="stylesheet" href="{% static "css/products/heart.css" %}">
     <link rel="stylesheet" href="{% static "css/lightbox/lightbox.min.css" %}">
 {% endblock %}
-{% endcache %}
-{% endwith %}
 {% block content %}
 {% with object.slug as name %}
     <div class="product-details">

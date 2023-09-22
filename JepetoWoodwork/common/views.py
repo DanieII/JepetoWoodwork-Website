@@ -6,6 +6,7 @@ from .forms import ContactForm
 from django.contrib.auth.models import send_mail
 from django.conf import settings
 from django.contrib import messages
+from products.helper_functions import get_products_queryset
 
 
 class HomeView(ListView):
@@ -13,7 +14,8 @@ class HomeView(ListView):
     template_name = "common/home.html"
 
     def get_queryset(self):
-        queryset = super().get_queryset().filter(special=True)
+        products = get_products_queryset()
+        queryset = products.filter(special=True)
         return queryset
 
 
