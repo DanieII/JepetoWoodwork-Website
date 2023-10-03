@@ -117,13 +117,16 @@ class CheckoutView(LoginRequiredMixin, FillOrderFormMixin, CreateView):
         link_html = format_html('<a href="{}">Виж</a>', link_url)
         message = f"Нова поръчка е направена: {link_html}"
 
-        send_mail(
-            subject="Нова Поръчка",
-            message=message,
-            html_message=message,
-            from_email=host_email,
-            recipient_list=[host_email],
-        )
+        try:
+            send_mail(
+                subject="Нова Поръчка",
+                message=message,
+                html_message=message,
+                from_email=host_email,
+                recipient_list=[host_email],
+            )
+        except:
+            pass
 
     @property
     def user_has_products(self):

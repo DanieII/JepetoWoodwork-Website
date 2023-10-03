@@ -4,7 +4,7 @@
         {% if product.pre_order %}
             <div class="button top-left">pre order</div>
         {% elif not product.available %}
-            <div class="button top-left">неналичен</div>
+            <div class="button top-left">изчерпан</div>
         {% endif %}
         {% include "products/heart.html" %}
         <a href="{% url 'product_details' slug=product.slug %}">
