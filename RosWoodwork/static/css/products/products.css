@@ -1,0 +1,172 @@
+/* Forms */
+
+.forms {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  width: 20%;
+}
+
+.search {
+  display: flex;
+  justify-content: initial;
+  align-items: initial;
+  position: relative;
+}
+
+.search input {
+  padding-right: 2em;
+}
+
+.search button {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  background: none;
+  border: none;
+}
+
+.categories {
+  display: flex;
+  flex-direction: column;
+}
+
+.categories a {
+  text-decoration: none;
+  color: var(--dark);
+}
+
+.categories a:hover {
+  color: var(--orange);
+}
+
+.price {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 1em;
+}
+
+.price-range input {
+  width: 45%;
+}
+
+.price button {
+  align-self: start;
+}
+
+/* Price Slider */
+
+.range {
+  width: 100%;
+}
+
+.range-slider {
+  position: relative;
+  height: 5px;
+  border-radius: 2px;
+  background-color: gray;
+}
+
+.range-input input:focus {
+  border: none !important;
+}
+
+.range-selected {
+  height: 100%;
+  left: 30%;
+  right: 30%;
+  position: absolute;
+  border-radius: 5px;
+  background-color: var(--orange);
+}
+
+.range-input {
+  position: relative;
+}
+
+.range-input input {
+  position: absolute;
+  width: 100%;
+  height: 5px;
+  top: -7px;
+  background: none;
+  pointer-events: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+.range-input input::-webkit-slider-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  border: none;
+  background-color: gray;
+  pointer-events: auto;
+  -webkit-appearance: none;
+}
+
+.range-input input::-moz-range-thumb {
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  border: none;
+  background-color: gray;
+  pointer-events: auto;
+  -moz-appearance: none;
+}
+
+.range-price {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+  margin-top: 0.5em;
+}
+
+.range-price input {
+  width: 40%;
+  padding: 0.2em;
+}
+
+/* Products */
+
+.products-section {
+  display: flex;
+  gap: 2em;
+}
+
+/* Pagination */
+
+.pagination {
+  display: flex;
+  margin-top: 30px;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 5px;
+}
+
+.pagination a {
+  text-decoration: none;
+}
+
+.pagination-number {
+  padding: 0.3em 0.6em;
+  border-radius: 2px;
+  color: var(--white);
+  background-color: var(--orange);
+  cursor: pointer;
+}
+
+.pagination a span {
+  font-size: 25px;
+  color: var(--dark-wood);
+}
+
+.pagination a span:hover {
+  color: var(--orange);
+}
+
+.pagination-current {
+  color: var(--dark);
+}

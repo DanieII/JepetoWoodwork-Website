@@ -1,0 +1,46 @@
+.main-nav {
+  margin-bottom: calc(var(--nav-height) * -1);
+}
+
+.main-nav.transparent {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.main-nav .logo {
+  display: none;
+}
+
+.logo.white {
+  display: block;
+}
+
+.main-nav.transparent a,
+.main-nav.transparent i {
+  color: var(--white);
+}
+
+.main-nav.transparent .nav-links li::after {
+  background: var(--white);
+}
+
+.banner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 600px;
+  background-size: cover;
+  padding-top: var(--nav-height);
+}
+
+.banner h1 {
+  font-size: 2.5em;
+  color: var(--white);
+  margin-bottom: 0.3em;
+}
+
+.banner a:hover {
+  color: var(--dark);
+  background-color: var(--white);
+}
