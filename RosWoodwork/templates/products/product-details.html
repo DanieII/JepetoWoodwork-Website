@@ -3,18 +3,16 @@
 {% load common_filters %}
 {% load stars_filters %}
 {% load cache %}
-{% block meta_description %}
-  {{ object.description|striptags }}
-{% endblock %}
+{% block meta_description %}{{ object.description|striptags }}{% endblock %}
 {% block meta_keywords %}
-  {% with categories=object.categories.all|join:", " %}
-      дървен, дървена, ръчна изработка, {{object.name}}, {{ categories }}
-  {% endwith %}
+    {% with categories=object.categories.all|join:", " %}
+        дървен, дървена, ръчна изработка, {{ object.name }}, {{ categories }}
+    {% endwith %}
 {% endblock %}
 {% block meta %}
-{% with object.slug as name %}
-{% cache 604800 name_meta using name %}
-<script type="application/ld+json">
+    {% with object.slug as name %}
+        {% cache 604800 name_meta using name %}
+        <script type="application/ld+json">
     {
       "@context": "https://schema.org/",
       "@type": "Product",
@@ -23,7 +21,7 @@
       "description": "{{ object.description|striptags }}",
       "brand": {
             "@type": "Brand",
-            "name": "JepetoWoodwork"
+            "name": "RosWoodwork"
         },
       "offers": {
             "@type": "Offer",
@@ -33,174 +31,130 @@
         },
        "url": "{{ request.build_absolute_uri }}"
     }
-    </script>
-      <meta name="twitter:title" content="{{object.name}} | Jepeto Woodwork">
-      <meta name="twitter:description" content="{{object.description|striptags}}">
-      <meta name="twitter:image" content="{{object.thumbnail_image_url}}">
-      <meta itemprop="name" content="{{object.name}}"> 
-      <meta itemprop="description" content="{{object.description|striptags}}"> 
-      <meta itemprop="image" content="{{object.thumbnail_image_url}}"> 
-      <meta property="og:title" content="{{object.name}}">
-      <meta property="og:type" content="product.item">
-      <meta property="og:url" content="{{request.build_absolute_uri}}">
-      <meta property="og:image" content="{{object.thumbnail_image_url}}">
-      <meta property="og:site_name" content="JepetoWoodwork.eu">
-      <meta property="og:price:amount" content="{{ object.price }}">
-      <meta property="og:price:currency" content="BGN">
-      <meta property="product:condition" content="new">
-      <meta property="product:availability" content="{{ object.available }}">
-      <meta property="product:price:amount" content="{{ object.price }}">
-      <meta property="product:price:currency" content="BGN">
-{% endcache %}
+        </script>
+        <meta name="twitter:title" content="{{ object.name }} | Ros Woodwork">
+        <meta name="twitter:description"
+              content="{{ object.description|striptags }}">
+        <meta name="twitter:image" content="{{ object.thumbnail_image_url }}">
+        <meta itemprop="name" content="{{ object.name }}">
+        <meta itemprop="description" content="{{ object.description|striptags }}">
+        <meta itemprop="image" content="{{ object.thumbnail_image_url }}">
+        <meta property="og:title" content="{{ object.name }}">
+        <meta property="og:type" content="product.item">
+        <meta property="og:url" content="{{ request.build_absolute_uri }}">
+        <meta property="og:image" content="{{ object.thumbnail_image_url }}">
+        <meta property="og:site_name" content="roswoodwork.com">
+        <meta property="og:price:amount" content="{{ object.price }}">
+        <meta property="og:price:currency" content="BGN">
+        <meta property="product:condition" content="new">
+        <meta property="product:availability" content="{{ object.available }}">
+        <meta property="product:price:amount" content="{{ object.price }}">
+        <meta property="product:price:currency" content="BGN">
+    {% endcache %}
 {% endwith %}
 {% endblock %}
-{% block meta_image %}
-  {{object.thumbnail_image_url}} 
-{% endblock %}
-{% block title %}{{ object.name }} | Jepeto Woodwork{% endblock %}
+{% block meta_image %}{{ object.thumbnail_image_url }}{% endblock %}
+{% block title %}{{ object.name }} | Ros Woodwork{% endblock %}
 {% block styles %}
-    <link rel="stylesheet" href="{% static "css/bootstrap-carousel/bootstrap.min.css" %}">
-    <link rel="stylesheet" href="{% static "css/products/products-list.css" %}">
-    <link rel="stylesheet" href="{% static "css/products/product.css" %}">
-    <link rel="stylesheet"
-          href="{% static 'css/products/product-details.css' %}">
-    <link rel="stylesheet" href="{% static "css/products/heart.css" %}">
-    <link rel="stylesheet" href="{% static "css/lightbox/lightbox.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/products/product-details.css" %}">
+    <link rel="stylesheet" href="{% static "splide-carousel/splide-default.min.css" %}">
 {% endblock %}
 {% block content %}
-{% with object.slug as name %}
-    <div class="product-details">
-        <div class="heart-parent">
-            {% include "products/heart.html" %}
-            {% cache 604800 name_details using name %}
-            <div id="carouselExampleIndicators"
-                 class="carousel slide"
-                 data-ride="carousel">
-                <ol class="carousel-indicators">
-                    {% for indicator_index in object.productimage_set.all.count|get_range_from_number %}
-                        <li data-target="#carouselExampleIndicators"
-                            data-slide-to="{{ indicator_index }}"
-                            class="{% if forloop.first %} active {% endif %}"></li>
-                    {% empty %}
-                        <li data-target="#carouselExampleIndicators"
-                            data-slide-to="0"
-                            class="active"></li>
-                    {% endfor %}
-                </ol>
-                <div class="carousel-inner">
-                    {% for product_image_obj in object.productimage_set.all %}
-                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
-          <a href="{{product_image_obj.image.url}}" data-lightbox="image"><img class="d-block image"
-                                 src="{{ product_image_obj.image.url }}"
-                                 alt="{{ product.name }}">
-          </a>
-                        </div>
-                    {% empty %}
-                        <div class="carousel-item active">
-                            <img class="d-block image"
-                                 src="/static/images/no-image.jpg"
-                                 alt="no image">
-                        </div>
-                    {% endfor %}
+    <div class="container">
+        <!-- {% with object.slug as name %} -->
+        <div class="product">
+            <section class="splide" aria-label="Splide Basic HTML Example">
+                <div class="splide__track">
+                    <ul class="splide__list">
+                        {% for product_image_obj in object.productimage_set.all %}
+                            <li class="splide__slide">
+                                <div class="image-container">
+                                    <img src="{{ product_image_obj.image.url }}" alt="{{ product.name }} ">
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
                 </div>
-                <a class="carousel-control-prev"
-                   href="#carouselExampleIndicators"
-                   role="button"
-                   data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next"
-                   href="#carouselExampleIndicators"
-                   role="button"
-                   data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
+            </section>
+            <div class="product-info">
+                <h1>{{ product.name }}</h1>
+                <p class="available">
+                    {% if product.pre_order %}
+                        Налично за предварителни поръчки
+                    {% else %}
+                        {{ product.quantity }} Налични
+                    {% endif %}
+                </p>
+                <p class ="price">{{ product.price|floatformat:2 }} лв.</p>
+                <p class="categories">
+                    Категории:
+                    {% for category in product.categories.all %}
+                        <a href="{% url 'products_category' category=category.name %}">{{ category.name }}</a>
+                        {% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                </p>
+                {% if product.description %}<p class="description">{{ product.description|safe }}</p>{% endif %}
+                <form method="post"
+                      action="{% url 'product_details' slug=object.slug %}"
+                      class="add-to-cart form">
+                    {% csrf_token %}
+                    <input type="hidden" name="redirect_to" value="{{ request.path }}">
+                    {{ form.quantity }}
+                    <button type="submit" class="button">
+                        {% include "common/shopping-cart.html" %}
+                        Добави
+                    </button>
+                </form>
             </div>
         </div>
-        <div class="product-information">
-            <h1>{{ product.name }}</h1>
-            <h3 class="price">{{ product.price|floatformat:2 }} лв.</h3>
-    {% if product.description %}    <p>{{ product.description|safe }}</p>{% endif %}
-            <p class="available">
-                {% if product.pre_order %}
-                    Налично за предварителни поръчки
-                {% else %}
-                    {{ product.quantity }} Налични
-                {% endif %}
-            </p>
-            <form method="post"
-                  action="{% url 'product_details' slug=object.slug %}"
-                  class="add-to-cart">
-                {% csrf_token %}
-                <input type="hidden" name="redirect_to" value="{{request.path}}">
-                {{ form.quantity }}
-                <button type="submit" class="button"><i class="fa-solid fa-cart-shopping"></i> Добави</button>
-            </form>
-            <p class="categories">
-                Категории: <span>
-                {% for category in product.categories.all %}
-        <a href="{% url 'products_category' category=category.name %}">{{ category.name }}</a>
-                    {% if not forloop.last %}<span class="comma">,</span>{% endif %}
+        <div class="reviews">
+            <h2>Отзиви</h2>
+            <div>
+                {% for review in object.productreview_set.all %}
+                    <div class="review">
+                        <div class="stars">
+                            {% with empty_stars_count as review.stars|calculate_empty_stars %}
+                              {% for num in review.stars|get_range_from_number %}<i class="fa-solid fa-star"></i>{% endfor %}
+                              {% for num in empty_stars_count %}<i class="fa-regular fa-star empty-star"></i>{% endfor %}
+                            {% endwith %}
+                        </div>
+                        <div class="content">
+                            <p>{{ review.review }}</p>
+                            {% if review.user == request.user %}
+                                <a href="{% url 'delete_review' pk=review.pk %}" class="delete"><i class="fa-solid fa-xmark"></i></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% empty %}
+                    <p>Все още няма отзиви.</p>
                 {% endfor %}
-            </span>
-        </p>
-    </div>
-</div>
-{% endcache %}
-{% endwith %}
-<div class="comments-reviews light-box">
-    <h3>Отзиви</h3>
-    <div class="review-content">
-        {% for review in object.productreview_set.all %}
-            <div class="review">
-                {% with empty_stars_count=review.stars|calculate_empty_stars %}
-                    {% for _ in review.stars|get_range_from_number %}
-                        {% if forloop.last %}
-                            <i class="fa-solid fa-star last-filled-star"></i>
-                        {% else %}
-                            <i class="fa-solid fa-star"></i>
-                        {% endif %}
-                    {% endfor %}
-                    {% for _ in empty_stars_count %}<i class="fa-regular fa-star empty-star"></i>{% endfor %}
-                {% endwith %}
-      <div class="main-content">
-        <p>{{ review.review }}</p>
-      {% if review.user == request.user %}
-      <a href="{% url 'delete_review' pk=review.pk %}" class="delete"><i class="fa-solid fa-xmark"></i></a>
-      {% endif %}
-
-      </div>
-                            </div>
-        {% empty %}
-            <p>Все още няма отзиви.</p>
-        {% endfor %}
-    </div>
-    <form method="post"
-          action="{% url 'product_details' slug=object.slug %}"
-          class="form">
-        {% csrf_token %}
-        <div class="star-rating">
-            <i class="fa-solid fa-star" rating-value="1"></i>
-            <i class="fa-regular fa-star" rating-value="2"></i>
-            <i class="fa-regular fa-star" rating-value="3"></i>
-            <i class="fa-regular fa-star" rating-value="4"></i>
-            <i class="fa-regular fa-star" rating-value="5"></i>
+                <form method="post"
+                      action="{% url 'product_details' slug=object.slug %}"
+                      class="form">
+                    {% csrf_token %}
+                    <div class="star-rating">
+                        <i class="fa-solid fa-star" rating-value="1"></i>
+                        <i class="fa-regular fa-star" rating-value="2"></i>
+                        <i class="fa-regular fa-star" rating-value="3"></i>
+                        <i class="fa-regular fa-star" rating-value="4"></i>
+                        <i class="fa-regular fa-star" rating-value="5"></i>
+                    </div>
+                    <input type="hidden" name="rating" value="1">
+                    {% for field in productreviewform %}{{ field }}{% endfor %}
+                    <button type="submit" class="button">Изпрати</button>
+                </form>
+            </div>
+            <!-- {% cache 604800 name_details using name %} -->
+            <!-- {% endcache %} -->
+            <!-- {% endwith %} -->
         </div>
-        <input type="hidden" name="rating" value="1">
-        {% for field in productreviewform %}{{ field }}{% endfor %}
-        <button type="submit" class="button">Изпрати</button>
-    </form>
-</div>
-<h3 style="padding: 20px; align-self: center;">Последно разгледани</h3>
-<div class="products">
-    {% for product in last_viewed %}
-        {% include "products/product.html" %}
-    {% endfor %}
-</div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="{% static "javascript/bootstrap-carousel/bootstrap.min.js" %}"></script>
-<script src="{% static "javascript/star-rating.js" %}"></script>
-<script src="{% static "javascript/lightbox/lightbox.min.js" %}"></script>
-{% endblock %}
+        <div>
+            <h2>Последно разгледани</h2>
+            {% for product in last_viewed %}
+                {% include "products/product.html" %}
+            {% endfor %}
+        </div>
+        <script src="{% static "javascript/star-rating.js" %}"></script>
+        <script src="{% static "splide-carousel/splide.min.js" %}"></script>
+        <script>new Splide(".splide", {}).mount()</script>
+    {% endblock %}

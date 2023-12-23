@@ -7,12 +7,20 @@
   box-shadow: none;
 }
 
-.main-nav .logo {
-  display: none;
+.main-nav.transparent .logo.white {
+  display: block !important;
 }
 
-.logo.white {
-  display: block;
+.main-nav.transparent .logo:not(.white) {
+  display: none !important;
+}
+
+.main-nav:not(.transparent) .logo.white {
+  display: none !important;
+}
+
+.main-nav:not(.transparent) .logo:not(.white) {
+  display: block !important;
 }
 
 .main-nav.transparent a,
@@ -38,9 +46,19 @@
   font-size: 2.5em;
   color: var(--white);
   margin-bottom: 0.3em;
+  text-align: center;
 }
 
 .banner a:hover {
-  color: var(--dark);
+  color: black;
   background-color: var(--white);
+  transition:
+    color,
+    background-color 0.2s;
+}
+
+@media (max-width: 768px) {
+  .banner {
+    min-height: 500px;
+  }
 }

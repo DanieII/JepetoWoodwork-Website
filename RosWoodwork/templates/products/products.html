@@ -25,14 +25,14 @@
 {% endblock %}
 {% block styles %}
     <link rel="stylesheet" href="{% static 'css/products/products.css' %}">
-    <link rel="stylesheet" href="{% static 'css/products/products-list.css' %}">
-    <link rel="stylesheet" href="{% static "css/products/product.css" %}">
-    <link rel="stylesheet" href="{% static "css/products/heart.css" %}">
+    <!-- <link rel="stylesheet" href="{% static 'css/products/products-list.css' %}"> -->
+    <!-- <link rel="stylesheet" href="{% static "css/products/product.css" %}"> -->
+    <!-- <link rel="stylesheet" href="{% static "css/products/heart.css" %}"> -->
 {% endblock %}
 {% block content %}
     <div class="container">
         <div class="products-section">
-            <div class="forms">
+            <div class="filters">
                 <form method="get" action="{% url 'products' %}" class="form search">
                     {{ search_form.search_field }}
                     <button type="submit">
@@ -74,45 +74,40 @@
                                    step="10">
                         </div>
                         <div class="range-price">
-                            <input type="number" class="min" value="0">
-                            <input type="number" class="max"  value="500">
+                            <input type="number" class="min" min="0" max="500" value="0" step="10">
+                            <input type="number" class="max" min="0" max="500" value="500" step="10">
                         </div>
                     </div>
                     <button type="submit" class="button">Филтър</button>
                 </form>
             </div>
             {% if page_obj %}
-                <ul class="products">
+                <div class="products">
                     {% for product in page_obj %}
-                        <li>{% include "products/product.html" %}</li>
+                        <div class="product">
+                            <div class="image-container">
+                                <a href="{% url 'product_details' slug=product.slug %}">
+                                    <img src="{{ product.thumbnail_image_url }}"
+                                         alt="{{ product.name }}"
+                                         loading="lazy"
+                                         class="image" />
+                                </a>
+                            </div>
+                            <div class="product-info">
+                                <a href="{% url 'product_details' slug=product.slug %}">
+                                    <p class="product-name">{{ product.name }}</p>
+                                </a>
+                                <p class="product-price">{{ product.price }} лв.</p>
+                            </div>
+                        </div>
                     {% endfor %}
-                </ul>
+                </div>
             {% else %}
                 <h2>Няма резултат</h2>
             {% endif %}
+            {% include "products/pagination.html" %}
         </div>
-        <div class="pagination">
-            {% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.max_price %}&max_price={{ request.GET.max_price }}{% endif %}"><span>&lt;</span></a>{% endif %}
-            {% if page_obj.number > 3 %}
-                <a class="pagination-number" href="?page=1">1</a>
-                <span class="pagination-ellipsis">...</span>
-            {% endif %}
-            {% for num in page_obj.paginator.page_range %}
-                {% if num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                    {% if page_obj.number == num %}
-                        <span class="pagination-number pagination-current">{{ num }}</span>
-                    {% else %}
-                        <a class="pagination-number" href="?page={{ num }}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.max_price %}&max_price={{ request.GET.max_price }}{% endif %}">{{ num }}</a>
-                    {% endif %}
-                {% endif %}
-            {% endfor %}
-            {% if page_obj.number < page_obj.paginator.num_pages|add:'-3' %}
-                <span class="pagination-ellipsis">...</span>
-                <a class="pagination-number"
-                   href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.max_price %}&max_price={{ request.GET.max_price }}{% endif %}">{{ page_obj.paginator.num_pages }}</a>
-            {% endif %}
-            {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.max_price %}&max_price={{ request.GET.max_price }}{% endif %}"><span>&gt;</span></a>{% endif %}
-        </div>
+        {% include "products/pagination.html" %}
     </div>
     <script src="{% static "javascript/price-slider.js" %}"></script>
 {% endblock %}

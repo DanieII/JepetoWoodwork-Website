@@ -9,6 +9,10 @@ document.addEventListener("scroll", handleScroll);
 function handleScroll() {
   const yPosition = window.scrollY;
 
+  if (navBar.classList.contains("active")) {
+    return;
+  }
+
   if (yPosition > navBarHeight) {
     navBar.classList.remove("transparent");
     whiteLogo.style.display = "block";

@@ -1,28 +1,28 @@
 {% load static %}
-<div class="product light-box">
-    <div class="heart-parent">
-        {% if product.pre_order %}
-            <div class="button top-left">pre order</div>
-        {% elif not product.available %}
-            <div class="button top-left">изчерпан</div>
-        {% endif %}
-        {% include "products/heart.html" %}
-        <a href="{% url 'product_details' slug=product.slug %}">
-            <img src="{{ product.thumbnail_image_url }}"
-                 alt="{{ product.name }}"
-                 loading="lazy"
-                 class="image" />
-        </a>
-    </div>
-    <a href="{% url 'product_details' slug=product.slug %}">
-        <p class="product-name">{{ product.name }}</p>
-    </a>
-    <p class="product-price">{{ product.price|floatformat:2 }} лв.</p>
-    <form method="post" action="{% url 'add_to_cart' slug=product.slug %}">
-        {% csrf_token %}
-        <input type="hidden" name="redirect_to" value="{{ request.get_full_path }}">
-        <button type="submit" class="button">
-            <i class="fa-solid fa-cart-shopping"></i> Добави
-        </button>
-    </form>
-</div>
+<!-- <div class="product light-box"> -->
+<!--     <div class="heart-parent"> -->
+<!--         {% if product.pre_order %} -->
+<!--             <div class="button top-left">pre order</div> -->
+<!--         {% elif not product.available %} -->
+<!--             <div class="button top-left">изчерпан</div> -->
+<!--         {% endif %} -->
+<!--         {% include "products/heart.html" %} -->
+<!--         <a href="{% url 'product_details' slug=product.slug %}"> -->
+<!--             <img src="{{ product.thumbnail_image_url }}" -->
+<!--                  alt="{{ product.name }}" -->
+<!--                  loading="lazy" -->
+<!--                  class="image" /> -->
+<!--         </a> -->
+<!--     </div> -->
+<!--     <a href="{% url 'product_details' slug=product.slug %}"> -->
+<!--         <p class="product-name">{{ product.name }}</p> -->
+<!--     </a> -->
+<!--     <p class="product-price">{{ product.price|floatformat:2 }} лв.</p> -->
+<!--     <form method="post" action="{% url 'add_to_cart' slug=product.slug %}"> -->
+<!--         {% csrf_token %} -->
+<!--         <input type="hidden" name="redirect_to" value="{{ request.get_full_path }}"> -->
+<!--         <button type="submit" class="button"> -->
+<!--             <i class="fa-solid fa-cart-shopping"></i> Добави -->
+<!--         </button> -->
+<!--     </form> -->
+<!-- </div> -->

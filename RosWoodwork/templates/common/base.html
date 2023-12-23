@@ -37,6 +37,7 @@
         </div>
         <nav class="main-nav">
             <div class="container">
+                <i class="fa-solid fa-bars nav-btn"></i>
                 <ul class="nav-links">
                     <li>
                         <a href="{% url 'home' %}">Начало</a>
@@ -53,10 +54,15 @@
                     <li class="mobile-link">
                         <a href="{% url 'user_details' %}">Профил</a>
                     </li>
+                    <li>
+                        <a href="{% url 'wishlist' %}">Любими</a>
+                    </li>
                 </ul>
                 <div class="logo-container">
-                    <img src="{% static "images/ros-woodwork.svg" %}" class="logo" alt="logo">
-                    <img src="{% static "images/ros-woodwork-white.svg" %}" class="logo white" alt="logo">
+                    <a href="{% url 'home' %}">
+                        <img src="{% static "images/ros-woodwork.svg" %}" class="logo" alt="logo">
+                        <img src="{% static "images/ros-woodwork-white.svg" %}" class="logo white" alt="logo">
+                    </a>
                 </div>
                 <ul class="icon-navigation">
                     <li>
@@ -119,6 +125,7 @@
 
           copyrightElement.textContent = currentYear;
         </script>
+        <script src="{% static "javascript/mobile-nav.js" %}"></script>
         <!-- <script src="{% static 'javascript/dropdown-menu.js' %}"></script> -->
         <!-- <script src="{% static 'javascript/hide-alerts.js' %}"></script> -->
         <!-- <script src="{% static "javascript/hide-show-navbar-and-arrow.js" %}"></script> -->

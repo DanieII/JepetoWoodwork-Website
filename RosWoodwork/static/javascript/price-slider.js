@@ -1,3 +1,5 @@
+const min = 0;
+const max = 500;
 let rangeMin = 0;
 const range = document.querySelector(".range-selected");
 const rangeInput = document.querySelectorAll(".range-input input");
@@ -35,9 +37,17 @@ function handlePriceChange(e) {
   let maxPrice = rangePrice[1].value;
   if (maxPrice - minPrice >= rangeMin && maxPrice <= rangeInput[1].max) {
     if (e.target.className === "min") {
+      if (minPrice < min) {
+        return;
+      }
+
       rangeInput[0].value = minPrice;
       range.style.left = (minPrice / rangeInput[0].max) * 100 + "%";
     } else {
+      if (maxPrice > max) {
+        return;
+      }
+
       rangeInput[1].value = maxPrice;
       range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
     }
