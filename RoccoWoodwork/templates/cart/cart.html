@@ -1,0 +1,53 @@
+{% extends 'common/base.html' %}
+{% load static %}
+{% load product_filters %}
+{% block title %}Количка | Rocco Woodwork{% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/cart/cart.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="container">
+        {% if cart_products %}
+            <h1>Количка</h1>
+            <div class="products">
+                {% for product, quantity in cart_products.items %}
+                    <div class="product">
+                        <a href="{% url 'product_details' slug=product.slug %}">
+                            <img src="{{ product.thumbnail_image_url }}"
+                                 alt="{{ product.name }}"
+                                 class="image">
+                        </a>
+                        <a href="{% url 'product_details' slug=product.slug %}">
+                            <p class="name">{{ product.name }}</p>
+                        </a>
+                        <div>
+                            <div class="quantity">
+                                <form method="post"
+                                      action="{% url 'decrease_quantity' slug=product.slug %}">
+                                    {% csrf_token %}
+                                    <button type="submit">&minus;</button>
+                                </form>
+                                <p>{{ quantity }}</p>
+                                <form method="post" action="{% url 'add_to_cart' slug=product.slug %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="redirect_to" value="{{ request.path }}">
+                                    <button type="submit">&plus;</button>
+                                </form>
+                            </div>
+                            <a href="{% url 'remove_product' slug=product.slug %}" class="remove">Премахни</a>
+                        </div>
+                        <p class="price">{{ product.price|calculate_total_price:quantity }} лв.</p>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="checkout">
+                <p class="total-price">
+                    Обща цена: <span>{{ total_price|floatformat:2 }} лв.</span>
+                </p>
+                <a href="{% url "checkout" %}">Завършване на поръчката</a>
+            </div>
+        {% else %}
+            <h1>Няма продукти в количката</h1>
+        {% endif %}
+    </div>
+{% endblock %}

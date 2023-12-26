@@ -1,0 +1,43 @@
+{% extends "common/base.html" %}
+{% load static %}
+{% block meta_description %}
+    {{ object.title }} - Четете интересна статия в блога на Rocco Woodwork. {{ object.content|truncatechars:80 }}
+{% endblock %}
+{% block meta_keywords %}
+    {% with title=object.title.split|join:", " %}блог, статия, съвети, масивна дървесина, {{ title }}{% endwith %}
+{% endblock %}
+{% block meta_image %}{{ object.image.url }}{% endblock %}
+{% block title %}{{ object.title }} | Rocco Woodwork{% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static "css/blog/blog-details.css" %}">
+{% endblock %}
+{% block content %}
+    <div class="blog-details">
+        <h3 class="title">{{ object.title }}</h3>
+        <p>{{ object.content }}</p>
+        <img src="{{ object.image.url }}" alt="{{ object.title }}" class="image">
+        <div class="comments-reviews light-box">
+            <h3>Коментари</h3>
+            <div class="review-content">
+                {% for comment in object.blogcomment_set.all %}
+                    <div class="comment">
+                        <p>
+                            <b>Коментирано на {{ comment.created_on|date:"m.d.Y" }}</b>
+                        </p>
+                        <div class="main-content">
+                            <p>{{ comment.comment }}</p>
+                            {% if comment.user == request.user %}
+                                <a href="{% url 'delete_comment' pk=comment.pk %}" class="delete"><i class="fa-solid fa-xmark"></i></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% empty %}
+                    <p>Все още няма коментари.</p>
+                {% endfor %}
+            </div>
+            <form method="post" class="form" action="{% url 'blog_details' slug=object.slug %}" {% csrf_token %} {% for field in blogcommentform %}{{ field }}{% endfor %} {% csrf_token %}
+                <button type="submit" class="button">Изпрати</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

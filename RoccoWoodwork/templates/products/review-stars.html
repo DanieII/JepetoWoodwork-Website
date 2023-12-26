@@ -1,0 +1,6 @@
+{% load common_filters %}
+{% load stars_filters %}
+{% with empty_stars_count as review.stars|calculate_empty_stars %}
+    {% for num in review.stars|get_range_from_number %}<i class="fa-solid fa-star"></i>{% endfor %}
+    {% for num in empty_stars_count %}<i class="fa-regular fa-star empty-star"></i>{% endfor %}
+{% endwith %}

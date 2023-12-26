@@ -1,0 +1,78 @@
+h1 {
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+.products {
+  display: flex;
+  flex-direction: column;
+  gap: 3em;
+}
+
+.product {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.product > * {
+  flex: 1;
+}
+
+.product img {
+  aspect-ratio: 1/1;
+  margin: 0 auto;
+  max-width: 500px;
+}
+
+.product a {
+  text-decoration: none;
+}
+
+.name {
+  color: var(--orange);
+}
+
+.quantity {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.quantity button {
+  border: none;
+  background: transparent;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+.remove {
+  color: red;
+}
+
+.price {
+  color: var(--orange);
+}
+
+.checkout {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1.2em;
+}
+
+.total-price span {
+  color: var(--orange);
+}
+
+.checkout a {
+  text-decoration: none;
+  color: var(--orange);
+}
+
+@media (max-width: 768px) {
+  .product {
+    flex-direction: column;
+    gap: 1em;
+  }
+}

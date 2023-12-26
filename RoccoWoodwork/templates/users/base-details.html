@@ -1,0 +1,16 @@
+{% load static %}
+<link rel="stylesheet" href="{% static "css/users/base-details.css" %}" />
+<ul class="profile-nav">
+    <li>
+        <a href="{% url 'user_details' %}"><i class="fa-solid fa-user"></i> Профил</a>
+    </li>
+    <li>
+        <a href="{% url 'user_orders' %}"><i class="fa-solid fa-box"></i> Поръчки</a>
+    </li>
+    <li>
+        <a href="{% url 'change_password' %}"><i class="fa-solid fa-lock"></i> Смяна на парола</a>
+    </li>
+    <li>
+        <a href="{% url 'logout' %}"><i class="fa-solid fa-arrow-right-from-bracket"></i> Излизане от профил</a>
+    </li>
+</ul>

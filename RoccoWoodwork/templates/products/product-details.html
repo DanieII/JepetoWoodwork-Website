@@ -1,0 +1,160 @@
+{% extends 'common/base.html' %}
+{% load static %}
+{% load cache %}
+{% block meta_description %}{{ object.description|striptags }}{% endblock %}
+{% block meta_keywords %}
+    {% with categories=object.categories.all|join:", " %}
+        дървен, дървена, ръчна изработка, {{ object.name }}, {{ categories }}
+    {% endwith %}
+{% endblock %}
+{% block meta %}
+    {% with object.slug as name %}
+        <!-- {% cache 604800 name_meta using name %} -->
+        <script type="application/ld+json">
+    {
+      "@context": "https://schema.org/",
+      "@type": "Product",
+      "name": "{{ object.name }}",
+      "image": "{{ product.thumbnail_image_url }}",
+      "description": "{{ object.description|striptags }}",
+      "brand": {
+            "@type": "Brand",
+            "name": "RosWoodwork"
+        },
+      "offers": {
+            "@type": "Offer",
+            "price": "{{ object.price }}",
+            "priceCurrency": "BGN",
+            "availability": "{{ object.available }}"
+        },
+       "url": "{{ request.build_absolute_uri }}"
+    }
+        </script>
+        <meta name="twitter:title" content="{{ object.name }} | Ros Woodwork">
+        <meta name="twitter:description"
+              content="{{ object.description|striptags }}">
+        <meta name="twitter:image" content="{{ object.thumbnail_image_url }}">
+        <meta itemprop="name" content="{{ object.name }}">
+        <meta itemprop="description" content="{{ object.description|striptags }}">
+        <meta itemprop="image" content="{{ object.thumbnail_image_url }}">
+        <meta property="og:title" content="{{ object.name }}">
+        <meta property="og:type" content="product.item">
+        <meta property="og:url" content="{{ request.build_absolute_uri }}">
+        <meta property="og:image" content="{{ object.thumbnail_image_url }}">
+        <meta property="og:site_name" content="roswoodwork.com">
+        <meta property="og:price:amount" content="{{ object.price }}">
+        <meta property="og:price:currency" content="BGN">
+        <meta property="product:condition" content="new">
+        <meta property="product:availability" content="{{ object.available }}">
+        <meta property="product:price:amount" content="{{ object.price }}">
+        <meta property="product:price:currency" content="BGN">
+        <!-- {% endcache %} -->
+    {% endwith %}
+{% endblock %}
+{% block meta_image %}{{ object.thumbnail_image_url }}{% endblock %}
+{% block title %}{{ object.name }} | Ros Woodwork{% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static "css/products/product-details.css" %}">
+    <link rel="stylesheet" href="{% static "splide-carousel/splide-default.min.css" %}">
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <!-- {% with object.slug as name %} -->
+        <div class="product">
+            <section class="splide" aria-label="Splide Basic HTML Example">
+                <div class="splide__track">
+                    <ul class="splide__list">
+                        {% for product_image_obj in object.productimage_set.all %}
+                            <li class="splide__slide">
+                                <div class="image-container">
+                                    <img src="{{ product_image_obj.image.url }}" alt="{{ product.name }} ">
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </section>
+            <div class="product-info">
+                <h1>{{ product.name }}</h1>
+                <p class="available">
+                    {% if product.pre_order %}
+                        Налично за предварителни поръчки
+                    {% else %}
+                        {{ product.quantity }} Налични
+                    {% endif %}
+                </p>
+                <p class ="price">{{ product.price|floatformat:2 }} лв.</p>
+                <p class="categories">
+                    Категории:
+                    {% for category in product.categories.all %}
+                        <a href="{% url 'products_category' category=category.name %}">{{ category.name }}</a>
+                        {% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                </p>
+                {% if product.description %}<p class="description">{{ product.description|safe }}</p>{% endif %}
+                <form method="post"
+                      action="{% url 'product_details' slug=object.slug %}"
+                      class="add-to-cart form">
+                    {% csrf_token %}
+                    <input type="hidden" name="redirect_to" value="{{ request.path }}">
+                    {{ form.quantity }}
+                    <button type="submit" class="button">
+                        {% include "common/shopping-cart.html" %}
+                        Добави
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="reviews">
+            <h2>Отзиви</h2>
+            {% for review in object.productreview_set.all %}
+                <div class="review">
+                    <div class="stars">{% include "products/review-stars.html" %}</div>
+                    <div class="content">
+                        <p>{{ review.review }}</p>
+                        {% if review.user == request.user %}
+                            <a href="{% url 'delete_review' pk=review.pk %}" class="delete"><i class="fa-solid fa-xmark"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% empty %}
+                <p>Все още няма отзиви.</p>
+            {% endfor %}
+            <form method="post"
+                  action="{% url 'product_details' slug=object.slug %}"
+                  class="form">
+                {% csrf_token %}
+                <div class="star-rating">
+                    <i class="fa-solid fa-star" rating-value="1"></i>
+                    <i class="fa-regular fa-star" rating-value="2"></i>
+                    <i class="fa-regular fa-star" rating-value="3"></i>
+                    <i class="fa-regular fa-star" rating-value="4"></i>
+                    <i class="fa-regular fa-star" rating-value="5"></i>
+                </div>
+                <input type="hidden" name="rating" value="1">
+                {% for field in productreviewform %}{{ field }}{% endfor %}
+                <button type="submit" class="button">Изпрати</button>
+            </form>
+        </div>
+        <!-- {% cache 604800 name_details using name %} -->
+        <!-- {% endcache %} -->
+        <!-- {% endwith %} -->
+        <div>
+              <h2>Последно разгледани</h2>
+            <div class="last-viewed">
+                {% for product in last_viewed %}
+                    <div class="viewed-product">
+                        <a href="{% url 'product_details' slug=product.slug %}">
+                            <img src="{{ product.thumbnail_image_url }}" alt="{{ product.name }}">
+                        </a>
+                        <p>{{product.name}}</p>
+                        <p>{{ product.price|floatformat:2 }} лв.</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <script src="{% static "javascript/star-rating.js" %}"></script>
+    <script src="{% static "splide-carousel/splide.min.js" %}"></script>
+    <script>new Splide(".splide", {}).mount()</script>
+{% endblock %}

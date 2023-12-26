@@ -1,0 +1,14 @@
+.orders {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+
+.products li {
+  display: block;
+}
+
+.products a {
+  text-decoration: none;
+  color: var(--orange);
+}
