@@ -25,9 +25,7 @@
 {% endblock %}
 {% block styles %}
     <link rel="stylesheet" href="{% static 'css/products/products.css' %}">
-    <!-- <link rel="stylesheet" href="{% static 'css/products/products-list.css' %}"> -->
-    <!-- <link rel="stylesheet" href="{% static "css/products/product.css" %}"> -->
-    <!-- <link rel="stylesheet" href="{% static "css/products/heart.css" %}"> -->
+    <link rel="stylesheet" href="{% static "noui-slider/nouislider.min.css" %}">
 {% endblock %}
 {% block content %}
     <div class="container">
@@ -49,35 +47,14 @@
                         {% endfor %}
                     </div>
                 {% endwith %}
-                <form method="get" class="form price">
+                <div>
+                    <div id="slider"></div>
+                    <p id="slider-values"></p>
+                </div>
+                <form method="get">
                     {% if form.non_field_errors %}<div class="form-error">{{ form.non_field_errors }}</div>{% endif %}
-                    <div class="range">
-                        <div class="range-slider">
-                            <span class="range-selected"></span>
-                        </div>
-                        <div class="range-input">
-                            <input type="range"
-                                   id="id_min_price"
-                                   name="min_price"
-                                   class="min"
-                                   min="0"
-                                   max="500"
-                                   value="0"
-                                   step="10">
-                            <input type="range"
-                                   id="id_max_price"
-                                   name="max_price"
-                                   class="max"
-                                   min="0"
-                                   max="500"
-                                   value="500"
-                                   step="10">
-                        </div>
-                        <div class="range-price">
-                            <input type="number" class="min" min="0" max="500" value="0" step="10">
-                            <input type="number" class="max" min="0" max="500" value="500" step="10">
-                        </div>
-                    </div>
+                    <input type="hidden" id="id_min_price" name="min_price" value="0">
+                    <input type="hidden" id="id_max_price" name="max_price" value="500">
                     <button type="submit" class="button">Филтър</button>
                 </form>
             </div>
@@ -106,6 +83,7 @@
                                     <i class="fa-solid fa-cart-shopping"></i> Добави
                                 </button>
                             </form>
+                            {% include "products/heart.html" %}
                         </div>
                     {% endfor %}
                 </div>
@@ -116,5 +94,6 @@
         </div>
         {% include "products/pagination.html" %}
     </div>
+    <script src="{% static "noui-slider/nouislider.min.js" %}"></script>
     <script src="{% static "javascript/price-slider.js" %}"></script>
 {% endblock %}

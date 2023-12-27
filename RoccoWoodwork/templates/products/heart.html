@@ -1,16 +1,26 @@
 {% load static %}
+<style>
+.heart {
+  position: absolute;
+  top: 0.3em;
+  right: 0.3em;
+  border: none;
+  border-radius: 0.3em;
+  background-color: var(--orange);
+}
+</style>
 <form method="post" action="{% url 'heart' slug=product.slug %}">
     {% csrf_token %}
     <input type="hidden" name="redirect_to" value="{{ request.path }}">
-    <button type="submit" class="wishlist-heart">
+    <button type="submit" class="heart">
         {% if request.user.is_authenticated %}
             {% if product in request.user.wishlist.products.all %}
-                <i class="fa-solid fa-heart wishlist-heart button"></i>
+                <i class="fa-solid fa-heart button"></i>
             {% else %}
-                <i class="fa-regular fa-heart wishlist-heart button"></i>
+                <i class="fa-regular fa-heart button"></i>
             {% endif %}
         {% else %}
-            <i class="fa-regular fa-heart wishlist-heart button"></i>
+            <i class="fa-regular fa-heart button"></i>
         {% endif %}
     </button>
 </form>

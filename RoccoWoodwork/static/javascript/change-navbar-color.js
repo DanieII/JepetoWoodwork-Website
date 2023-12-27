@@ -1,6 +1,6 @@
 const navBar = document.querySelector(".main-nav");
 const navBarHeight = navBar.clientHeight;
-const [whiteLogo, darkLogo] = document.querySelectorAll(".logo-container img");
+const [whiteLogo, darkLogo] = document.querySelectorAll(".logo-container svg");
 
 navBar.classList.add("transparent");
 

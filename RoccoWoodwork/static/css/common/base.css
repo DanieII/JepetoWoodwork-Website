@@ -249,10 +249,10 @@ footer .logo-container p {
 /* Bootstrap Alert */
 
 .container-fluid {
-  position: sticky;
+  position: absolute;
   top: calc(var(--nav-height) + 1em);
   left: 0;
-  margin-bottom: 1em;
+  z-index: 2;
 }
 
 .errorlist li {

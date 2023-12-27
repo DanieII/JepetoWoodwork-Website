@@ -90,9 +90,7 @@ class CheckoutView(LoginRequiredMixin, FillOrderFormMixin, CreateView):
             saved_checkout_information = get_user_saved_checkout_information(
                 self.request
             )
-            message = "Информацията за поръчки е запазена"
             if saved_checkout_information:
-                message = "Информацията за поръчки е подновена"
                 saved_checkout_information.delete()
 
             SavedCheckoutInformation.objects.create(
@@ -107,8 +105,6 @@ class CheckoutView(LoginRequiredMixin, FillOrderFormMixin, CreateView):
                 email=order.email,
                 delivery_type=order.delivery_type,
             )
-
-            messages.success(self.request, message)
 
     def send_order_email(self, order):
         host_email = settings.EMAIL_HOST_USER

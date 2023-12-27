@@ -5,6 +5,7 @@ from django.shortcuts import redirect
 from .models import Blog, BlogComment
 from .forms import BlogCommentForm
 from users.mixins import HandleSendAndRetrieveLoginRequiredFormInformationMixin
+from django.contrib import messages
 
 
 class Blogs(ListView):

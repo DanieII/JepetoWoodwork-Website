@@ -20,8 +20,8 @@ class OrderAdmin(admin.ModelAdmin):
         "created_on",
         "number",
     ]
-    search_fields = ["first_name", "city"]
-    search_help_text = "First Name or City"
+    search_fields = ["first_name", "number"]
+    search_help_text = "First Name or Order Number"
     list_filter = ["delivery_type"]
 
     @staticmethod

@@ -1,9 +1,10 @@
 from django.urls import path
 from .views import Blogs, BlogDetails, delete_comment_view
-from django.views.decorators.cache import cache_page
+
+# from django.views.decorators.cache import cache_page
 
 urlpatterns = [
-    path("", cache_page(60 * 60 * 24 * 7)(Blogs.as_view()), name="blog"),
+    path("", Blogs.as_view(), name="blog"),
     path(
         "details/<slug>/",
         BlogDetails.as_view(),
