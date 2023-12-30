@@ -46,6 +46,7 @@ h2 {
   height: 100% !important;
   aspect-ratio: 1/1;
   object-fit: contain;
+  cursor: pointer;
 }
 
 /* Add To Cart */
@@ -119,6 +120,19 @@ h2 {
   font-size: 0.8em;
 }
 
+/* Overlay */
+
+.overlay img {
+  position: fixed;
+  object-fit: contain;
+  top: calc(50% + var(--nav-height) / 2);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  max-width: 800px;
+  max-height: 90vh;
+}
+
 @media (max-width: 768px) {
   .product {
     flex-direction: column;
@@ -126,5 +140,9 @@ h2 {
 
   .viewed-product {
     flex-basis: 47%;
+  }
+
+  .overlay img {
+    width: 90%;
   }
 }

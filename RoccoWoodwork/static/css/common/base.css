@@ -255,6 +255,17 @@ footer .logo-container p {
   z-index: 2;
 }
 
+/* Overlay */
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 99;
+  background: rgb(0, 0, 0, 0.3);
+}
+
+/* Errors */
+
 .errorlist li {
   color: red;
   display: block;
@@ -333,13 +344,6 @@ footer .logo-container p {
 
   .nav-links.active {
     left: 0;
-  }
-
-  .overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 99;
-    background: rgb(0, 0, 0, 0.3);
   }
 
   .footer-nav {
