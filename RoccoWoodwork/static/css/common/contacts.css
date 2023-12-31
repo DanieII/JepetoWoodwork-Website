@@ -1,38 +1,37 @@
-.content {
-  align-self: center;
+h1 {
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+.contacts {
   display: flex;
-  justify-content: space-around;
-  color: var(--dark-wood);
-  width: 100%;
+  justify-content: center;
+  gap: 1em;
+  margin: 0 auto;
 }
 
-.contact-information {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  padding: 20px;
+.contacts > * {
+  flex: 1;
 }
 
-.contact-information h3:hover {
-  color: var(--caramel);
+.contact-information p {
+  word-break: keep-all;
 }
 
-.message {
-  resize: vertical;
-  width: 300px;
-  max-height: 500px;
-  transition: none;
-  padding: 5px;
+.contact-information p:not(:last-child) {
+  margin-bottom: 0.5em;
 }
 
-.form input {
-  min-width: 100%;
+.contacts .form {
+  align-items: stretch;
 }
 
-@media screen and (max-width: 767px) {
-  .content {
+@media (max-width: 768px) {
+  .contacts {
     flex-direction: column;
-    align-items: center;
-    gap: 30px;
+  }
+
+  .contact-information {
+    align-self: center;
   }
 }

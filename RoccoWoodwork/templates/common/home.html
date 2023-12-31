@@ -2,7 +2,7 @@
 {% load static %}
 {% load cache %}
 {% block meta_description %}
-    Rocco Woodwork предлага ръчно изработени бутикови продукти от масивна дървесина.  Всички наши изделия са с уникален дизайн и модерна визия - стилен акцент за всеки дом.  За нас качеството и вниманието към детайла са на първо място.
+    Rocco Woodwork предлага ръчно изработени бутикови продукти от масивна дървесина. Всички наши изделия са с уникален дизайн и модерна визия - стилен акцент за всеки дом. За нас качеството и вниманието към детайла са на първо място.
 {% endblock %}
 {% block meta_keywords %}
     дърво, дървени продукти, бутикови продукти, купи, дъски за сервиране, кутии за бижута, кутии, маси, мебели, химикалки, ръчна изработка, смола, цена, дървени дъски за мезета
@@ -14,21 +14,15 @@
     }
     </style>
     <link rel="stylesheet" href="{% static 'css/common/home.css' %}">
-    <!-- <link rel="stylesheet" href="{% static 'css/products/products-list.css' %}"> -->
-    <!-- <link rel="stylesheet" href="{% static "css/products/product.css" %}"> -->
-    <!-- <link rel="stylesheet" href="{% static "css/products/heart.css" %}"> -->
 {% endblock %}
 {% block content %}
     <div class="banner">
         <h1>Ръчно изработени дървени изделия</h1>
         <a href="{% url 'products' %}" class="button">Пазарувай</a>
     </div>
-    <!-- {% cache 604800 home %} -->
-    <!-- <ul class="products"> -->
     <!--     {% for product in object_list %} -->
-    <!--         <li>{% include "products/product.html" %}</li> -->
     <!--     {% endfor %} -->
-    <!-- </ul> -->
+    <!-- {% cache 604800 home %} -->
     <!-- {% endcache %} -->
     <script src="{% static "javascript/change-navbar-color.js" %}"></script>
 {% endblock %}

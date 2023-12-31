@@ -1,0 +1,19 @@
+h1 {
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+.privacy-policy {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.privacy-policy li {
+  display: block;
+}
+
+.privacy-policy span {
+  color: var(--orange);
+  font-weight: bold;
+}
