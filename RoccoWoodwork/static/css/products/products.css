@@ -151,7 +151,7 @@ h2 {
 
 .pagination a span {
   font-size: 25px;
-  color: var(--dark-wood);
+  color: black;
 }
 
 .pagination a span:hover {

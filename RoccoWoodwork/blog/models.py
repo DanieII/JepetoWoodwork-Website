@@ -22,6 +22,9 @@ class Blog(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        ordering = ["-created_on"]
+
 
 class BlogComment(models.Model):
     user = models.ForeignKey(UserModel, on_delete=models.CASCADE)

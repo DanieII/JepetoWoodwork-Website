@@ -4,12 +4,12 @@ from django.urls import reverse
 from django.views.generic.edit import FormMixin
 from django.shortcuts import redirect
 from .forms import ProductFilterForm, ProductReviewForm
-from .models import Category, Product, ProductReview
+from .models import Product, ProductReview
 from .forms import ProductSearchForm, ProductAddToCartForm
-from .helper_functions import get_last_viewed_products, get_products_queryset
 from cart.views import add_to_cart
 from users.mixins import HandleSendAndRetrieveLoginRequiredFormInformationMixin
 from django.contrib import messages
+from .helper_functions import get_products_queryset, get_categories_queryset
 from django.core.cache import cache
 
 
@@ -18,18 +18,6 @@ class BaseProductsView(ListView):
     template_name = "products/products.html"
     paginate_by = 10
     extra_context = {"search_form": ProductSearchForm}
-    CATEGORIES_CACHE_KEY = "categories"
-    CATEGORIES_TTL = 60 * 60 * 24 * 7
-
-    def get_categories(self):
-        cache_key = BaseProductsView.CATEGORIES_CACHE_KEY
-        categories = cache.get(cache_key)
-
-        if not categories:
-            categories = [category.name for category in Category.objects.all()]
-            cache.set(cache_key, categories, BaseProductsView.CATEGORIES_TTL)
-
-        return categories
 
     def get_queryset(self):
         return get_products_queryset()
@@ -37,7 +25,7 @@ class BaseProductsView(ListView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(object_list=self.get_queryset())
         context["form"] = self.filter_form
-        context["categories"] = self.get_categories()
+        context["categories"] = get_categories_queryset()
 
         return context
 
@@ -79,21 +67,11 @@ class ProductsView(BaseProductsView):
 
 
 class ProductsCategoryView(BaseProductsView):
-    PRODUCTS_CATEGORY_TTL = 60 * 60 * 24 * 7
-
-    def get_cache_key(self, category):
-        return "products_category_" + category
-
     def get_queryset(self):
         category = self.kwargs.get("category")
-        cache_key = self.get_cache_key(category)
 
-        products = cache.get(cache_key)
-
-        if not products:
-            all_products = super().get_queryset()
-            products = all_products.filter(categories__name=category)
-            cache.set(cache_key, products, ProductsCategoryView.PRODUCTS_CATEGORY_TTL)
+        products = super().get_queryset()
+        products = products.filter(categories__name=category)
 
         products = self.perform_filtering(products)
 
@@ -111,7 +89,14 @@ class ProductDetailsView(
     success_message = "Отзивът е запазен"
     MAX_LAST_VIEWED_PRODUCTS_LENGTH = 3
 
+    def get_last_viewed_products(self):
+        products = get_products_queryset()
+        return [
+            products.get(slug=slug) for slug in self.request.session.get("last_viewed")
+        ]
+
     def get_object(self, queryset=None):
+        print(cache.keys("*"))
         product = super().get_object(queryset)
         last_viewed = self.request.session.get("last_viewed", [])
 
@@ -133,7 +118,7 @@ class ProductDetailsView(
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 
-        context["last_viewed"] = get_last_viewed_products(self.request.session)
+        context["last_viewed"] = self.get_last_viewed_products()
 
         return context
 

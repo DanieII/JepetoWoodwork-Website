@@ -1,5 +1,4 @@
 {% extends 'common/base.html' %}
-{% load cache %}
 {% load static %}
 {% block meta_description %}
     {% with category=request.resolver_match.kwargs.category %}
@@ -47,8 +46,6 @@
                                {% if page_category == category %}style="color: var(--orange)"{% endif %}>{{ category }}</a>
                         {% endfor %}
                     </div>
-                    <!-- {% cache 604800 product_categories %} -->
-                    <!-- {% endcache %} -->
                 {% endwith %}
                 <div>
                     <div id="slider"></div>

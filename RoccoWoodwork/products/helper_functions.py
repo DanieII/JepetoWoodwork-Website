@@ -1,19 +1,28 @@
-from products.models import Product
+from .models import Product, Category
 from django.core.cache import cache
 
 
 def get_products_queryset():
-    cache_key = "products"
-    products_ttl = 60 * 60 * 24 * 7
-    products = cache.get(cache_key)
+    PRODUCTS_CACHE_KEY = "products"
+    PRODUCTS_TTL = 60 * 60 * 24 * 7
+
+    products = cache.get(PRODUCTS_CACHE_KEY)
 
     if products is None:
         products = Product.objects.all()
-        cache.set(cache_key, products, products_ttl)
+        cache.set(PRODUCTS_CACHE_KEY, products, PRODUCTS_TTL)
 
     return products
 
 
-def get_last_viewed_products(session):
-    products = get_products_queryset()
-    return [products.get(slug=slug) for slug in session.get("last_viewed")]
+def get_categories_queryset():
+    CATEGORIES_CACHE_KEY = "categories"
+    CATEGORIES_TTL = 60 * 60 * 24 * 7
+
+    categories = cache.get(CATEGORIES_CACHE_KEY)
+
+    if not categories:
+        categories = [category.name for category in Category.objects.all()]
+        cache.set(CATEGORIES_CACHE_KEY, categories, CATEGORIES_TTL)
+
+    return categories

@@ -12,16 +12,14 @@
                 <span class="pagination-number pagination-current">{{ num }}</span>
             {% else %}
                 <a class="pagination-number"
-                   href="?page={{ num }}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.max_price %}&max_price={{ request.GET.max_price }}{% endif %}">{{
-                num }}</a>
+                   href="?page={{ num }}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.max_price %}&max_price={{ request.GET.max_price }}{% endif %}">{{ num }}</a>
             {% endif %}
         {% endif %}
     {% endfor %}
     {% if page_obj.number < page_obj.paginator.num_pages|add:'-3' %}
         <span class="pagination-ellipsis">...</span>
         <a class="pagination-number"
-           href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.max_price %}&max_price={{ request.GET.max_price }}{% endif %}">{{
-        page_obj.paginator.num_pages }}</a>
+           href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.max_price %}&max_price={{ request.GET.max_price }}{% endif %}">{{ page_obj.paginator.num_pages }}</a>
     {% endif %}
     {% if page_obj.has_next %}
         <a href="?page={{ page_obj.next_page_number }}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.max_price %}&max_price={{ request.GET.max_price }}{% endif %}"><span>&gt;</span></a>

@@ -8,8 +8,6 @@
     {% endwith %}
 {% endblock %}
 {% block meta %}
-    {% with object.slug as name %}
-        <!-- {% cache 604800 name_meta using name %} -->
         <script type="application/ld+json">
     {
       "@context": "https://schema.org/",
@@ -48,8 +46,6 @@
         <meta property="product:availability" content="{{ object.available }}">
         <meta property="product:price:amount" content="{{ object.price }}">
         <meta property="product:price:currency" content="BGN">
-        <!-- {% endcache %} -->
-    {% endwith %}
 {% endblock %}
 {% block meta_image %}{{ object.thumbnail_image_url }}{% endblock %}
 {% block title %}{{ object.name }} | Ros Woodwork{% endblock %}
@@ -59,8 +55,8 @@
 {% endblock %}
 {% block content %}
     <div class="container">
-        <!-- {% with object.slug as name %} -->
-        <div class="product">
+        {% cache 604800 product_details object.pk %}
+          <div class="product">
             <section class="splide" aria-label="Splide Basic HTML Example">
                 <div class="splide__track">
                     <ul class="splide__list">
@@ -104,22 +100,25 @@
                     </button>
                 </form>
             </div>
-        </div>
+        </div> 
+        {% endcache %}
         <div class="reviews">
             <h2>Отзиви</h2>
-            {% for review in object.productreview_set.all %}
-                <div class="review">
-                    <div class="stars">{% include "products/review-stars.html" %}</div>
-                    <div class="content">
-                        <p>{{ review.review }}</p>
-                        {% if review.user == request.user %}
-                            <a href="{% url 'delete_review' pk=review.pk %}" class="delete"><i class="fa-solid fa-xmark"></i></a>
-                        {% endif %}
-                    </div>
-                </div>
-            {% empty %}
-                <p>Все още няма отзиви.</p>
-            {% endfor %}
+            {% cache 604800 product_reviews object.pk %}
+              {% for review in object.productreview_set.all %}
+                  <div class="review">
+                      <div class="stars">{% include "products/review-stars.html" %}</div>
+                      <div class="content">
+                          <p>{{ review.review }}</p>
+                          {% if review.user == request.user %}
+                              <a href="{% url 'delete_review' pk=review.pk %}" class="delete"><i class="fa-solid fa-xmark"></i></a>
+                          {% endif %}
+                      </div>
+                  </div>
+              {% empty %}
+                  <p>Все още няма отзиви.</p>
+              {% endfor %}
+            {% endcache %}
             <form method="post"
                   action="{% url 'product_details' slug=object.slug %}"
                   class="form">
@@ -136,11 +135,8 @@
                 <button type="submit" class="button">Изпрати</button>
             </form>
         </div>
-        <!-- {% cache 604800 name_details using name %} -->
-        <!-- {% endcache %} -->
-        <!-- {% endwith %} -->
         <div>
-              <h2>Последно разгледани</h2>
+            <h2>Последно разгледани</h2>
             <div class="last-viewed">
                 {% for product in last_viewed %}
                     <div class="viewed-product">
