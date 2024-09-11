@@ -1,5 +1,4 @@
 {% extends "common/base.html" %}
-{% load cache %}
 {% load static %}
 {% block meta_description %}
     {{ object.title }} - Четете интересна статия в блога на Rocco Woodwork. {{ object.content|truncatechars:50 }}
@@ -19,7 +18,6 @@
     </div>
     <div class="container">
         <p class="blog-content">{{ object.content }}</p>
-        {% cache 604800 blog_comments object.pk %}
         <div class="comments">
             <h2>Коментари</h2>
             {% for comment in object.blogcomment_set.all %}
@@ -46,6 +44,5 @@
                 <button type="submit" class="button">Изпрати</button>
             </form>
         </div>
-    {% endcache %}
 </div>
 {% endblock %}

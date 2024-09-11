@@ -1,6 +1,5 @@
 {% extends 'common/base.html' %}
 {% load static %}
-{% load cache %}
 {% block meta_description %}{{ object.description|striptags }}{% endblock %}
 {% block meta_keywords %}
     {% with categories=object.categories.all|join:", " %}
@@ -55,7 +54,6 @@
 {% endblock %}
 {% block content %}
     <div class="container">
-        {% cache 604800 product_details object.pk %}
           <div class="product">
             <section class="splide" aria-label="Splide Basic HTML Example">
                 <div class="splide__track">
@@ -101,10 +99,8 @@
                 </form>
             </div>
         </div> 
-        {% endcache %}
         <div class="reviews">
             <h2>Отзиви</h2>
-            {% cache 604800 product_reviews object.pk %}
               {% for review in object.productreview_set.all %}
                   <div class="review">
                       <div class="stars">{% include "products/review-stars.html" %}</div>
@@ -118,7 +114,6 @@
               {% empty %}
                   <p>Все още няма отзиви.</p>
               {% endfor %}
-            {% endcache %}
             <form method="post"
                   action="{% url 'product_details' slug=object.slug %}"
                   class="form">

@@ -3,6 +3,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect, render
 from .forms import EditSavedCheckoutInformationForm, OrderForm
 from .models import Order, OrderProduct, SavedCheckoutInformation
+from products.models import Product
 from django.views.generic import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
@@ -17,14 +18,13 @@ from .mixins import FillOrderFormMixin
 from django.contrib.auth.models import send_mail
 from django.conf import settings
 from django.utils.html import format_html
-from products.helper_functions import get_products_queryset
 
 
 def add_to_cart(request, slug, quantity=1):
     url = request.POST.get("redirect_to")
 
     if url:
-        products = get_products_queryset()
+        products = Product.objects.all()
         product = products.get(slug=slug)
         cart = request.session.get("cart", {})
         current_filled_quantity = cart.get(slug, 0)
@@ -134,7 +134,7 @@ class CheckoutView(LoginRequiredMixin, FillOrderFormMixin, CreateView):
         valid = cart != {}
 
         if valid:
-            products = get_products_queryset()
+            products = Product.objects.all()
             for slug, quantity in cart.items():
                 product = products.get(slug=slug)
 
@@ -177,7 +177,7 @@ class CheckoutView(LoginRequiredMixin, FillOrderFormMixin, CreateView):
         order.save()
 
         cart = self.request.session["cart"]
-        products = get_products_queryset()
+        products = Product.objects.all()
         for product_slug, quantity in cart.items():
             product = products.get(slug=product_slug)
 

@@ -4,13 +4,11 @@ from django.urls import reverse
 from django.views.generic.edit import FormMixin
 from django.shortcuts import redirect
 from .forms import ProductFilterForm, ProductReviewForm
-from .models import Product, ProductReview
+from .models import Product, ProductReview, Category
 from .forms import ProductSearchForm, ProductAddToCartForm
 from cart.views import add_to_cart
 from users.mixins import HandleSendAndRetrieveLoginRequiredFormInformationMixin
 from django.contrib import messages
-from .helper_functions import get_products_queryset, get_categories_queryset
-from django.core.cache import cache
 
 
 class BaseProductsView(ListView):
@@ -19,13 +17,10 @@ class BaseProductsView(ListView):
     paginate_by = 10
     extra_context = {"search_form": ProductSearchForm}
 
-    def get_queryset(self):
-        return get_products_queryset()
-
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(object_list=self.get_queryset())
         context["form"] = self.filter_form
-        context["categories"] = get_categories_queryset()
+        context["categories"] = [category.name for category in Category.objects.all()]
 
         return context
 
@@ -90,13 +85,12 @@ class ProductDetailsView(
     MAX_LAST_VIEWED_PRODUCTS_LENGTH = 3
 
     def get_last_viewed_products(self):
-        products = get_products_queryset()
+        products = Product.objects.all()
         return [
             products.get(slug=slug) for slug in self.request.session.get("last_viewed")
         ]
 
     def get_object(self, queryset=None):
-        print(cache.keys("*"))
         product = super().get_object(queryset)
         last_viewed = self.request.session.get("last_viewed", [])
 

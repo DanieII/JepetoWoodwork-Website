@@ -2,10 +2,10 @@ version: "3.4"
 
 services:
   web:
-    image: danieii/jepetowoodwork
+    image: danieii/name
     platform: linux/amd64
     build: .
-    command: gunicorn --bind=0.0.0.0:8000 JepetoWoodwork.wsgi
+    command: gunicorn --bind=0.0.0.0:8000 name.wsgi
     working_dir: /app
     ports:
       - "8000:8000"
@@ -26,7 +26,7 @@ services:
     environment:
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
-      POSTGRES_DB: jepetowoodwork_db
+      POSTGRES_DB: name_db
       PGDATA: /var/lib/postgresql/data/pgdata
     env_file:
       - ./.env
