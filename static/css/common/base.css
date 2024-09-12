@@ -1,0 +1,85 @@
+@import url("typography.css");
+@import url("form.css");
+@import url("button.css");
+@import url("navigation.css");
+@import url("footer.css");
+
+:root {
+  --orange: #d9965b;
+  --brown: #504037;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+main {
+  flex: 1;
+  margin-top: 4em;
+  min-height: 200vh;
+}
+
+nav .nav-btn,
+nav .mobile-link {
+  display: none;
+}
+
+.container {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 1em 2em;
+}
+
+/* Bootstrap Alert */
+
+.container-fluid {
+  position: absolute;
+  top: calc(var(--nav-height) + 1em);
+  left: 0;
+  z-index: 2;
+}
+
+/* Overlay */
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 99;
+  background: rgb(0, 0, 0, 0.3);
+}
+
+/* Errors */
+
+.errorlist li {
+  color: red;
+  display: block;
+  max-width: 300px;
+}
+
+.errorlist {
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1em;
+  }
+}

@@ -1,0 +1,181 @@
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: visible;
+  z-index: 100;
+  background-color: white;
+  box-shadow: 0 0 1em rgb(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+}
+
+nav.transparent {
+  background: transparent;
+  box-shadow: none;
+  color: white;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
+}
+
+nav:not(.transparent) .logo.white,
+nav.transparent .logo:not(.white) {
+  display: none !important;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-container a {
+  display: flex;
+}
+
+.logo {
+  width: 50%;
+  height: auto;
+  margin-inline: auto;
+}
+
+.logo.white path {
+  fill: white;
+}
+
+nav a {
+  text-decoration: none;
+}
+
+nav a,
+nav i {
+  color: black;
+}
+
+nav.transparent a,
+nav.transparent i {
+  color: white;
+}
+
+nav .container {
+  display: flex;
+}
+
+nav .container > * {
+  flex: 1;
+}
+
+nav li {
+  display: block;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.icon-navigation {
+  display: flex;
+  gap: 1em;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.icon-navigation a {
+  display: flex;
+}
+
+.icon-navigation i {
+  width: 1em;
+}
+
+nav .cart {
+  position: relative;
+}
+
+nav .cart::after {
+  content: attr(value);
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  font-size: 10px;
+  font-weight: bold;
+  min-width: 15px;
+  text-align: center;
+  background: black;
+  color: white;
+  border-radius: 12px;
+}
+
+nav .cart[value=""]::after {
+  display: none;
+}
+
+.nav-links li::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 2px;
+  background: black;
+  transition: width 0.3s;
+}
+
+.nav-links li:hover::after {
+  width: 100%;
+}
+
+nav.transparent li::after {
+  background: white;
+  color: black;
+}
+
+nav i {
+  font-weight: lighter;
+}
+
+@media (max-width: 768px) {
+  .logo {
+    width: 100%;
+  }
+
+  .icon-navigation li:first-child {
+    display: none;
+  }
+
+  .mobile-link {
+    display: block !important;
+  }
+
+  .nav-btn {
+    display: block !important;
+    font-weight: bold !important;
+    line-height: unset !important;
+    cursor: pointer !important;
+    transition: transform 0.2s ease;
+    width: 1em;
+  }
+
+  .nav-btn.active {
+    transform: skew(-15deg);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1.5em;
+    flex-direction: column;
+    align-items: start;
+    position: absolute;
+    top: 3.5em;
+    left: -100%;
+    background-color: white;
+    padding: 0 1em 1em 1em;
+    height: calc(100vh - 3.5em);
+    transition: left 0.2s;
+    color: black;
+    width: 55%;
+  }
+
+  .nav-links.active {
+    left: 0;
+  }
+}

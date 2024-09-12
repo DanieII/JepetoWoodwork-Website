@@ -1,0 +1,23 @@
+.banner {
+  display: flex;
+  gap: 1em;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 55vh;
+  background-size: cover;
+}
+
+.banner h1 {
+  font-size: 1.5em;
+  color: white;
+  text-align: center;
+}
+
+.banner a:hover {
+  color: black;
+  background-color: white;
+  transition:
+    color,
+    background-color 0.2s;
+}
