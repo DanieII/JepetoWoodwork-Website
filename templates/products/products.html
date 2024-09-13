@@ -18,79 +18,124 @@
 {% endblock %}
 {% block title %}
     {% with category=request.resolver_match.kwargs.category %}
-        Продукти{% if category %} - {{ category }}{% endif %}
+        Продукти
+        {% if category %}- {{ category }}{% endif %}
     {% endwith %}
 {% endblock %}
 {% block styles %}
     <link rel="stylesheet" href="{% static 'css/products/products.css' %}">
-    <link rel="stylesheet" href="{% static "noui-slider/nouislider.min.css" %}">
 {% endblock %}
 {% block content %}
     <div class="container">
-        <div class="products-section">
-            <div class="filters">
-                <form method="get" action="{% url 'products' %}" class="form search">
-                    {{ search_form.search_field }}
-                    <button type="submit">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                </form>
-                {% with page_category=request.resolver_match.kwargs.category %}
-                    <div class="categories">
-                        <a href="{% url 'products' %}"
-                           {% if not page_category %}style="color: var(--orange)"{% endif %}>Всички</a>
+        {% with page_category=request.resolver_match.kwargs.category %}
+            <div class="top-section">
+                <h1>
+                    {% if page_category %}
+                        {{ page_category }}
+                    {% else %}
+                        Всички
+                    {% endif %}
+                </h1>
+                <div class="options">
+                    <select class="button" onchange="redirectToCategory(this)">
+                        <option value="" disabled selected hidden>Категории</option>
+                        <option value="{% url 'products' %}">Всички</option>
                         {% for category in categories %}
-                            <a href="{% url 'products_category' category=category %}"
-                               {% if page_category == category %}style="color: var(--orange)"{% endif %}>{{ category }}</a>
+                            <option value="{% url 'products_category' category=category %}">{{ category }}</option>
                         {% endfor %}
-                    </div>
-                {% endwith %}
-                <div>
-                    <div id="slider"></div>
-                    <p id="slider-values"></p>
+                    </select>
+                    <form>
+                        <select id="id_sort" name="sort" class="button" onchange="this.form.submit()">
+                            <option value="" disabled selected hidden>Филтри</option>
+                            {% for value, label in sort_form.fields.sort.choices %}
+                                <option value="{{ value }}"
+                                        {% if  request.GET.sort  == value %}selected{% endif %}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </form>
                 </div>
-                <form method="get">
-                    {% if form.non_field_errors %}<div class="form-error">{{ form.non_field_errors }}</div>{% endif %}
-                    <input type="hidden" id="id_min_price" name="min_price" value="0">
-                    <input type="hidden" id="id_max_price" name="max_price" value="500">
-                    <button type="submit" class="button">Филтър</button>
-                </form>
             </div>
+        {% endwith %}
+        <div class="products">
             {% if page_obj %}
-                <div class="products">
-                    {% for product in page_obj %}
-                        <div class="product">
-                            <div class="image-container">
-                                <a href="{% url 'product_details' slug=product.slug %}">
-                                    <img src="{{ product.thumbnail_image_url }}"
-                                         alt="{{ product.name }}"
-                                         loading="lazy"
-                                         class="image" />
-                                </a>
-                            </div>
-                            <div class="product-info">
-                                <a href="{% url 'product_details' slug=product.slug %}">
-                                    <p class="product-name">{{ product.name }}</p>
-                                </a>
-                                <p class="product-price">{{ product.price }} лв.</p>
-                            </div>
-                            <form method="post" action="{% url 'add_to_cart' slug=product.slug %}">
-                                {% csrf_token %}
-                                <input type="hidden" name="redirect_to" value="{{ request.get_full_path }}">
-                                <button type="submit" class="button">
-                                    <i class="fa-solid fa-cart-shopping"></i> Добави
-                                </button>
-                            </form>
+                {% for product in page_obj %}
+                    <div class="product">
+                        <div class="image">
+                            <a href="{% url 'product_details' slug=product.slug %}">
+                                <img src="{{ product.thumbnail_image_url }}" alt="{{ product.name }}">
+                            </a>
                         </div>
-                    {% endfor %}
-                </div>
+                        <div>
+                            <div class="info">
+                                <a href="{% url 'product_details' slug=product.slug %}">
+                                    <p>{{ product.name }}</p>
+                                    <p>{{ product.price }} лв.</p>
+                                </a>
+                            </div>
+                            <div class="cart">
+                                <form method="post" action="{% url 'add_to_cart' slug=product.slug %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="redirect_to" value="{{ request.get_full_path }}">
+                                    <button type="submit">
+                                        <svg aria-hidden="true"
+                                             xmlns="http://www.w3.org/2000/svg"
+                                             width="24"
+                                             height="24"
+                                             fill="currentColor"
+                                             viewBox="0 0 24 24">
+                                            <path fill-rule="evenodd" d="M5 3a1 1 0 0 0 0 2h.687L7.82 15.24A3 3 0 1 0 11.83 17h2.34A3 3 0 1 0 17 15H9.813l-.208-1h8.145a1 1 0 0 0 .979-.796l1.25-6A1 1 0 0 0 19 6h-2.268A2 2 0 0 1 15 9a2 2 0 1 1-4 0 2 2 0 0 1-1.732-3h-1.33L7.48 3.796A1 1 0 0 0 6.5 3H5Z" clip-rule="evenodd" />
+                                            <path fill-rule="evenodd" d="M14 5a1 1 0 1 0-2 0v1h-1a1 1 0 1 0 0 2h1v1a1 1 0 1 0 2 0V8h1a1 1 0 1 0 0-2h-1V5Z" clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
             {% else %}
-                <h2>Няма резултат</h2>
+                <h3>Няма резултат</h3>
             {% endif %}
-            {% include "products/pagination.html" %}
+            <!--<form method="get" action="{% url 'products' %}" class="form search">-->
+            <!--    {{ search_form.search_field }}-->
+            <!--    <button type="submit">-->
+            <!--        <i class="fa-solid fa-magnifying-glass"></i>-->
+            <!--    </button>-->
+            <!--</form>-->
+            <!--<form method="get">-->
+            <!--    {% if form.non_field_errors %}<div class="form-error">{{ form.non_field_errors }}</div>{% endif %}-->
+            <!--    <input type="hidden" id="id_min_price" name="min_price" value="0">-->
+            <!--    <input type="hidden" id="id_max_price" name="max_price" value="500">-->
+            <!--    <button type="submit" class="button">Филтър</button>-->
+            <!--</form>-->
+            <!--    <div class="products">-->
+            <!--        {% for product in page_obj %}-->
+            <!--            <div class="product">-->
+            <!--                <div class="image-container">-->
+            <!--                    <a href="{% url 'product_details' slug=product.slug %}">-->
+            <!--                        <img src="{{ product.thumbnail_image_url }}"-->
+            <!--                             alt="{{ product.name }}"-->
+            <!--                             loading="lazy"-->
+            <!--                             class="image" />-->
+            <!--                    </a>-->
+            <!--                </div>-->
+            <!--                <div class="product-info">-->
+            <!--                    <a href="{% url 'product_details' slug=product.slug %}">-->
+            <!--                        <p class="product-name">{{ product.name }}</p>-->
+            <!--                    </a>-->
+            <!--                    <p class="product-price">{{ product.price }} лв.</p>-->
+            <!--                </div>-->
+            <!--            </div>-->
+            <!--        {% endfor %}-->
+            <!--    </div>-->
         </div>
         {% include "products/pagination.html" %}
     </div>
-    <script src="{% static "noui-slider/nouislider.min.js" %}"></script>
-    <script src="{% static "javascript/price-slider.js" %}"></script>
+    <script>
+    function redirectToCategory(select) {
+        const url = select.value;
+        if (url) {
+            window.location.href = url;
+        }
+    }
+    </script>
 {% endblock %}

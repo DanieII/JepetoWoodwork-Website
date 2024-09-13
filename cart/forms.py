@@ -9,7 +9,9 @@ class BaseOrderForm(OptionalFormFieldsMixin, forms.ModelForm):
     class Meta:
         model = Order
         exclude = ["user", "created_on", "number"]
-        widgets = {"notes": forms.Textarea(attrs={"class": "notes"})}
+        widgets = {
+            "delivery_type": forms.Select(attrs={"class": "button"}),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -21,11 +23,6 @@ class BaseOrderForm(OptionalFormFieldsMixin, forms.ModelForm):
 
 
 class OrderForm(BaseOrderForm):
-    save_information = forms.BooleanField(
-        initial=False,
-        required=False,
-        label="Запази/Поднови информацията за бъдещи поръчки.",
-    )
     agree_with_terms_of_use = forms.BooleanField(
         required=True, label="Запознат съм и съм съгласен с правила и условия на сайта."
     )
@@ -38,9 +35,3 @@ class OrderForm(BaseOrderForm):
             )
 
         return agreed
-
-
-class EditSavedCheckoutInformationForm(BaseOrderForm):
-    class Meta:
-        model = Order
-        exclude = ["user", "created_on", "notes", "number"]

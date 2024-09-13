@@ -1,5 +1,4 @@
 from products.models import Product
-from django.core.exceptions import ObjectDoesNotExist
 
 
 def get_cart_products(session):
@@ -19,7 +18,6 @@ def get_total_price(products):
 
 
 def process_cart_quantity(product_slug, product, quantity, cart, pre_order):
-    product = Product.objects.get(slug=product.slug)
     cart[product_slug] += quantity
 
     if not pre_order:
@@ -29,11 +27,3 @@ def process_cart_quantity(product_slug, product, quantity, cart, pre_order):
             cart[product_slug] += product.quantity
 
     return cart
-
-
-def get_user_saved_checkout_information(request):
-    try:
-        checkout_information = request.user.savedcheckoutinformation
-        return checkout_information
-    except (ObjectDoesNotExist, AttributeError):
-        return None

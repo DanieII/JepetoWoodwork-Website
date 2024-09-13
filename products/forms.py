@@ -8,31 +8,15 @@ class ProductSearchForm(forms.Form):
     )
 
 
-class ProductFilterForm(forms.Form):
-    min_price = forms.FloatField(
-        validators=[MinValueValidator(0)],
-        widget=forms.NumberInput(attrs={"placeholder": "Минимална"}),
-        required=False,
-    )
-    max_price = forms.FloatField(
-        validators=[MinValueValidator(0)],
-        widget=forms.NumberInput(attrs={"placeholder": "Максимална"}),
-        required=False,
-    )
+class ProductSortForm(forms.Form):
+    SORT_CHOICES = [
+        ("low_to_high", "Цена (ниска към висока)"),
+        ("high_to_low", "Цена (висока към ниска)"),
+        ("new_to_old", "Дата (ново към старо)"),
+        ("old_to_new", "Дата (старо към ново)"),
+    ]
 
-    def clean(self):
-        super().clean()
-
-        min_price, max_price = self.cleaned_data.get(
-            "min_price"
-        ), self.cleaned_data.get("max_price")
-        if min_price and max_price:
-            if min_price > max_price:
-                raise forms.ValidationError(
-                    "Минималната цена трябва да е по-малка от максималната!"
-                )
-
-        return self.cleaned_data
+    sort = forms.ChoiceField(choices=SORT_CHOICES, required=True)
 
 
 class ProductAddToCartForm(forms.Form):

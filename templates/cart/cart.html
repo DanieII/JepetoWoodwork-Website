@@ -6,48 +6,48 @@
     <link rel="stylesheet" href="{% static 'css/cart/cart.css' %}">
 {% endblock %}
 {% block content %}
-    <div class="container">
+    <div class="container cart">
+        <h1>Количка</h1>
         {% if cart_products %}
-            <h1>Количка</h1>
             <div class="products">
                 {% for product, quantity in cart_products.items %}
                     <div class="product">
-                        <a href="{% url 'product_details' slug=product.slug %}">
-                            <img src="{{ product.thumbnail_image_url }}"
-                                 alt="{{ product.name }}"
-                                 class="image">
-                        </a>
-                        <a href="{% url 'product_details' slug=product.slug %}">
-                            <p class="name">{{ product.name }}</p>
-                        </a>
+                        <div class="image">
+                            <a href="{% url 'product_details' slug=product.slug %}">
+                                <img src="{{ product.thumbnail_image_url }}" alt="{{ product.name }}" />
+                            </a>
+                        </div>
                         <div>
-                            <div class="quantity">
-                                <form method="post"
-                                      action="{% url 'decrease_quantity' slug=product.slug %}">
-                                    {% csrf_token %}
-                                    <button type="submit">&minus;</button>
-                                </form>
-                                <p>{{ quantity }}</p>
-                                <form method="post" action="{% url 'add_to_cart' slug=product.slug %}">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="redirect_to" value="{{ request.path }}">
-                                    <button type="submit">&plus;</button>
-                                </form>
-                            </div>
+                            <p>{{ product.name }}</p>
                             <a href="{% url 'remove_product' slug=product.slug %}" class="remove">Премахни</a>
+                        </div>
+                        <div class="quantity">
+                            <form method="post"
+                                  action="{% url 'decrease_quantity' slug=product.slug %}">
+                                {% csrf_token %}
+                                <button type="submit" class="button">&minus;</button>
+                            </form>
+                            <p>{{ quantity }}</p>
+                            <form method="post" action="{% url 'add_to_cart' slug=product.slug %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="redirect_to" value="{{ request.path }}">
+                                <button type="submit" class="button">&plus;</button>
+                            </form>
                         </div>
                         <p class="price">{{ product.price|calculate_total_price:quantity }} лв.</p>
                     </div>
                 {% endfor %}
             </div>
             <div class="checkout">
-                <p class="total-price">
+                <p>
                     Обща цена: <span>{{ total_price|floatformat:2 }} лв.</span>
                 </p>
-                <a href="{% url "checkout" %}">Завършване на поръчката</a>
+                <a href="{% url "checkout" %}" class="button">Завършване на поръчката</a>
             </div>
         {% else %}
-            <h1>Няма продукти в количката</h1>
+            <p>Няма продукти в количката</p>
         {% endif %}
     </div>
 {% endblock %}
+<!--<div>-->
+<!--</div>-->

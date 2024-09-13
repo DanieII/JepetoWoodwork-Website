@@ -13,9 +13,6 @@
         <div class="content">
             <h2>{{ request.user }}</h2>
             <p>Включил се на: {{ request.user.date_joined|date:"m.d.Y" }}</p>
-            {% if request.user.savedcheckoutinformation %}
-                <a href="{% url 'saved_checkout_information' %}" class="button">Запазена информация за поръчки</a>
-            {% endif %}
         </div>
     </div>
 {% endblock %}

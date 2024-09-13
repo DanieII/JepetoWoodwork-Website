@@ -19,11 +19,10 @@
     <link rel="stylesheet" href="{% static 'css/common/home.css' %}">
 {% endblock %}
 {% block content %}
-    <div class="container banner">
+    <div class="banner">
         <h1>Ръчно изработени дървени изделия</h1>
         <a href="{% url 'products' %}" class="button">Пазарувай</a>
     </div>
-         {% for product in object_list %} 
-         {% endfor %} 
+    {% for product in object_list %}{% endfor %}
     <script src="{% static "javascript/change-navbar-color.js" %}"></script>
 {% endblock %}

@@ -1,7 +1,7 @@
 from django.contrib.auth.views import login_required
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect, render
-from .forms import EditSavedCheckoutInformationForm, OrderForm
+from .forms import OrderForm
 from .models import Order, OrderProduct, SavedCheckoutInformation
 from products.models import Product
 from django.views.generic import CreateView, UpdateView
@@ -11,10 +11,8 @@ from .helper_functions import (
     get_cart_products,
     get_total_price,
     process_cart_quantity,
-    get_user_saved_checkout_information,
 )
 from django.contrib import messages
-from .mixins import FillOrderFormMixin
 from django.contrib.auth.models import send_mail
 from django.conf import settings
 from django.utils.html import format_html
@@ -79,32 +77,11 @@ def remove_product(request, slug):
     return redirect(reverse("cart"))
 
 
-class CheckoutView(LoginRequiredMixin, FillOrderFormMixin, CreateView):
+class CheckoutView(LoginRequiredMixin, CreateView):
     model = Order
     form_class = OrderForm
     template_name = "cart/checkout.html"
     success_url = reverse_lazy("user_orders")
-
-    def handle_save_information(self, save, order):
-        if save:
-            saved_checkout_information = get_user_saved_checkout_information(
-                self.request
-            )
-            if saved_checkout_information:
-                saved_checkout_information.delete()
-
-            SavedCheckoutInformation.objects.create(
-                user=self.request.user,
-                first_name=order.first_name,
-                last_name=order.last_name,
-                city=order.city,
-                address=order.address,
-                apartment_building=order.apartment_building,
-                postal_code=order.postal_code,
-                phone_number=order.phone_number,
-                email=order.email,
-                delivery_type=order.delivery_type,
-            )
 
     def send_order_email(self, order):
         host_email = settings.EMAIL_HOST_USER
@@ -188,41 +165,8 @@ class CheckoutView(LoginRequiredMixin, FillOrderFormMixin, CreateView):
             OrderProduct.objects.create(order=order, product=product, quantity=quantity)
 
         self.request.session["cart"] = {}
-        self.handle_save_information(self.request.POST.get("save_information"), order)
 
         messages.success(self.request, "Поръчката е запазена")
         self.send_order_email(order)
 
         return super().form_valid(form)
-
-
-class SavedCheckoutInformationView(
-    LoginRequiredMixin, SuccessMessageMixin, FillOrderFormMixin, UpdateView
-):
-    model = SavedCheckoutInformation
-    form_class = EditSavedCheckoutInformationForm
-    template_name = "users/saved-checkout-information.html"
-    success_url = reverse_lazy("saved_checkout_information")
-    success_message = "Информацията за поръчки е подновена"
-
-    def dispatch(self, request, *args, **kwargs):
-        self.saved_checkout_information = get_user_saved_checkout_information(request)
-        if not self.saved_checkout_information:
-            return redirect("home")
-
-        return super().dispatch(request, *args, **kwargs)
-
-    def get_object(self, *args, **kwargs):
-        return self.saved_checkout_information
-
-
-@login_required
-def delete_saved_checkout_information_view(request):
-    checkout_information = get_user_saved_checkout_information(request)
-
-    if not checkout_information:
-        return redirect("home")
-
-    checkout_information.delete()
-
-    return redirect(reverse("user_details"))

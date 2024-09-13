@@ -1,7 +1,8 @@
 from django.views.generic import DetailView, ListView
 from django.urls import reverse
 from django.views.generic.edit import FormMixin
-from .forms import ProductFilterForm
+from django.shortcuts import redirect
+from .forms import ProductSortForm
 from .models import Product, Category
 from .forms import ProductSearchForm, ProductAddToCartForm
 from cart.views import add_to_cart
@@ -11,8 +12,8 @@ from users.mixins import HandleSendAndRetrieveLoginRequiredFormInformationMixin
 class BaseProductsView(ListView):
     model = Product
     template_name = "products/products.html"
-    paginate_by = 10
-    extra_context = {"search_form": ProductSearchForm, "form": ProductFilterForm}
+    paginate_by = 4
+    extra_context = {"sort_form": ProductSortForm}
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(object_list=self.get_queryset())
@@ -20,31 +21,30 @@ class BaseProductsView(ListView):
 
         return context
 
-    def filter_by_search_field(self, queryset):
-        search_query = self.request.GET.get("search_field")
-        if search_query:
-            queryset = queryset.filter(name__icontains=search_query)
+    # def filter_by_search_field(self, queryset):
+    #     search_query = self.request.GET.get("search_field")
+    #     if search_query:
+    #         queryset = queryset.filter(name__icontains=search_query)
+    #
+    #     return queryset
 
-        return queryset
-
-    def filter_by_filter_form(self, queryset):
-        form_data = {k: v for k, v in self.request.GET.items()}
-        form = ProductFilterForm(form_data or None)
+    def get_sorted_products(self, queryset):
+        form = ProductSortForm(self.request.GET or None)
         if form.is_valid():
-            min_field, max_field = form.cleaned_data.get(
-                "min_price"
-            ), form.cleaned_data.get("max_price")
-
-            if min_field:
-                queryset = queryset.filter(price__gte=min_field)
-            if max_field:
-                queryset = queryset.filter(price__lte=max_field)
+            sort_by = form.cleaned_data.get("sort")
+            if sort_by == "low_to_high":
+                queryset = queryset.order_by("price")
+            elif sort_by == "high_to_low":
+                queryset = queryset.order_by("-price")
+            elif sort_by == "new_to_old":
+                queryset = queryset.order_by("-date_added")
+            elif sort_by == "old_to_new":
+                queryset = queryset.order_by("date_added")
 
         return queryset
 
     def perform_filtering(self, queryset):
-        queryset = self.filter_by_search_field(queryset)
-        queryset = self.filter_by_filter_form(queryset)
+        queryset = self.get_sorted_products(queryset)
 
         return queryset
 
@@ -69,14 +69,11 @@ class ProductsCategoryView(BaseProductsView):
         return products
 
 
-class ProductDetailsView(
-    HandleSendAndRetrieveLoginRequiredFormInformationMixin, FormMixin, DetailView
-):
+class ProductDetailsView(FormMixin, DetailView):
     model = Product
     template_name = "products/product-details.html"
     form_class = ProductAddToCartForm
     fields = "__all__"
-    success_message = "Отзивът е запазен"
     MAX_LAST_VIEWED_PRODUCTS_LENGTH = 3
 
     def get_last_viewed_products(self):
@@ -87,17 +84,17 @@ class ProductDetailsView(
 
     def get_object(self, queryset=None):
         product = super().get_object(queryset)
-        last_viewed = self.request.session.get("last_viewed", [])
-
-        if product.slug not in last_viewed:
-            last_viewed.append(product.slug)
-            if len(last_viewed) > self.MAX_LAST_VIEWED_PRODUCTS_LENGTH:
-                last_viewed.pop(0)
-        else:
-            last_viewed.pop(last_viewed.index(product.slug))
-            last_viewed.append(product.slug)
-
-        self.request.session["last_viewed"] = last_viewed
+        # last_viewed = self.request.session.get("last_viewed", [])
+        #
+        # if product.slug not in last_viewed:
+        #     last_viewed.append(product.slug)
+        #     if len(last_viewed) > self.MAX_LAST_VIEWED_PRODUCTS_LENGTH:
+        #         last_viewed.pop(0)
+        # else:
+        #     last_viewed.pop(last_viewed.index(product.slug))
+        #     last_viewed.append(product.slug)
+        #
+        # self.request.session["last_viewed"] = last_viewed
 
         return product
 
@@ -107,7 +104,7 @@ class ProductDetailsView(
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 
-        context["last_viewed"] = self.get_last_viewed_products()
+        # context["last_viewed"] = self.get_last_viewed_products()
 
         return context
 
@@ -118,10 +115,8 @@ class ProductDetailsView(
         self.object = self.get_object()
         self.form = self.get_form()
 
-        response = super().post(request)
-
         if self.form.is_valid():
             quantity = int(request.POST.get("quantity"))
             add_to_cart(request, self.object.slug, quantity)
 
-        return response
+        return redirect(self.get_success_url())

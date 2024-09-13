@@ -12,7 +12,6 @@
               property="og:description"
               content="{% block meta_description %}{% endblock %}">
         <meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
-        <meta name="theme-color" content="#d9965b">
         {% block meta %}
             <meta property="og:type" content="website">
             <meta property="og:image" content="{% block meta_image %} {% static "images/ros-woodwork.svg" %} {% endblock %}">
@@ -24,7 +23,6 @@
         <link rel="apple-touch-icon" sizes="180x180" href="{% static "images/apple-touch-icon.png" %}">
         <link rel="manifest" href="{% static "/site.webmanifest" %}">
         <link rel="mask-icon" href="{% static "images/safari-pinned-tab.svg" %}" color="#5bbad5">
-        <link rel="stylesheet" href="{% static "css/bootstrap-alerts/bootstrap.css" %}">
         <link rel="stylesheet" href="{% static 'css/common/base.css' %}">
         <script src="https://kit.fontawesome.com/9c26499af3.js"
                 crossorigin="anonymous"></script>
@@ -41,13 +39,13 @@
                     <li>
                         <a href="{% url 'products' %}">Продукти</a>
                     </li>
-                    <li >
+                    <li>
                         <a href="{% url 'contacts' %}">Контакти</a>
                     </li>
                     <li class="mobile-link">
                         <a href="{% url 'user_details' %}">Профил</a>
                     </li>
-                                    </ul>
+                </ul>
                 <div class="logo-container">
                     <a href="{% url 'home' %}">
                         {% with "logo" as class %}
@@ -61,33 +59,51 @@
                 <ul class="icon-navigation">
                     <li>
                         <a href="{% url 'user_details' %}">
-				<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-				  <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
-				</svg>
-			</a>
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white"
+                                 aria-hidden="true"
+                                 xmlns="http://www.w3.org/2000/svg"
+                                 width="24"
+                                 height="24"
+                                 fill="currentColor"
+                                 viewBox="0 0 24 24">
+                                <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd" />
+                            </svg>
+                        </a>
                     </li>
                     {% with cart_quantity=request.session.cart|length %}
                         {% if cart_quantity %}
                             <li value="{{ cart_quantity }}" class="cart">
-                                <a href="{% url 'cart' %}"><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-  <path fill-rule="evenodd" d="M4 4a1 1 0 0 1 1-1h1.5a1 1 0 0 1 .979.796L7.939 6H19a1 1 0 0 1 .979 1.204l-1.25 6a1 1 0 0 1-.979.796H9.605l.208 1H17a3 3 0 1 1-2.83 2h-2.34a3 3 0 1 1-4.009-1.76L5.686 5H5a1 1 0 0 1-1-1Z" clip-rule="evenodd"/>
-</svg>
-</a>
+                                <a href="{% url 'cart' %}">
+                                    <svg class="w-6 h-6 text-gray-800 dark:text-white"
+                                         aria-hidden="true"
+                                         xmlns="http://www.w3.org/2000/svg"
+                                         width="24"
+                                         height="24"
+                                         fill="currentColor"
+                                         viewBox="0 0 24 24">
+                                        <path fill-rule="evenodd" d="M4 4a1 1 0 0 1 1-1h1.5a1 1 0 0 1 .979.796L7.939 6H19a1 1 0 0 1 .979 1.204l-1.25 6a1 1 0 0 1-.979.796H9.605l.208 1H17a3 3 0 1 1-2.83 2h-2.34a3 3 0 1 1-4.009-1.76L5.686 5H5a1 1 0 0 1-1-1Z" clip-rule="evenodd" />
+                                    </svg>
+                                </a>
                             </li>
                         {% else %}
                             <li value="" class="cart">
                                 <a href="{% url 'cart' %}">
-<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-  <path fill-rule="evenodd" d="M4 4a1 1 0 0 1 1-1h1.5a1 1 0 0 1 .979.796L7.939 6H19a1 1 0 0 1 .979 1.204l-1.25 6a1 1 0 0 1-.979.796H9.605l.208 1H17a3 3 0 1 1-2.83 2h-2.34a3 3 0 1 1-4.009-1.76L5.686 5H5a1 1 0 0 1-1-1Z" clip-rule="evenodd"/>
-</svg>
-</a>
+                                    <svg class="w-6 h-6 text-gray-800 dark:text-white"
+                                         aria-hidden="true"
+                                         xmlns="http://www.w3.org/2000/svg"
+                                         width="24"
+                                         height="24"
+                                         fill="currentColor"
+                                         viewBox="0 0 24 24">
+                                        <path fill-rule="evenodd" d="M4 4a1 1 0 0 1 1-1h1.5a1 1 0 0 1 .979.796L7.939 6H19a1 1 0 0 1 .979 1.204l-1.25 6a1 1 0 0 1-.979.796H9.605l.208 1H17a3 3 0 1 1-2.83 2h-2.34a3 3 0 1 1-4.009-1.76L5.686 5H5a1 1 0 0 1-1-1Z" clip-rule="evenodd" />
+                                    </svg>
+                                </a>
                             </li>
                         {% endif %}
                     {% endwith %}
-                                    </ul>
+                </ul>
             </div>
         </nav>
-        {% include "common/messages.html" %}
         <main>
             {% block content %}{% endblock %}
         </main>
@@ -112,7 +128,14 @@
                 </ul>
             </div>
         </footer>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li {% if message.tags %}class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
         <script src="{% static "javascript/mobile-nav.js" %}"></script>
-        <script src="{% static 'javascript/hide-alerts.js' %}"></script>
+        <script src="{% static 'javascript/hide-messages.js' %}"></script>
     </body>
 </html>
