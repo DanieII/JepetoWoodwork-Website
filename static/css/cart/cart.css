@@ -2,6 +2,10 @@ h1 {
   text-align: center;
 }
 
+.container > p {
+  text-align: center;
+}
+
 .products {
   display: flex;
   flex-direction: column;

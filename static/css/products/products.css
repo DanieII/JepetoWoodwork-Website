@@ -26,11 +26,11 @@
   justify-content: space-between;
   margin-top: 1em;
   flex-wrap: wrap;
-  gap: 1.5em;
+  gap: 2.5em;
 }
 
 .product {
-  flex-basis: 48%;
+  flex: 1 0 48%;
 }
 
 .product img {
@@ -39,13 +39,10 @@
 
 .product > div:nth-of-type(2) {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
   margin-top: 0.5em;
-}
-
-.product .info {
-  font-size: 0.9em;
+  gap: 0.5em;
 }
 
 .product .info a {
@@ -53,13 +50,22 @@
   text-decoration: none;
 }
 
+.product .info p {
+  word-break: break-all;
+}
+
+.product .price {
+  margin-top: 0.2em;
+  font-weight: 600;
+}
+
+.product .cart form {
+  text-align: center;
+}
+
 .product .cart button {
-  background: none;
-  border: none;
-  color: var(--orange);
-  font-size: 1.3em;
-  cursor: pointer;
-  width: 30px;
+  width: 100%;
+  font-size: 0.9em;
 }
 
 .pagination {

@@ -32,7 +32,7 @@ class ContactsView(FormView):
             recipient_list=[host_email],
         )
 
-        messages.success(self.request, "Емейлът е изпратен!")
+        messages.success(self.request, "Имейлът е изпратен!")
 
         return super().form_valid(form)
 

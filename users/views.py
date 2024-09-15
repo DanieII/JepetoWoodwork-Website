@@ -4,7 +4,8 @@ from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.views.generic import CreateView, DetailView, ListView
 from .forms import CustomUserCreationForm, CustomLoginForm
-from django.contrib.auth.views import LoginView, login_required
+from django.contrib.auth.views import LoginView
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from .mixins import (
     HandleAcceptAndRecoverInformationFromLoginRequiredFormMixin,
@@ -41,14 +42,15 @@ class UserRegisterView(
         return context
 
     def form_valid(self, form):
-        response = super().form_valid(form)
         user = form.save()
 
         login(
-            self.request, user, backend="users.authentication.PhoneAndEmailAuthBackend"
+            self.request,
+            user,
+            backend="users.authentication.PhoneAndEmailAuthBackend",
         )
 
-        return response
+        return super().form_valid(form)
 
 
 class UserLoginView(
@@ -65,9 +67,11 @@ class UserLoginView(
         return f"Влязохте като {cleaned_data.get('username')}"
 
     def form_valid(self, form):
+        user = form.get_user()
+
         login(
             self.request,
-            form.get_user(),
+            user,
             backend="users.authentication.PhoneAndEmailAuthBackend",
         )
 
@@ -81,9 +85,6 @@ class UserDetailsView(LoginRequiredMixin, DetailView):
 
     def get_object(self, queryset=None):
         return self.request.user
-
-    def get(self, request, *args, **kwargs):
-        return super().get(request, *args, **kwargs)
 
 
 class UserOrders(LoginRequiredMixin, ListView):
@@ -121,6 +122,7 @@ class ChangePasswordView(LoginRequiredMixin, SuccessMessageMixin, PasswordChange
 @login_required
 def logout_view(request):
     logout(request)
+
     messages.success(request, "Успешно излязохте от профила си")
 
     return redirect("login")

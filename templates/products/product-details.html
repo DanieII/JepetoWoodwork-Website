@@ -7,26 +7,6 @@
     {% endwith %}
 {% endblock %}
 {% block meta %}
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org/",
-      "@type": "Product",
-      "name": "{{ object.name }}",
-      "image": "{{ product.thumbnail_image_url }}",
-      "description": "{{ object.description|striptags }}",
-      "brand": {
-            "@type": "Brand",
-            "name": "RosWoodwork"
-        },
-      "offers": {
-            "@type": "Offer",
-            "price": "{{ object.price }}",
-            "priceCurrency": "BGN",
-            "availability": "{{ object.available }}"
-        },
-       "url": "{{ request.build_absolute_uri }}"
-    }
-    </script>
     <meta name="twitter:title" content="{{ object.name }} | Ros Woodwork">
     <meta name="twitter:description"
           content="{{ object.description|striptags }}">

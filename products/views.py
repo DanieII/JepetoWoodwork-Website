@@ -76,38 +76,6 @@ class ProductDetailsView(FormMixin, DetailView):
     fields = "__all__"
     MAX_LAST_VIEWED_PRODUCTS_LENGTH = 3
 
-    def get_last_viewed_products(self):
-        products = Product.objects.all()
-        return [
-            products.get(slug=slug) for slug in self.request.session.get("last_viewed")
-        ]
-
-    def get_object(self, queryset=None):
-        product = super().get_object(queryset)
-        # last_viewed = self.request.session.get("last_viewed", [])
-        #
-        # if product.slug not in last_viewed:
-        #     last_viewed.append(product.slug)
-        #     if len(last_viewed) > self.MAX_LAST_VIEWED_PRODUCTS_LENGTH:
-        #         last_viewed.pop(0)
-        # else:
-        #     last_viewed.pop(last_viewed.index(product.slug))
-        #     last_viewed.append(product.slug)
-        #
-        # self.request.session["last_viewed"] = last_viewed
-
-        return product
-
-    def get_additional_fields(self):
-        return {"user": self.request.user, "product": self.object}
-
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-
-        # context["last_viewed"] = self.get_last_viewed_products()
-
-        return context
-
     def get_success_url(self):
         return reverse("product_details", kwargs={"slug": self.object.slug})
 

@@ -22,9 +22,9 @@ class Product(models.Model):
     modified = models.DateTimeField(auto_now=True)
     special = models.BooleanField(default=False)
 
-    @property
-    def available(self):
-        return self.quantity >= 1
+    # @property
+    # def available(self):
+    #     return self.quantity >= 1
 
     @property
     def thumbnail_image_url(self):

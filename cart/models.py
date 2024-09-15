@@ -71,19 +71,3 @@ class OrderProduct(models.Model):
     @property
     def product_total(self):
         return f"{self.product.price * self.quantity:.2f}"
-
-
-class SavedCheckoutInformation(models.Model):
-    user = models.OneToOneField(UserModel, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=100, validators=[only_letters_validator])
-    last_name = models.CharField(max_length=100, validators=[only_letters_validator])
-    city = models.CharField(max_length=100, validators=[only_letters_validator])
-    address = models.CharField(max_length=100)
-    apartment_building = models.CharField(
-        max_length=100,
-        null=True,
-    )
-    postal_code = models.IntegerField()
-    phone_number = PhoneNumberField()
-    email = models.EmailField()
-    delivery_type = models.CharField(max_length=100)
