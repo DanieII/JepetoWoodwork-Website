@@ -2,7 +2,6 @@ from django.core.validators import MinValueValidator
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
-from .validators import validate_first_character
 from django.contrib.auth import get_user_model
 from unidecode import unidecode
 
@@ -11,7 +10,7 @@ UserModel = get_user_model()
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=200, validators=[validate_first_character])
+    name = models.CharField(max_length=200)
     price = models.FloatField(validators=[MinValueValidator(0)])
     categories = models.ManyToManyField(to="Category")
     quantity = models.PositiveIntegerField()
@@ -22,17 +21,11 @@ class Product(models.Model):
     modified = models.DateTimeField(auto_now=True)
     special = models.BooleanField(default=False)
 
-    # @property
-    # def available(self):
-    #     return self.quantity >= 1
-
     @property
     def thumbnail_image_url(self):
-        try:
-            image = self.productimage_set.all()[0]
-            return image.image.url
-        except IndexError:
-            return "/static/images/no-image.jpg"
+        image = self.productimage_set.all()[0]
+
+        return image.image.url
 
     def __str__(self):
         return self.name

@@ -3,7 +3,7 @@
 {% block meta_description %}{{ object.description|striptags }}{% endblock %}
 {% block meta_keywords %}
     {% with categories=object.categories.all|join:", " %}
-        дървен, дървена, ръчна изработка, {{ object.name }}, {{ categories }}
+        дървен, ръчна изработка, {{ object.name }}, {{ categories }}
     {% endwith %}
 {% endblock %}
 {% block meta %}
@@ -27,7 +27,7 @@
     <meta property="product:price:currency" content="BGN">
 {% endblock %}
 {% block meta_image %}{{ object.thumbnail_image_url }}{% endblock %}
-{% block title %}{{ object.name }} | Ros Woodwork{% endblock %}
+{% block title %}{{ object.name }} | Rocco Woodwork{% endblock %}
 {% block styles %}
     <link rel="stylesheet" href="{% static "css/products/product-details.css" %}">
     <link rel="stylesheet"
@@ -36,9 +36,7 @@
 {% block content %}
     <div class="container product">
         <div class="swiper image">
-            <!-- Additional required wrapper -->
             <div class="swiper-wrapper">
-                <!-- Slides -->
                 {% for product_image_obj in object.productimage_set.all %}
                     <div class="swiper-slide">
                         <img src="{{ product_image_obj.image.url }}" alt="{{ product.name }} ">
@@ -48,18 +46,6 @@
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
         </div>
-        <!--<div class="glider-contain">-->
-        <!--    <div class="glider">-->
-        <!--        {% for product_image_obj in object.productimage_set.all %}-->
-        <!--            <div>-->
-        <!--                <img src="{{ product_image_obj.image.url }}" alt="{{ product.name }} ">-->
-        <!--            </div>-->
-        <!--        {% endfor %}-->
-        <!--    </div>-->
-        <!--    <button aria-label="Previous" class="glider-prev">«</button>-->
-        <!--    <button aria-label="Next" class="glider-next">»</button>-->
-        <!--    <div role="tablist" class="dots"></div>-->
-        <!--</div>-->
         <div>
             <div class="info">
                 <h1>{{ product.name }}</h1>
@@ -89,7 +75,9 @@
                     {% csrf_token %}
                     <input type="hidden" name="redirect_to" value="{{ request.path }}">
                     {{ form.quantity }}
-                    <button type="submit" class="button">
+                    <button type="submit"
+                            class="button"
+                            {% if object.quantity == 0 and not object.pre_order %}disabled{% endif %}>
                         <svg aria-hidden="true"
                              xmlns="http://www.w3.org/2000/svg"
                              width="24"
@@ -104,34 +92,7 @@
                 </form>
             </div>
         </div>
-        <!--<div class="product-info">-->
-        <!--    <h1>{{ product.name }}</h1>-->
-        <!--    <p class="available">-->
-        <!--        {% if product.pre_order %}-->
-        <!--            Налично за предварителни поръчки-->
-        <!--        {% else %}-->
-        <!--            {{ product.quantity }} Налични-->
-        <!--        {% endif %}-->
-        <!--    </p>-->
-        <!--    <p class ="price">{{ product.price|floatformat:2 }} лв.</p>-->
-        <!--    {% if product.description %}<p class="description">{{ product.description|safe }}</p>{% endif %}-->
-        <!--</div>-->
     </div>
-    <!--<div>-->
-    <!--    <h2>Последно разгледани</h2>-->
-    <!--    <div class="last-viewed">-->
-    <!--        {% for product in last_viewed %}-->
-    <!--            <div class="viewed-product">-->
-    <!--                <a href="{% url 'product_details' slug=product.slug %}">-->
-    <!--                    <img src="{{ product.thumbnail_image_url }}" alt="{{ product.name }}">-->
-    <!--                </a>-->
-    <!--                <p>{{ product.name }}</p>-->
-    <!--                <p>{{ product.price|floatformat:2 }} лв.</p>-->
-    <!--            </div>-->
-    <!--        {% endfor %}-->
-    <!--    </div>-->
-    <!--</div>-->
-    <script src="{% static "javascript/expand-image.js" %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
 	const swiper = new Swiper('.swiper', {
@@ -144,16 +105,3 @@
 		});
     </script>
 {% endblock %}
-<!--<section class="splide" aria-label="Splide Basic HTML Example">-->
-<!--    <div class="splide__track">-->
-<!--        <ul class="splide__list">-->
-<!--            {% for product_image_obj in object.productimage_set.all %}-->
-<!--                <li class="splide__slide">-->
-<!--                    <div class="image-container">-->
-<!--                        <img src="{{ product_image_obj.image.url }}" alt="{{ product.name }} ">-->
-<!--                    </div>-->
-<!--                </li>-->
-<!--            {% endfor %}-->
-<!--        </ul>-->
-<!--    </div>-->
-<!--</section>-->

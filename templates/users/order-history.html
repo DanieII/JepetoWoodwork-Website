@@ -1,32 +1,28 @@
 {% extends 'common/base.html' %}
 {% load static %}
 {% block title %}Поръчки | Rocco Woodwork{% endblock %}
-{% block meta_description %}Преглед на историята на вашите поръчки в Rocco Woodwork.{% endblock %}
-{% block meta_keywords %}история на поръчки, предишни поръчки, поръчки, статус на поръчки{% endblock %}
 {% block styles %}
+    <link rel="stylesheet" href="{% static "css/users/base-profile.css" %}">
     <link rel="stylesheet" href="{% static "css/users/order-history.css" %}">
 {% endblock %}
 {% block content %}
     <div class="container">
-        {% include "users/base-details.html" %}
+        {% include "users/navigation.html" %}
         <div class="content">
             {% if object_list %}
-                <h1>Твоите поръчки</h1>
                 <div class="orders">
                     {% for order in object_list %}
                         <div class="order">
                             <p>
-                                Създадена на: <span>{{ order.created_on|date:"m.d.Y" }}</span>
+                                Създадена на: <strong>{{ order.created_on|date:"m.d.Y" }}</strong>
                             </p>
                             <p>
-                                Номер на поръчка: <span>{{ order.number }}</span>
+                                Номер на поръчка: <strong>{{ order.number }}</strong>
                             </p>
                             <ul class="products">
                                 {% for ordered_product in order.orderproduct_set.all %}
                                     <li>
-                                        <p>
-                                            <a href="{% url 'product_details' slug=ordered_product.product.slug %}">{{ ordered_product.product.name }}</a> &times; {{ ordered_product.quantity }} - {{ ordered_product.product_total }} лв.
-                                        </p>
+                                        <a href="{% url 'product_details' slug=ordered_product.product.slug %}">{{ ordered_product.product.name }}</a> &times; {{ ordered_product.quantity }} - {{ ordered_product.product_total }} лв.
                                     </li>
                                 {% endfor %}
                             </ul>
@@ -35,7 +31,7 @@
                     {% endfor %}
                 </div>
             {% else %}
-                <h1>Няма поръчки</h1>
+                <p>Няма поръчки</p>
             {% endif %}
         </div>
     </div>

@@ -6,7 +6,7 @@ h1 {
 .contacts {
   display: flex;
   justify-content: center;
-  gap: 1em;
+  gap: 1.5em;
   margin: 0 auto;
 }
 
@@ -14,12 +14,17 @@ h1 {
   flex: 1;
 }
 
-.contact-information p {
-  word-break: keep-all;
+.contact-information {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
 }
 
-.contact-information p:not(:last-child) {
-  margin-bottom: 0.5em;
+.contact-information p {
+  word-break: keep-all;
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
 }
 
 .contacts .form {
@@ -29,9 +34,5 @@ h1 {
 @media (max-width: 768px) {
   .contacts {
     flex-direction: column;
-  }
-
-  .contact-information {
-    align-self: center;
   }
 }

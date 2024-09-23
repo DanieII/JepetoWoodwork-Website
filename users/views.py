@@ -8,7 +8,6 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from .mixins import (
-    HandleAcceptAndRecoverInformationFromLoginRequiredFormMixin,
     ProhibitLoggedUsersMixin,
 )
 from cart.models import Order
@@ -16,12 +15,10 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
-from cart.forms import OrderForm
 
 
 class UserRegisterView(
     SuccessMessageMixin,
-    HandleAcceptAndRecoverInformationFromLoginRequiredFormMixin,
     ProhibitLoggedUsersMixin,
     CreateView,
 ):
@@ -55,7 +52,6 @@ class UserRegisterView(
 
 class UserLoginView(
     SuccessMessageMixin,
-    HandleAcceptAndRecoverInformationFromLoginRequiredFormMixin,
     ProhibitLoggedUsersMixin,
     LoginView,
 ):
@@ -81,7 +77,6 @@ class UserLoginView(
 class UserDetailsView(LoginRequiredMixin, DetailView):
     model = get_user_model()
     template_name = "users/details.html"
-    extra_context = {"form": OrderForm}
 
     def get_object(self, queryset=None):
         return self.request.user

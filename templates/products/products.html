@@ -69,14 +69,20 @@
                             <div class="info">
                                 <a href="{% url 'product_details' slug=product.slug %}">
                                     <p>{{ product.name }}</p>
-                                    <p class="price">{{ product.price }} лв.</p>
+                                    <p class="price">
+                                        <strong>{{ product.price }} лв.</strong>
+                                    </p>
                                 </a>
                             </div>
                             <div class="cart">
                                 <form method="post" action="{% url 'add_to_cart' slug=product.slug %}">
                                     {% csrf_token %}
                                     <input type="hidden" name="redirect_to" value="{{ request.get_full_path }}">
-                                    <button type="submit" class="button">Добави в количката</button>
+                                    <button type="submit"
+                                            class="button"
+                                            {% if product.quantity == 0 and not product.pre_order %}disabled{% endif %}>
+                                        Добави в количката
+                                    </button>
                                 </form>
                             </div>
                         </div>
@@ -85,38 +91,6 @@
             {% else %}
                 <h3>Няма резултат</h3>
             {% endif %}
-            <!--<form method="get" action="{% url 'products' %}" class="form search">-->
-            <!--    {{ search_form.search_field }}-->
-            <!--    <button type="submit">-->
-            <!--        <i class="fa-solid fa-magnifying-glass"></i>-->
-            <!--    </button>-->
-            <!--</form>-->
-            <!--<form method="get">-->
-            <!--    {% if form.non_field_errors %}<div class="form-error">{{ form.non_field_errors }}</div>{% endif %}-->
-            <!--    <input type="hidden" id="id_min_price" name="min_price" value="0">-->
-            <!--    <input type="hidden" id="id_max_price" name="max_price" value="500">-->
-            <!--    <button type="submit" class="button">Филтър</button>-->
-            <!--</form>-->
-            <!--    <div class="products">-->
-            <!--        {% for product in page_obj %}-->
-            <!--            <div class="product">-->
-            <!--                <div class="image-container">-->
-            <!--                    <a href="{% url 'product_details' slug=product.slug %}">-->
-            <!--                        <img src="{{ product.thumbnail_image_url }}"-->
-            <!--                             alt="{{ product.name }}"-->
-            <!--                             loading="lazy"-->
-            <!--                             class="image" />-->
-            <!--                    </a>-->
-            <!--                </div>-->
-            <!--                <div class="product-info">-->
-            <!--                    <a href="{% url 'product_details' slug=product.slug %}">-->
-            <!--                        <p class="product-name">{{ product.name }}</p>-->
-            <!--                    </a>-->
-            <!--                    <p class="product-price">{{ product.price }} лв.</p>-->
-            <!--                </div>-->
-            <!--            </div>-->
-            <!--        {% endfor %}-->
-            <!--    </div>-->
         </div>
         {% include "products/pagination.html" %}
     </div>

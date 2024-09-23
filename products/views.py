@@ -4,9 +4,8 @@ from django.views.generic.edit import FormMixin
 from django.shortcuts import redirect
 from .forms import ProductSortForm
 from .models import Product, Category
-from .forms import ProductSearchForm, ProductAddToCartForm
+from .forms import ProductAddToCartForm
 from cart.views import add_to_cart
-from users.mixins import HandleSendAndRetrieveLoginRequiredFormInformationMixin
 
 
 class BaseProductsView(ListView):
@@ -21,12 +20,12 @@ class BaseProductsView(ListView):
 
         return context
 
-    # def filter_by_search_field(self, queryset):
-    #     search_query = self.request.GET.get("search_field")
-    #     if search_query:
-    #         queryset = queryset.filter(name__icontains=search_query)
-    #
-    #     return queryset
+    def filter_by_search_field(self, queryset):
+        search_query = self.request.GET.get("search_field")
+        if search_query:
+            queryset = queryset.filter(name__icontains=search_query)
+
+        return queryset
 
     def get_sorted_products(self, queryset):
         form = ProductSortForm(self.request.GET or None)
@@ -45,6 +44,7 @@ class BaseProductsView(ListView):
 
     def perform_filtering(self, queryset):
         queryset = self.get_sorted_products(queryset)
+        queryset = self.filter_by_search_field(queryset)
 
         return queryset
 

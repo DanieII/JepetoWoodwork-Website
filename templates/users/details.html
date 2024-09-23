@@ -1,15 +1,12 @@
 {% extends 'common/base.html' %}
 {% load static %}
-{% block meta_description %}
-    Преглед и редакция на вашите лични данни и профилна информация в Rocco Woodwork.
-{% endblock %}
 {% block title %}Профил | Rocco Woodwork{% endblock %}
 {% block styles %}
-    <link rel="stylesheet" href="{% static "css/users/base-details.css" %}">
+    <link rel="stylesheet" href="{% static "css/users/base-profile.css" %}">
 {% endblock %}
 {% block content %}
     <div class="container">
-        {% include "users/base-details.html" %}
+        {% include "users/navigation.html" %}
         <div class="content">
             <h2>{{ request.user }}</h2>
             <p>Включил се на: {{ request.user.date_joined|date:"m.d.Y" }}</p>

@@ -69,6 +69,11 @@ nav li {
   display: block;
 }
 
+nav .nav-btn,
+nav .mobile-link {
+  display: none;
+}
+
 .nav-links {
   display: flex;
   align-items: center;
@@ -134,12 +139,57 @@ nav i {
   font-weight: lighter;
 }
 
+nav .search-toggle {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+}
+
+nav .search > .search-toggle {
+  color: black;
+}
+
+nav .search {
+  position: absolute;
+  inset: 0;
+  background: white;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  gap: 2em;
+}
+
+nav .search.visible {
+  display: flex;
+}
+
+nav .search form {
+  position: relative;
+  min-width: 40%;
+}
+
+nav .search form input {
+  width: 100% !important;
+  padding: 1em !important;
+}
+
+nav .search form button {
+  position: absolute;
+  top: 50%;
+  right: 1em;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--orange);
+  cursor: pointer;
+}
+
 @media (max-width: 768px) {
   .logo {
     width: 100%;
   }
 
-  .icon-navigation li:first-child {
+  .icon-navigation li:nth-child(2) {
     display: none;
   }
 
@@ -148,7 +198,8 @@ nav i {
   }
 
   .nav-btn {
-    display: block !important;
+    display: flex !important;
+    align-items: center;
     font-weight: bold !important;
     line-height: unset !important;
     cursor: pointer !important;
@@ -159,7 +210,6 @@ nav i {
   .nav-btn.active {
     transform: skew(-15deg);
   }
-
   .nav-links {
     display: flex;
     gap: 1.5em;
@@ -178,5 +228,9 @@ nav i {
 
   .nav-links.active {
     left: 0;
+  }
+
+  nav .search {
+    gap: 1em;
   }
 }

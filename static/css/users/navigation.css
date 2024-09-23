@@ -1,0 +1,29 @@
+.navigation {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.navigation li {
+  display: block;
+}
+
+.navigation li a {
+  display: flex;
+  text-decoration: none;
+  color: black;
+  gap: 0.3em;
+}
+
+.navigation li a:hover {
+  color: var(--orange);
+}
+
+@media (max-width: 768px) {
+  .navigation {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2em;
+  }
+}

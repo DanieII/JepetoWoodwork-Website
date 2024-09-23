@@ -31,12 +31,6 @@
                 {% endfor %}
             {% endif %}
             <input type="hidden" name="next" value="{{ next }}">
-            {% for key, value in fields_with_values.items %}<input type="hidden" name="{{ key }}" value="{{ value }}">{% endfor %}
-            {% if login_required_form_fields %}
-                <input type="hidden"
-                       name="login_required_form_fields"
-                       value="{{ login_required_form_fields }}">
-            {% endif %}
             <button type="submit" class="button">
                 {% if state == "Login" %}
                     Влизане

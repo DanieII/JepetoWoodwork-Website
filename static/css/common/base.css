@@ -36,11 +36,6 @@ main {
   /*min-height: 200vh;*/
 }
 
-nav .nav-btn,
-nav .mobile-link {
-  display: none;
-}
-
 .container {
   width: 100%;
   max-width: 1600px;

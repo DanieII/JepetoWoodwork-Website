@@ -1,0 +1,14 @@
+main .container {
+  display: flex;
+}
+
+.content {
+  margin-inline: auto;
+}
+
+@media (max-width: 768px) {
+  main .container {
+    flex-direction: column;
+    gap: 3em;
+  }
+}
