@@ -10,13 +10,8 @@
 
 .navigation li a {
   display: flex;
-  text-decoration: none;
-  color: black;
-  gap: 0.3em;
-}
-
-.navigation li a:hover {
-  color: var(--orange);
+  align-items: center;
+  gap: 0.5em;
 }
 
 @media (max-width: 768px) {

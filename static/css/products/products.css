@@ -13,10 +13,6 @@
   margin-top: auto;
 }
 
-.options select {
-  font-size: 1em;
-}
-
 .options form select {
   width: 100%;
 }
@@ -45,17 +41,8 @@
   gap: 0.5em;
 }
 
-.product .info a {
-  color: black;
-  text-decoration: none;
-}
-
 .product .info p {
   word-break: break-all;
-}
-
-.product .price {
-  margin-top: 0.2em;
 }
 
 .product .cart form {
@@ -64,32 +51,29 @@
 
 .product .cart button {
   width: 100%;
-  font-size: 0.9em;
 }
 
 .pagination {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.5em;
-  margin-top: 2em;
-}
-
-.pagination a,
-.pagination-current {
-  text-decoration: none;
-  color: black;
-  line-height: 1;
+  gap: 0.8em;
+  margin-block: 2em 1em;
 }
 
 .pagination-number {
   border: 1px solid black;
+  border-radius: 0.3em;
   padding: 0.6em;
+  line-height: 1;
 }
 
 .pagination-current {
   color: var(--orange);
-  border-color: var(--orange);
+}
+
+.products > p {
+  margin-inline: auto;
 }
 
 @media (max-width: 768px) {

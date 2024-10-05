@@ -22,26 +22,22 @@
   flex-direction: column;
 }
 
-.info .price {
-  font-size: 1.1em;
-}
-
 .categories a {
-  text-decoration: none;
   color: var(--orange);
 }
 
 .cart form {
   flex-direction: row-reverse;
   justify-content: flex-end;
+  margin-inline: 0;
 }
 
 .cart form input {
-  width: 15%;
+  width: 30%;
 }
 
 .cart form button {
-  flex-basis: 100%;
+  width: 70%;
 }
 
 /*Swiper*/

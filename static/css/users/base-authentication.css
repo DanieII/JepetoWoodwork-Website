@@ -1,9 +1,12 @@
+.username-fields {
+  text-align: center;
+}
+
 .auth-links {
   text-align: center;
   margin-top: 1em;
 }
 
 .auth-links a {
-  text-decoration: none;
   color: var(--orange);
 }

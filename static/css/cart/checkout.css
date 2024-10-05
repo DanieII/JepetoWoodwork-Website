@@ -3,14 +3,7 @@ h1 {
 }
 
 form {
-  margin-top: 0.5em;
-}
-
-form input,
-form select,
-form textarea,
-form label {
-  width: 50%;
+  margin-top: 1em;
 }
 
 form label {
@@ -28,13 +21,16 @@ form label {
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
+  text-align: center;
+  margin-inline: auto;
+}
+
+form > * {
+  width: 20em;
 }
 
 @media (max-width: 768px) {
-  form input,
-  form select,
-  form textarea,
-  form label {
+  form > * {
     width: 100%;
   }
 }

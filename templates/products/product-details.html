@@ -49,9 +49,7 @@
         <div>
             <div class="info">
                 <h1>{{ product.name }}</h1>
-                <p class="price">
-                    <strong>{{ product.price|floatformat:2 }} лв.</strong>
-                </p>
+                <p>{{ product.price|floatformat:2 }} лв.</p>
                 <p>
                     {% if product.pre_order %}
                         Налично за предварителни поръчки
@@ -71,7 +69,7 @@
             <div class="cart">
                 <form method="post"
                       action="{% url 'product_details' slug=object.slug %}"
-                      class="form">
+                      class="form-control">
                     {% csrf_token %}
                     <input type="hidden" name="redirect_to" value="{{ request.path }}">
                     {{ form.quantity }}

@@ -37,16 +37,8 @@ class ContactsView(FormView):
         return super().form_valid(form)
 
 
-class AboutUsView(TemplateView):
-    template_name = "common/about-us.html"
-
-
 class PrivacyPolicyView(TemplateView):
     template_name = "common/privacy-policy.html"
-
-
-class TermsOfUseView(TemplateView):
-    template_name = "common/terms-of-use.html"
 
 
 class FAQView(TemplateView):

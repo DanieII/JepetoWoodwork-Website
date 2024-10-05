@@ -23,17 +23,9 @@ body {
   min-height: 100vh;
 }
 
-img {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
-
 main {
   flex: 1;
-  margin-top: 4.5em;
-  /*min-height: 200vh;*/
+  margin-top: 5em;
 }
 
 .container {
@@ -41,6 +33,23 @@ main {
   max-width: 1600px;
   margin: 0 auto;
   padding: 1em 2em;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+a {
+  color: black;
+  text-decoration: none;
 }
 
 /* Overlay */
@@ -57,7 +66,6 @@ main {
 .errorlist li {
   color: red;
   display: block;
-  max-width: 300px;
 }
 
 .errorlist {
@@ -71,7 +79,7 @@ main {
   display: flex;
   flex-direction: column;
   z-index: 101;
-  top: 4.5em;
+  top: 5em;
   left: 0;
   width: 100%;
 }

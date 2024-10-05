@@ -15,11 +15,3 @@
   color: white;
   text-align: center;
 }
-
-.banner a:hover {
-  color: black;
-  background-color: white;
-  transition:
-    color,
-    background-color 0.2s;
-}

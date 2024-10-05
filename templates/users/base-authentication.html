@@ -9,11 +9,11 @@
     <div class="container">
         <form method="post"
               action="{% if request.META.QUERY_STRING %}?{{ request.META.QUERY_STRING }}{% elif state == 'Login' %} {% url 'login' %} {% else %} {% url 'register' %} {% endif %} "
-              class="form">
+              class="form-control">
             {% csrf_token %}
             <p>{{ form.non_field_errors }}</p>
             {% if state == "Register" %}
-                <div class="username-fields form">
+                <div class="username-fields form-control">
                     {{ form.email.errors }}
                     {{ form.email }}
                     <p>и/или</p>
@@ -27,7 +27,7 @@
             {% else %}
                 {% for field in form %}
                     {% if field.errors %}{{ field.errors }}{% endif %}
-                    <p>{{ field }}</p>
+                    {{ field }}
                 {% endfor %}
             {% endif %}
             <input type="hidden" name="next" value="{{ next }}">

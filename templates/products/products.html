@@ -68,10 +68,10 @@
                         <div>
                             <div class="info">
                                 <a href="{% url 'product_details' slug=product.slug %}">
-                                    <p>{{ product.name }}</p>
-                                    <p class="price">
-                                        <strong>{{ product.price }} лв.</strong>
+                                    <p>
+                                        <strong>{{ product.name }}</strong>
                                     </p>
+                                    <p>{{ product.price }} лв.</p>
                                 </a>
                             </div>
                             <div class="cart">
@@ -89,7 +89,7 @@
                     </div>
                 {% endfor %}
             {% else %}
-                <h3>Няма резултат</h3>
+                <p>Няма резултат</p>
             {% endif %}
         </div>
         {% include "products/pagination.html" %}

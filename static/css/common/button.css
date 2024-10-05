@@ -1,16 +1,26 @@
 .button {
-  display: flex;
+  display: inline-flex;
+  height: 3rem;
+  min-height: 3rem;
+  flex-shrink: 0;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 0.5em;
-  padding: 0.6em 0.8em;
-  cursor: pointer;
-  background-color: var(--orange);
-  border: none;
-  border-radius: 0.3em;
+  border-radius: 0.5rem;
   color: white;
-  text-decoration: none;
-  font-size: 1em;
+  border-color: transparent;
+  background-color: var(--orange);
+  padding-inline: 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+  line-height: 1em;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 1rem;
 }
 
 .button:disabled {

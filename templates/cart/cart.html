@@ -12,29 +12,36 @@
             <div class="products">
                 {% for product, quantity in cart_products.items %}
                     <div class="product">
-                        <div class="image">
+                        <div class="image-container">
                             <a href="{% url 'product_details' slug=product.slug %}">
                                 <img src="{{ product.thumbnail_image_url }}" alt="{{ product.name }}" />
                             </a>
                         </div>
-                        <div>
-                            <p>{{ product.name }}</p>
-                            <a href="{% url 'remove_product' slug=product.slug %}" class="remove">Премахни</a>
+                        <div class="product-info">
+                            <div>
+                                <p>
+                                    <strong>{{ product.name }}</strong>
+                                </p>
+                                <a href="{% url 'remove_product' slug=product.slug %}" class="remove">Премахни</a>
+                            </div>
+                            <div class="quantity">
+                                <form method="post"
+                                      action="{% url 'decrease_quantity' slug=product.slug %}"
+                                      class="form-control">
+                                    {% csrf_token %}
+                                    <button type="submit">&minus;</button>
+                                </form>
+                                <p>{{ quantity }}</p>
+                                <form method="post"
+                                      action="{% url 'add_to_cart' slug=product.slug %}"
+                                      class="form-control">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="redirect_to" value="{{ request.path }}">
+                                    <button type="submit">&plus;</button>
+                                </form>
+                            </div>
+                            <p class="price">{{ product.price|calculate_total_price:quantity }} лв.</p>
                         </div>
-                        <div class="quantity">
-                            <form method="post"
-                                  action="{% url 'decrease_quantity' slug=product.slug %}">
-                                {% csrf_token %}
-                                <button type="submit" class="button">&minus;</button>
-                            </form>
-                            <p>{{ quantity }}</p>
-                            <form method="post" action="{% url 'add_to_cart' slug=product.slug %}">
-                                {% csrf_token %}
-                                <input type="hidden" name="redirect_to" value="{{ request.path }}">
-                                <button type="submit" class="button">&plus;</button>
-                            </form>
-                        </div>
-                        <p class="price">{{ product.price|calculate_total_price:quantity }} лв.</p>
                     </div>
                 {% endfor %}
             </div>

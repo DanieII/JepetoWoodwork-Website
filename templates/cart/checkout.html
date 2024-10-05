@@ -9,7 +9,7 @@
     <div class="container">
         <h1>Завършване на поръчка</h1>
         <div class="data">
-            <form method="post" action="{% url 'checkout' %}" class="form">
+            <form method="post" action="{% url 'checkout' %}" class="form-control">
                 {% csrf_token %}
                 {% for field in form %}
                     {% if field.errors %}{{ field.errors }}{% endif %}
@@ -22,26 +22,8 @@
                         {{ field }}
                     {% endif %}
                 {% endfor %}
-                <p>
-                    Вашите лични данни ще бъдат използвани за обработване на поръчката и за целите, посочени в нашата <a href="{% url 'privacy_policy' %}">политика за поверителност</a>.
-                </p>
                 <button type="submit" class="button">Поръчай</button>
             </form>
         </div>
     </div>
-    <!--<div class="checkout">-->
-    <!--    <div class="order-data">-->
-    <!--        <h2>Данни за поръчка</h2>-->
-    <!--    </div>-->
-    <!--    <div class="order">-->
-    <!--        <h2>Продукти</h2>-->
-    <!--        <div class="products">-->
-    <!--            {% for product, quantity in cart_products.items %}-->
-    <!--                <p>{{ product }} &times; {{ quantity }} - {{ product.price|calculate_total_price:quantity }} лв.</p>-->
-    <!--            {% endfor %}-->
-    <!--            <p>-->
-    <!--                Общо: <span class="total-price">{{ total_price|floatformat:2 }}</span> лв.-->
-    <!--            </p>-->
-    <!--        </div>-->
-    <!--    </div>-->
 {% endblock %}

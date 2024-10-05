@@ -31,8 +31,6 @@ footer .container {
 }
 
 .footer-nav a {
-  color: black;
-  text-decoration: none;
   transition: color 0.2s;
 }
 

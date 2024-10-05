@@ -1,13 +1,12 @@
 h1 {
   text-align: center;
-  margin-bottom: 1em;
 }
 
 .contacts {
   display: flex;
   justify-content: center;
-  gap: 1.5em;
-  margin: 0 auto;
+  gap: 2em;
+  margin: 1em auto;
 }
 
 .contacts > * {
@@ -17,18 +16,19 @@ h1 {
 .contact-information {
   display: flex;
   flex-direction: column;
-  gap: 0.5em;
+  gap: 1em;
 }
 
 .contact-information p {
   word-break: keep-all;
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 0.3em;
+  gap: 0.5em;
 }
 
-.contacts .form {
-  align-items: stretch;
+.contacts form > * {
+  width: 100%;
 }
 
 @media (max-width: 768px) {

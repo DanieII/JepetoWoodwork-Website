@@ -9,9 +9,6 @@ class BaseOrderForm(OptionalFormFieldsMixin, forms.ModelForm):
     class Meta:
         model = Order
         exclude = ["user", "created_on", "number"]
-        widgets = {
-            "delivery_type": forms.Select(attrs={"class": "button"}),
-        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

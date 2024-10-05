@@ -11,52 +11,6 @@ nav {
   padding-block: 0.5em;
 }
 
-nav.transparent {
-  background: transparent;
-  box-shadow: none;
-  color: white;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
-}
-
-nav:not(.transparent) .logo.white,
-nav.transparent .logo:not(.white) {
-  display: none !important;
-}
-
-.logo-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.logo-container a {
-  display: flex;
-}
-
-.logo {
-  width: 50%;
-  height: auto;
-  margin-inline: auto;
-}
-
-.logo.white path {
-  fill: white;
-}
-
-nav a {
-  text-decoration: none;
-}
-
-nav a,
-nav i {
-  color: black;
-}
-
-nav.transparent a,
-nav.transparent i {
-  color: white;
-}
-
 nav .container {
   display: flex;
 }
@@ -65,12 +19,16 @@ nav .container > * {
   flex: 1;
 }
 
+nav a {
+  display: flex;
+}
+
 nav li {
   display: block;
 }
 
-nav .nav-btn,
-nav .mobile-link {
+.nav-btn,
+.mobile-link {
   display: none;
 }
 
@@ -80,41 +38,9 @@ nav .mobile-link {
   gap: 1em;
 }
 
-.icon-navigation {
-  display: flex;
-  gap: 1em;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-.icon-navigation a {
-  display: flex;
-}
-
-.icon-navigation i {
-  width: 1em;
-}
-
-nav .cart {
-  position: relative;
-}
-
-nav .cart::after {
-  content: attr(value);
-  position: absolute;
-  top: -5px;
-  right: -10px;
-  font-size: 10px;
+.nav-links li {
   font-weight: bold;
-  min-width: 15px;
-  text-align: center;
-  background: black;
-  color: white;
-  border-radius: 12px;
-}
-
-nav .cart[value=""]::after {
-  display: none;
+  font-size: 1.1rem;
 }
 
 .nav-links li::after {
@@ -130,26 +56,62 @@ nav .cart[value=""]::after {
   width: 100%;
 }
 
-nav.transparent li::after {
-  background: white;
-  color: black;
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-nav i {
-  font-weight: lighter;
+.logo {
+  width: 50%;
+  height: auto;
+  margin-inline: auto;
 }
 
-nav .search-toggle {
+.logo.white path {
+  fill: white;
+}
+
+.icon-navigation {
+  display: flex;
+  gap: 1em;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.cart {
+  position: relative;
+}
+
+.cart::after {
+  content: attr(value);
+  position: absolute;
+  top: -0.5em;
+  right: -0.5em;
+  font-size: 10px;
+  font-weight: bold;
+  width: 16px;
+  text-align: center;
+  background: black;
+  color: white;
+  border-radius: 12px;
+}
+
+.cart[value=""]::after {
+  display: none;
+}
+
+.search-toggle {
   display: flex;
   cursor: pointer;
   align-items: center;
 }
 
-nav .search > .search-toggle {
+.search > .search-toggle {
   color: black;
 }
 
-nav .search {
+.search {
   position: absolute;
   inset: 0;
   background: white;
@@ -159,29 +121,51 @@ nav .search {
   gap: 2em;
 }
 
-nav .search.visible {
+.search.visible {
   display: flex;
 }
 
-nav .search form {
+.search form {
   position: relative;
   min-width: 40%;
+  margin-inline: 0 !important;
 }
 
-nav .search form input {
+.search form input {
   width: 100% !important;
   padding: 1em !important;
 }
 
-nav .search form button {
+.search form button {
+  display: flex;
   position: absolute;
   top: 50%;
   right: 1em;
   transform: translateY(-50%);
   background: none;
   border: none;
-  color: var(--orange);
   cursor: pointer;
+}
+
+nav.transparent {
+  background: transparent;
+  box-shadow: none;
+  color: white;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
+}
+
+nav:not(.transparent) .logo.white,
+nav.transparent .logo:not(.white) {
+  display: none !important;
+}
+
+nav.transparent li::after {
+  background: white;
+  color: black;
+}
+
+nav.transparent a {
+  color: white;
 }
 
 @media (max-width: 768px) {
@@ -210,19 +194,19 @@ nav .search form button {
   .nav-btn.active {
     transform: skew(-15deg);
   }
+
   .nav-links {
     display: flex;
     gap: 1.5em;
     flex-direction: column;
     align-items: start;
     position: absolute;
-    top: 3.5em;
+    top: 5em;
     left: -100%;
     background-color: white;
     padding: 0 1em 1em 1em;
     height: calc(100vh - 3.5em);
     transition: left 0.2s;
-    color: black;
     width: 55%;
   }
 
