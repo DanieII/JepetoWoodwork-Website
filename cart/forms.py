@@ -1,9 +1,8 @@
 from django import forms
 from .models import Order
-from common.mixins import OptionalFormFieldsMixin
 
 
-class BaseOrderForm(OptionalFormFieldsMixin, forms.ModelForm):
+class BaseOrderForm(forms.ModelForm):
     optional_fields = ["apartment_building", "notes"]
 
     class Meta:
@@ -15,8 +14,6 @@ class BaseOrderForm(OptionalFormFieldsMixin, forms.ModelForm):
 
         for field in self.fields.values():
             field.widget.attrs["placeholder"] = field.label
-
-        self.apply_placeholders(self)
 
 
 class OrderForm(BaseOrderForm):

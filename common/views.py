@@ -19,20 +19,21 @@ class ContactsView(FormView):
     success_url = reverse_lazy("contacts")
 
     def form_valid(self, form):
-        name = form.cleaned_data["name"]
-        email = form.cleaned_data["email"]
-        subject = form.cleaned_data["subject"]
-        message = f"От {name}({email})\n" + form.cleaned_data["message"]
+        user_email, user_message = (
+            form.cleaned_data["email"],
+            form.cleaned_data["message"],
+        )
+        message = f"От: {user_email}\n" + user_message
         host_email = settings.EMAIL_HOST_USER
 
         send_mail(
-            subject=subject,
+            subject="Контактна Форма",
             message=message,
             from_email=host_email,
             recipient_list=[host_email],
         )
 
-        messages.success(self.request, "Имейлът е изпратен!")
+        messages.success(self.request, "Имейлът е изпратен")
 
         return super().form_valid(form)
 

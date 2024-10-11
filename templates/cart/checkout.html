@@ -8,11 +8,10 @@
 {% block content %}
     <div class="container">
         <h1>Завършване на поръчка</h1>
-        <div class="data">
+        <div>
             <form method="post" action="{% url 'checkout' %}" class="form-control">
                 {% csrf_token %}
                 {% for field in form %}
-                    {% if field.errors %}{{ field.errors }}{% endif %}
                     {% if field.field.widget.input_type == "checkbox" %}
                         <label for="{{ field.id_for_label }}">
                             {{ field }}
@@ -21,6 +20,7 @@
                     {% else %}
                         {{ field }}
                     {% endif %}
+                    {% if field.errors %}{{ field.errors }}{% endif %}
                 {% endfor %}
                 <button type="submit" class="button">Поръчай</button>
             </form>

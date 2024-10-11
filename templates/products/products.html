@@ -60,7 +60,7 @@
             {% if page_obj %}
                 {% for product in page_obj %}
                     <div class="product">
-                        <div class="image">
+                        <div class="image-container">
                             <a href="{% url 'product_details' slug=product.slug %}">
                                 <img src="{{ product.thumbnail_image_url }}" alt="{{ product.name }}">
                             </a>
@@ -71,7 +71,7 @@
                                     <p>
                                         <strong>{{ product.name }}</strong>
                                     </p>
-                                    <p>{{ product.price }} лв.</p>
+                                    <p>{{ product.price|floatformat:2 }} лв.</p>
                                 </a>
                             </div>
                             <div class="cart">

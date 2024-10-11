@@ -87,11 +87,12 @@ a {
 .messages li {
   background: var(--orange);
   color: white;
-  padding: 0.5em;
+  padding: 1em 2em;
 }
 
 @media (max-width: 768px) {
-  .container {
+  .container,
+  messages li {
     padding: 1em;
   }
 }

@@ -21,12 +21,19 @@ form label {
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
+  justify-content: center;
   text-align: center;
   margin-inline: auto;
+  gap: 1em;
+}
+
+form label input {
+  margin-inline: 0 !important;
 }
 
 form > * {
-  width: 20em;
+  width: 50%;
+  margin-inline: auto;
 }
 
 @media (max-width: 768px) {

@@ -30,7 +30,7 @@ def is_quantity_valid(quantity, filled_quantity, product):
     return True
 
 
-def empty_cart(cart, order):
+def update_products(cart, order):
     # Update products and create the order products
     products = Product.objects.all()
     for product_slug, quantity in cart.items():
@@ -41,8 +41,6 @@ def empty_cart(cart, order):
             product.save()
 
         OrderProduct.objects.create(order=order, product=product, quantity=quantity)
-
-    cart = {}
 
 
 def validate_cart(cart):

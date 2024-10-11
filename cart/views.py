@@ -4,13 +4,12 @@ from .forms import OrderForm
 from .models import Order
 from products.models import Product
 from django.views.generic import CreateView
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
 from .helper_functions import (
     get_cart_products,
     get_total_price,
     is_quantity_valid,
-    empty_cart,
+    update_products,
     send_order_email,
     validate_cart,
 )
@@ -77,11 +76,11 @@ def remove_product(request, slug):
     return redirect(reverse("cart"))
 
 
-class CheckoutView(LoginRequiredMixin, CreateView):
+class CheckoutView(CreateView):
     model = Order
     form_class = OrderForm
     template_name = "cart/checkout.html"
-    success_url = reverse_lazy("user_orders")
+    success_url = reverse_lazy("products")
 
     @property
     def cart(self):
@@ -96,18 +95,19 @@ class CheckoutView(LoginRequiredMixin, CreateView):
         messages.warning(
             self.request, "Празна количка или неналични продукти. Опитайте отново."
         )
+
         return redirect("cart")
 
     def form_valid(self, form):
         if not self.cart:
             return redirect("cart")
 
-        order = form.save(commit=False)
-        order.user = self.request.user
+        order = form.save()
         order.save()
 
-        cart = self.request.session["cart"]
-        empty_cart(cart, order)
+        update_products(self.cart, order)
+
+        self.request.session["cart"] = {}
 
         messages.success(self.request, "Поръчката е запазена")
 

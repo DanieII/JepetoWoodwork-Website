@@ -1,9 +1,7 @@
 import os
 from pathlib import Path
 import dotenv
-from django.urls import reverse_lazy
 import certifi
-from django.contrib.messages import constants as messages
 import django_stubs_ext
 
 django_stubs_ext.monkeypatch()
@@ -18,10 +16,10 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = bool(int(os.getenv("DEBUG", 0)))
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split()
+
 CSRF_TRUSTED_ORIGINS = [
     f"http://{host}" for host in os.getenv("ALLOWED_HOSTS", "").split()
 ]
-
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -37,7 +35,6 @@ INSTALLED_APPS = [
     # Project
     "common",
     "products",
-    "users",
     "cart",
 ]
 
@@ -49,7 +46,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "users.middlewares.RestrictAdminAccessMiddleware",
 ]
 
 ROOT_URLCONF = "RoccoWoodwork.urls"
@@ -90,7 +86,7 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        "NAME": "common.validators.CustomMinLengthValidator",
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
         "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
@@ -100,25 +96,19 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/4.2/topics/i18n/
-
 LANGUAGE_CODE = "en-us"
-
 TIME_ZONE = "UTC"
-
 USE_I18N = True
-
 USE_TZ = True
-
 
 STATIC_ROOT = os.path.join(os.getenv("STATIC_ROOT", BASE_DIR), "staticfiles")
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(os.getenv("MEDIA_ROOT", BASE_DIR), "media")
 
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
@@ -128,29 +118,7 @@ EMAIL_PORT = 587
 EMAIL_USE_SSL = False
 EMAIL_USE_TLS = True
 
-
-AUTHENTICATION_BACKENDS = [
-    "django.contrib.auth.backends.ModelBackend",
-    "users.authentication.PhoneAndEmailAuthBackend",
-]
-
-
-MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(os.getenv("MEDIA_ROOT", BASE_DIR), "media")
-
-AUTH_USER_MODEL = "users.CustomUser"
-
-LOGIN_URL = reverse_lazy("login")
-LOGIN_REDIRECT_URL = reverse_lazy("home")
-
-MESSAGE_TAGS = {
-    messages.DEBUG: "alert-secondary",
-    messages.INFO: "alert-info",
-    messages.SUCCESS: "alert-success",
-    messages.WARNING: "alert-warning",
-    messages.ERROR: "alert-danger",
-}
-
-PHONENUMBER_DEFAULT_REGION = "BG"
-
 SITE_ID = 2
+
+# Phonenuber Field
+PHONENUMBER_DEFAULT_REGION = "BG"

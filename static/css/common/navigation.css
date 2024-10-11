@@ -27,8 +27,7 @@ nav li {
   display: block;
 }
 
-.nav-btn,
-.mobile-link {
+.nav-btn {
   display: none;
 }
 
@@ -68,11 +67,7 @@ nav li {
   margin-inline: auto;
 }
 
-.logo.white path {
-  fill: white;
-}
-
-.icon-navigation {
+.icon-nav {
   display: flex;
   gap: 1em;
   justify-content: flex-end;
@@ -154,6 +149,10 @@ nav.transparent {
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
 }
 
+.logo.white path {
+  fill: white;
+}
+
 nav:not(.transparent) .logo.white,
 nav.transparent .logo:not(.white) {
   display: none !important;
@@ -169,16 +168,8 @@ nav.transparent a {
 }
 
 @media (max-width: 768px) {
-  .logo {
-    width: 100%;
-  }
-
-  .icon-navigation li:nth-child(2) {
+  .logo-container {
     display: none;
-  }
-
-  .mobile-link {
-    display: block !important;
   }
 
   .nav-btn {

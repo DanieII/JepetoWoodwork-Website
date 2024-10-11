@@ -21,14 +21,16 @@ class BaseProductsView(ListView):
         return context
 
     def filter_by_search_field(self, queryset):
-        search_query = self.request.GET.get("search_field")
+        search_query = self.request.GET.get("search_field") or self.request.POST.get(
+            "search_field"
+        )
         if search_query:
             queryset = queryset.filter(name__icontains=search_query)
 
         return queryset
 
     def get_sorted_products(self, queryset):
-        form = ProductSortForm(self.request.GET or None)
+        form = ProductSortForm((self.request.GET or self.request.POST) or None)
         if form.is_valid():
             sort_by = form.cleaned_data.get("sort")
             if sort_by == "low_to_high":
@@ -74,7 +76,6 @@ class ProductDetailsView(FormMixin, DetailView):
     template_name = "products/product-details.html"
     form_class = ProductAddToCartForm
     fields = "__all__"
-    MAX_LAST_VIEWED_PRODUCTS_LENGTH = 3
 
     def get_success_url(self):
         return reverse("product_details", kwargs={"slug": self.object.slug})

@@ -9,8 +9,7 @@
 .form-control select {
   flex-shrink: 1;
   height: 3rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-inline: 1em;
   font-size: 1rem;
   line-height: 2;
   line-height: 1.5rem;
@@ -20,6 +19,10 @@
   margin-inline: auto;
   max-width: 100%;
   resize: vertical;
+}
+
+.form-control textarea {
+  height: 6rem;
 }
 
 .form-control button {

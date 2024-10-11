@@ -1,4 +1,5 @@
 from django.core.validators import MinValueValidator
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
@@ -10,16 +11,14 @@ UserModel = get_user_model()
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=100)
     price = models.FloatField(validators=[MinValueValidator(0)])
-    categories = models.ManyToManyField(to="Category")
     quantity = models.PositiveIntegerField()
     description = models.TextField(null=True, blank=True)
+    categories = models.ManyToManyField(to="Category")
     pre_order = models.BooleanField(default=False)
     slug = models.SlugField(unique=True, null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
-    special = models.BooleanField(default=False)
 
     @property
     def thumbnail_image_url(self):
@@ -30,6 +29,9 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse("product_details", kwargs={"slug": self.slug})
+
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
@@ -39,11 +41,10 @@ class Product(models.Model):
 
         super().save(*args, **kwargs)
 
-    def get_absolute_url(self):
-        return reverse("product_details", kwargs={"slug": self.slug})
-
     class Meta:
         ordering = ["-date_added"]
+        verbose_name = "Продукт"
+        verbose_name_plural = "Продукти"
 
 
 class ProductImage(models.Model):
@@ -52,15 +53,12 @@ class ProductImage(models.Model):
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
 
-    @classmethod
-    def get_choices(cls):
-        return [(category.name, category.name) for category in cls.objects.all()]
-
     class Meta:
-        verbose_name_plural = "Categories"
         ordering = ["name"]
+        verbose_name = "Категория"
+        verbose_name_plural = "Категории"
