@@ -7,28 +7,26 @@ nav {
   z-index: 100;
   background-color: white;
   box-shadow: 0 0 1em rgb(0, 0, 0, 0.1);
-  transition: background-color 0.3s;
+  transition: background-color 0.2s;
   padding-block: 0.5em;
 }
 
-nav .container {
-  display: flex;
-}
-
-nav .container > * {
-  flex: 1;
-}
-
+nav .container,
 nav a {
   display: flex;
+}
+
+.nav-btn,
+.logo-container .short {
+  display: none;
 }
 
 nav li {
   display: block;
 }
 
-.nav-btn {
-  display: none;
+nav .container > * {
+  flex: 1;
 }
 
 .nav-links {
@@ -39,23 +37,23 @@ nav li {
 
 .nav-links li {
   font-weight: bold;
-  font-size: 1.1rem;
 }
 
 .nav-links li::after {
   content: "";
   display: block;
   width: 0;
-  height: 2px;
+  height: 3px;
   background: black;
-  transition: width 0.3s;
+  transition: width 0.2s;
 }
 
 .nav-links li:hover::after {
   width: 100%;
 }
 
-.logo-container {
+.logo-container,
+.logo-container div {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -113,7 +111,7 @@ nav li {
   display: none;
   justify-content: center;
   align-items: center;
-  gap: 2em;
+  gap: 1em;
 }
 
 .search.visible {
@@ -142,15 +140,15 @@ nav li {
   cursor: pointer;
 }
 
+.logo.white path {
+  fill: white;
+}
+
 nav.transparent {
   background: transparent;
   box-shadow: none;
   color: white;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
-}
-
-.logo.white path {
-  fill: white;
 }
 
 nav:not(.transparent) .logo.white,
@@ -168,8 +166,12 @@ nav.transparent a {
 }
 
 @media (max-width: 768px) {
-  .logo-container {
+  .logo-container div:not(.short) {
     display: none;
+  }
+
+  .logo-container .short {
+    display: flex;
   }
 
   .nav-btn {
@@ -178,7 +180,7 @@ nav.transparent a {
     font-weight: bold !important;
     line-height: unset !important;
     cursor: pointer !important;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s;
     width: 1em;
   }
 
@@ -192,13 +194,13 @@ nav.transparent a {
     flex-direction: column;
     align-items: start;
     position: absolute;
-    top: 5em;
+    top: 4.8em;
     left: -100%;
     background-color: white;
     padding: 0 1em 1em 1em;
     height: calc(100vh - 3.5em);
     transition: left 0.2s;
-    width: 55%;
+    width: 50%;
   }
 
   .nav-links.active {

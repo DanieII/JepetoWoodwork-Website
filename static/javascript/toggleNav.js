@@ -14,21 +14,24 @@ function toggleNav() {
   toggleOverlay();
 
   if (isHomePage) {
-    handleScroll();
+    changeNavColor();
   }
 }
 
+function createOverlay() {
+  const overlay = document.createElement("div");
+  overlay.className = "overlay";
+  overlay.addEventListener("click", toggleNav);
+
+  document.body.appendChild(overlay);
+}
+
 function toggleOverlay() {
-  let overlay = document.querySelector(".overlay");
+  const overlay = document.querySelector(".overlay");
 
   if (overlay) {
     overlay.remove();
   } else {
-    overlay = document.createElement("div");
-    overlay.className = "overlay";
-    overlay.addEventListener("click", toggleNav);
-    overlay.addEventListener("touchstart", toggleNav);
-
-    document.body.appendChild(overlay);
+    createOverlay();
   }
 }

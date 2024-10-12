@@ -23,12 +23,22 @@
         </ul>
         <div class="logo-container">
             <a href="{% url 'home' %}">
-                {% with "logo" as class %}
-                    {% include "common/logo.html" %}
-                {% endwith %}
-                {% with "logo white" as class %}
-                    {% include "common/logo.html" %}
-                {% endwith %}
+                <div>
+                    {% with "logo" as class %}
+                        {% include "common/logo.html" %}
+                    {% endwith %}
+                    {% with "logo white" as class %}
+                        {% include "common/logo.html" %}
+                    {% endwith %}
+                </div>
+                <div class="short">
+                    {% with "logo" as class %}
+                        {% include "common/logo-short.html" %}
+                    {% endwith %}
+                    {% with "logo white" as class %}
+                        {% include "common/logo-short.html" %}
+                    {% endwith %}
+                </div>
             </a>
         </div>
         <ul class="icon-nav">

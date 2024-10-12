@@ -3,14 +3,14 @@ const navBarHeight = navBar.clientHeight;
 
 navBar.classList.add("transparent");
 
-document.addEventListener("scroll", handleScroll);
+document.addEventListener("scroll", changeNavColor);
 
-function handleScroll() {
-  const yPosition = window.scrollY;
-
+function changeNavColor() {
   if (navBar.classList.contains("active")) {
     return;
   }
+
+  const yPosition = window.scrollY;
 
   if (yPosition > navBarHeight) {
     navBar.classList.remove("transparent");

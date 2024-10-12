@@ -26,11 +26,11 @@
   justify-content: space-between;
   margin-top: 1em;
   flex-wrap: wrap;
-  gap: 2.5em;
+  gap: 2em;
 }
 
 .product {
-  flex: 1 0 48%;
+  flex-basis: 48%;
 }
 
 .image-container {
@@ -65,14 +65,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.8em;
+  gap: 1em;
   margin-block: 2em 1em;
 }
 
 .pagination-number {
   border: 1px solid black;
   border-radius: 0.3em;
-  padding: 0.6em;
+  padding: 0.6em 0.9em;
   line-height: 1;
 }
 

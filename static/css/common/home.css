@@ -1,17 +1,85 @@
+main {
+  margin-top: 0;
+}
+
 .banner {
   display: flex;
   gap: 1em;
   flex-direction: column;
-  justify-content: end;
+  justify-content: center;
   align-items: center;
   min-height: 65vh;
   background-size: cover;
+  padding-top: 4.8em;
   padding-inline: 1em;
-  padding-bottom: 2em;
-}
-
-.banner h1 {
-  font-size: 2em;
   color: white;
   text-align: center;
+}
+
+.banner p {
+  font-size: 1.8em;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+}
+
+h2 {
+  text-align: center;
+}
+
+.our-products {
+  margin-top: 1em;
+}
+
+.categories {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2em;
+  margin-top: 1em;
+}
+
+.category {
+  flex-basis: 31%;
+  position: relative;
+}
+
+.category img {
+  aspect-ratio: 4/3;
+  filter: brightness(85%);
+  transition: filter 0.2s;
+}
+
+.category:hover img {
+  filter: none;
+}
+
+.category p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-weight: bold;
+  font-size: larger;
+}
+
+.custom-projects {
+  text-align: center;
+}
+
+.custom-projects .info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  margin-top: 1em;
+}
+
+.custom-projects .info .button {
+  margin-inline: auto;
+}
+
+@media (max-width: 768px) {
+  .categories {
+    flex-direction: column;
+  }
 }
