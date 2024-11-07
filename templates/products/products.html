@@ -38,7 +38,8 @@
                         <option value="" disabled selected hidden>Категории</option>
                         <option value="{% url 'products' %}">Всички</option>
                         {% for category in categories %}
-                            <option value="{% url 'products_category' category=category %}">{{ category }}</option>
+                            <option value="{% url 'products_category' category=category %}"
+                                    {% if page_category == category %}selected{% endif %}>{{ category }}</option>
                         {% endfor %}
                     </select>
                     <form>

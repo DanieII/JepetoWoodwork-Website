@@ -40,7 +40,9 @@ h2 {
 
 .category {
   flex-basis: 31%;
+  width: 100%;
   position: relative;
+  text-align: center;
 }
 
 .category img {
