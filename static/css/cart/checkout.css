@@ -9,35 +9,10 @@ form {
 form label {
   display: flex;
   justify-content: center;
-  gap: 0.5em;
-}
-
-#id_agree_with_terms_of_use {
-  flex-basis: fit-content;
-  min-width: 1em;
-}
-
-form label {
-  display: flex;
-  flex-direction: row-reverse;
   align-items: center;
-  justify-content: center;
   text-align: center;
+  flex-direction: row-reverse;
+  padding-inline: 1em;
   margin-inline: auto;
   gap: 1em;
-}
-
-form label input {
-  margin-inline: 0 !important;
-}
-
-form > * {
-  width: 50%;
-  margin-inline: auto;
-}
-
-@media (max-width: 768px) {
-  form > * {
-    width: 100%;
-  }
 }

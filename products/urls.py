@@ -13,7 +13,7 @@ urlpatterns = [
         name="products_category",
     ),
     path(
-        "details/<slug:slug>/",
+        "details/<slug:slug>",
         ProductDetailsView.as_view(),
         name="product_details",
     ),

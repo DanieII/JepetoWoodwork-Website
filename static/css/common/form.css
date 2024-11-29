@@ -18,11 +18,11 @@
   border-style: solid;
   margin-inline: auto;
   max-width: 100%;
-  resize: vertical;
 }
 
 .form-control textarea {
   height: 9rem;
+  resize: vertical;
 }
 
 .form-control button {

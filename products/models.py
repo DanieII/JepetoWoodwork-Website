@@ -1,5 +1,4 @@
 from django.core.validators import MinValueValidator
-from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
@@ -11,23 +10,22 @@ UserModel = get_user_model()
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=100)
-    price = models.FloatField(validators=[MinValueValidator(0)])
-    quantity = models.PositiveIntegerField()
-    description = models.TextField(null=True, blank=True)
-    categories = models.ManyToManyField(to="Category")
-    pre_order = models.BooleanField(default=False)
+    name = models.CharField(max_length=100, verbose_name="Име")
+    price = models.FloatField(validators=[MinValueValidator(0)], verbose_name="Цена")
+    description = models.TextField(null=True, blank=True, verbose_name="Описание")
+    categories = models.ManyToManyField(to="Category", verbose_name="Категории")
+    is_available = models.BooleanField(verbose_name="В наличност")
     slug = models.SlugField(unique=True, null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
 
     @property
     def thumbnail_image_url(self):
         image = self.productimage_set.all()[0]
 
         return image.image.url
-
-    def __str__(self):
-        return self.name
 
     def get_absolute_url(self):
         return reverse("product_details", kwargs={"slug": self.slug})

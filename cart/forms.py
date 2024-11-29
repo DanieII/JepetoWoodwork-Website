@@ -3,8 +3,6 @@ from .models import Order
 
 
 class BaseOrderForm(forms.ModelForm):
-    optional_fields = ["apartment_building", "notes"]
-
     class Meta:
         model = Order
         exclude = ["user", "created_on", "number"]

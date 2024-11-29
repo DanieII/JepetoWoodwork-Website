@@ -1,11 +1,8 @@
 from django.db import models
-from django.contrib.auth import get_user_model
 from products.models import Product
 from phonenumber_field.modelfields import PhoneNumberField
 from common.validators import only_alpha
 import uuid
-
-UserModel = get_user_model()
 
 
 class Order(models.Model):
@@ -24,27 +21,18 @@ class Order(models.Model):
         verbose_name="Телефонен номер",
         error_messages={"invalid": "Въведете валиден телефонен номер"},
     )
-    notes = models.TextField(
-        verbose_name="Бележки към поръчката (по избор)",
-        null=True,
-        blank=True,
+    number = models.UUIDField(
+        blank=True, default=uuid.uuid4, verbose_name="Номер на поръчката"
     )
-    number = models.CharField(null=True, blank=True)
-    created_on = models.DateTimeField(auto_now=True)
+    created_on = models.DateTimeField(auto_now=True, verbose_name="Създадена на")
 
     @property
     def total_price(self):
-        products_sum = sum(
-            float(product.total_price) for product in self.orderproduct_set.all()
+        products_price_sum = sum(
+            product.total_price for product in self.orderproduct_set.all()
         )
 
-        return products_sum
-
-    def save(self):
-        if not self.number:
-            self.number = uuid.uuid4().hex[:5]
-
-        return super().save()
+        return products_price_sum
 
     class Meta:
         verbose_name = "Поръчка"
@@ -52,10 +40,12 @@ class Order(models.Model):
 
 
 class OrderProduct(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    quantity = models.IntegerField()
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, verbose_name="Продукт"
+    )
+    quantity = models.IntegerField(verbose_name="Количество")
 
     @property
     def total_price(self):
-        return f"{self.product.price * self.quantity:.2f}"
+        return self.product.price * self.quantity

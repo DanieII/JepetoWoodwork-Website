@@ -1,24 +1,7 @@
 .top-section {
   display: flex;
   justify-content: space-between;
-}
-
-.options {
-  display: flex;
-  justify-content: center;
   gap: 1em;
-}
-
-.options > * {
-  flex: 1;
-  min-width: 0;
-  margin-top: auto;
-  padding: 0;
-  border: none; /* Removes any default border */
-}
-
-.options form select {
-  width: 100%;
 }
 
 .products {
@@ -37,7 +20,7 @@
   margin-bottom: 0.5em;
 }
 
-.product img {
+.image-container img {
   aspect-ratio: 4/3;
 }
 
@@ -87,11 +70,14 @@
 @media (max-width: 768px) {
   .top-section {
     flex-direction: column;
-    gap: 1em;
   }
 
   .top-section h1 {
     text-align: center;
+  }
+
+  .top-section form {
+    margin-inline: auto;
   }
 
   .product {

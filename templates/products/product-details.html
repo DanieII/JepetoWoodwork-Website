@@ -38,10 +38,11 @@
                 <h1>{{ product.name }}</h1>
                 <p>{{ product.price|floatformat:2 }} лв.</p>
                 <p>
-                    {% if product.pre_order %}
-                        Налично за предварителни поръчки
+                    В наличност:
+                    {% if product.is_available %}
+                        Да
                     {% else %}
-                        {{ product.quantity }} Налични
+                        Не
                     {% endif %}
                 </p>
                 <p class="categories">
@@ -62,7 +63,7 @@
                     {{ form.quantity }}
                     <button type="submit"
                             class="button"
-                            {% if object.quantity == 0 and not object.pre_order %}disabled{% endif %}>
+                            {% if not object.is_available %}disabled{% endif %}>
                         <svg aria-hidden="true"
                              xmlns="http://www.w3.org/2000/svg"
                              width="24"

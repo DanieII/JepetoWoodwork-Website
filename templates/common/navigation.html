@@ -14,8 +14,22 @@
             <li>
                 <a href="{% url 'home' %}">Начало</a>
             </li>
-            <li>
-                <a href="{% url 'products' %}">Продукти</a>
+            <li class="products-toggle">
+                <p>
+                    Продукти
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#000000">
+                        <rect x="0" fill="none" width="24" height="24"></rect>
+                        <g>
+                        <path d="M7 10l5 5 5-5"></path>
+                        </g>
+                    </svg>
+                </p>
+                <div class="categories-nav">
+                    <a href="{% url 'products' %}">Всички</a>
+                    {% for category in categories %}
+                        <a href="{% url 'products_category' category=category %}">{{ category }}</a>
+                    {% endfor %}
+                </div>
             </li>
             <li>
                 <a href="{% url 'contacts' %}">Контакти</a>

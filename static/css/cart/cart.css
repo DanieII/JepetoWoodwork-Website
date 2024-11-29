@@ -33,7 +33,7 @@ h1,
 }
 
 .remove {
-  color: red;
+  color: var(--orange);
 }
 
 .quantity {
@@ -55,7 +55,7 @@ h1,
   flex-direction: column;
   align-items: center;
   margin-top: 2em;
-  gap: 0.5em;
+  gap: 1em;
 }
 
 @media (max-width: 768px) {

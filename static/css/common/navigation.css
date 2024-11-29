@@ -39,17 +39,38 @@ nav .container > * {
   font-weight: bold;
 }
 
-.nav-links li::after {
-  content: "";
-  display: block;
-  width: 0;
-  height: 3px;
-  background: black;
-  transition: width 0.2s;
+.products-toggle {
+  position: relative;
+  cursor: pointer;
 }
 
-.nav-links li:hover::after {
-  width: 100%;
+.products-toggle > p {
+  display: flex;
+  align-items: center;
+}
+
+.products-toggle:not(.active) svg {
+  transform: rotate(-90deg);
+}
+
+.products-toggle.active .categories-nav {
+  display: flex;
+}
+
+.categories-nav {
+  display: none;
+  position: absolute;
+  flex-direction: column;
+  top: 3em;
+  left: -1em;
+  gap: 0.5em;
+  padding: 1em;
+  background: white;
+  box-shadow: 0 1em 1em rgb(0, 0, 0, 0.1);
+}
+
+.categories-nav a:hover {
+  color: var(--orange);
 }
 
 .logo-container,
@@ -165,7 +186,17 @@ nav.transparent a {
   color: white;
 }
 
+nav.transparent .products-toggle svg {
+  fill: white;
+}
+
 @media (max-width: 768px) {
+  .products-toggle.active .categories-nav {
+    position: static;
+    padding-block: 0.5em 0;
+    box-shadow: none;
+  }
+
   .logo-container div:not(.short) {
     display: none;
   }

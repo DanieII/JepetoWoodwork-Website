@@ -5,7 +5,7 @@ from django.shortcuts import redirect
 from .forms import ProductSortForm
 from .models import Product, Category
 from .forms import ProductAddToCartForm
-from cart.views import add_to_cart
+from cart.views import add_to_cart_view
 
 
 class BaseProductsView(ListView):
@@ -86,6 +86,6 @@ class ProductDetailsView(FormMixin, DetailView):
 
         if self.form.is_valid():
             quantity = int(request.POST.get("quantity"))
-            add_to_cart(request, self.object.slug, quantity)
+            add_to_cart_view(request, self.object.slug, quantity)
 
         return redirect(self.get_success_url())

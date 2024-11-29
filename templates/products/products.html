@@ -24,8 +24,8 @@
 {% endblock %}
 {% block content %}
     <div class="container">
-        {% with page_category=request.resolver_match.kwargs.category %}
-            <div class="top-section">
+        <div class="top-section">
+            {% with page_category=request.resolver_match.kwargs.category %}
                 <h1>
                     {% if page_category %}
                         {{ page_category }}
@@ -33,27 +33,20 @@
                         Всички
                     {% endif %}
                 </h1>
-                <div class="options">
-                    <select class="button" onchange="redirectToCategory(this)">
-                        <option value="" disabled selected hidden>Категории</option>
-                        <option value="{% url 'products' %}">Всички</option>
-                        {% for category in categories %}
-                            <option value="{% url 'products_category' category=category %}"
-                                    {% if page_category == category %}selected{% endif %}>{{ category }}</option>
-                        {% endfor %}
-                    </select>
-                    <form>
-                        <select id="id_sort" name="sort" class="button" onchange="this.form.submit()">
-                            <option value="" disabled selected hidden>Филтри</option>
-                            {% for value, label in sort_form.fields.sort.choices %}
-                                <option value="{{ value }}"
-                                        {% if  request.GET.sort  == value %}selected{% endif %}>{{ label }}</option>
-                            {% endfor %}
-                        </select>
-                    </form>
-                </div>
-            </div>
-        {% endwith %}
+            {% endwith %}
+            <form>
+                <select id="id_sort" name="sort" class="button" onchange="this.form.submit()">
+                    <option value="" disabled selected hidden>Подреждане</option>
+                    {% for value, label in sort_form.fields.sort.choices %}
+                        <option value="{{ value }}"
+                                {% if  request.GET.sort  == value %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+                <input type="hidden"
+                       name="search_field"
+                       value="{{ request.GET.search_field }}">
+            </form>
+        </div>
         <div class="products">
             {% if page_obj %}
                 {% for product in page_obj %}
@@ -78,7 +71,7 @@
                                     <input type="hidden" name="redirect_to" value="{{ request.get_full_path }}">
                                     <button type="submit"
                                             class="button"
-                                            {% if product.quantity == 0 and not product.pre_order %}disabled{% endif %}>
+                                            {% if not product.is_available %}disabled{% endif %}>
                                         Добави в количката
                                     </button>
                                 </form>
@@ -92,12 +85,4 @@
         </div>
         {% include "products/pagination.html" %}
     </div>
-    <script>
-    function redirectToCategory(select) {
-        const url = select.value;
-        if (url) {
-            window.location.href = url;
-        }
-    }
-    </script>
 {% endblock %}
