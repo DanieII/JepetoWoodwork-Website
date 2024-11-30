@@ -1,9 +1,9 @@
-from django.contrib.auth.views import TemplateView
+from django.views.generic import TemplateView
 from django.urls import reverse_lazy
 from django.views.generic import ListView, FormView
 from products.models import Product
 from .forms import ContactForm
-from django.contrib.auth.models import send_mail
+from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib import messages
 
@@ -23,12 +23,11 @@ class ContactsView(FormView):
             form.cleaned_data["email"],
             form.cleaned_data["message"],
         )
-        message = f"От: {user_email}\n" + user_message
-        host_email = settings.EMAIL_HOST_USER
+        host_email = settings.DEFAULT_FROM_EMAIL
 
         send_mail(
-            subject="Контактна Форма",
-            message=message,
+            subject="Контактна форма от Rocco Woodwork",
+            message=f"Имейл: {user_email}\nСъобщение: {user_message}",
             from_email=host_email,
             recipient_list=[host_email],
         )

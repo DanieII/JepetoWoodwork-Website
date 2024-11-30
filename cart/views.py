@@ -1,25 +1,21 @@
 from django.shortcuts import redirect, render
 from .forms import OrderForm
-from .models import Order
+from .models import Order, OrderProduct
 from products.models import Product
 from django.views.generic import CreateView
 from django.urls import reverse_lazy, reverse
-from .helper_functions import (
-    add_products_to_order,
-    send_order_email,
-)
 from django.contrib import messages
+from .utils import get_products_with_quantities, send_email_to_admin
 
 
 def cart_view(request):
     cart = request.session.get("cart", {})
-    cart_products = {
-        Product.objects.get(slug=slug): quantity for slug, quantity in cart.items()
-    }
+    products_with_quantities = get_products_with_quantities(cart)
     context = {
-        "cart_products": cart_products,
+        "cart_products": products_with_quantities,
         "total_price": sum(
-            product.price * quantity for product, quantity in cart_products.items()
+            product.price * quantity
+            for product, quantity in products_with_quantities.items()
         ),
     }
 
@@ -48,7 +44,6 @@ def add_to_cart_view(request, slug, quantity=1):
 
 
 def decrease_quantity_view(request, slug):
-    product = Product.objects.get(slug=slug)
     cart = request.session.get("cart", {})
     cart_product_quantity = cart.get(slug, 0)
 
@@ -56,17 +51,13 @@ def decrease_quantity_view(request, slug):
         cart_product_quantity -= 1
         cart[slug] = cart_product_quantity
         request.session["cart"] = cart
-        messages.success(request, f"{product.name} е премахнат от количката")
 
     return redirect(reverse("cart"))
 
 
 def remove_product_view(request, slug):
-    product = Product.objects.get(slug=slug)
-    request.session.get("cart", {}).pop(slug)
+    request.session.get("cart", {}).pop(slug, None)
     request.session.save()
-
-    messages.success(request, f"{product.name} е премахнат от количката")
 
     return redirect(reverse("cart"))
 
@@ -77,19 +68,29 @@ class CheckoutView(CreateView):
     template_name = "cart/checkout.html"
     success_url = reverse_lazy("home")
 
+    def create_order(self, form, products_with_quantities):
+        self.object = form.save()
+
+        order_products = [
+            OrderProduct(order=self.object, product=product, quantity=quantity)
+            for product, quantity in products_with_quantities.items()
+        ]
+        OrderProduct.objects.bulk_create(order_products)
+
     def form_valid(self, form):
         cart = self.request.session.get("cart", {})
         if not cart:
             return redirect("cart")
 
-        order = form.save()
-        order.save()
-        add_products_to_order(cart, order)
+        try:
+            products_with_quantities = get_products_with_quantities(cart)
+            self.create_order(form, products_with_quantities)
+            self.request.session["cart"] = {}
 
-        self.request.session["cart"] = {}
-
-        send_order_email(self.request, order)
-
-        messages.success(self.request, "Поръчката е изпратена")
+            send_email_to_admin(self.request, self.object)
+            messages.success(self.request, "Поръчката е изпратена")
+        except Exception as e:
+            messages.error(self.request, "Възникна грешка при обработката на поръчката")
+            return redirect("cart")
 
         return super().form_valid(form)

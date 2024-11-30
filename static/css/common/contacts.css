@@ -19,7 +19,7 @@ h1 {
   gap: 1em;
 }
 
-.contact-information p {
+.contact-information p a {
   word-break: keep-all;
   display: flex;
   align-items: center;

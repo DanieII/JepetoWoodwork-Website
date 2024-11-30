@@ -11,9 +11,9 @@ os.environ["SSL_CERT_FILE"] = certifi.where()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
-DEBUG = bool(int(os.getenv("DEBUG", 1)))
+DEBUG = bool(int(os.environ.get("DEBUG", 1)))
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "localhost").split(" ")
 
@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     "django.contrib.sitemaps",
     # Third Party
     "phonenumber_field",
+    "anymail",
     # Project
     "common",
     "products",
@@ -68,15 +69,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "RoccoWoodwork.wsgi.application"
 
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("DB_NAME"),
-        "USER": os.getenv("DB_USER"),
-        "PASSWORD": os.getenv("DB_PASSWORD"),
-        "HOST": os.getenv("DB_HOST"),
-        "PORT": os.getenv("DB_PORT"),
+        "NAME": os.environ.get("DB_NAME"),
+        "USER": os.environ.get("DB_USER"),
+        "PASSWORD": os.environ.get("DB_PASSWORD"),
+        "HOST": os.environ.get("DB_HOST"),
+        "PORT": os.environ.get("DB_PORT"),
     }
 }
 
@@ -100,24 +100,24 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 USE_TZ = True
 
-STATIC_ROOT = os.path.join(os.getenv("STATIC_ROOT", BASE_DIR), "staticfiles")
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Static
+STATIC_ROOT = os.path.join(os.environ.get("STATIC_ROOT", BASE_DIR), "staticfiles")
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(os.getenv("MEDIA_ROOT", BASE_DIR), "media")
+MEDIA_ROOT = os.path.join(os.environ.get("MEDIA_ROOT", BASE_DIR), "media")
 
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.mailgun.org"
-EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
-EMAIL_PORT = 587
-EMAIL_USE_SSL = False
-EMAIL_USE_TLS = True
-
-SITE_ID = 2
+# Email
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
+DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
+ANYMAIL = {
+    "MAILGUN_API_KEY": os.environ.get("MAILGUN_API_KEY"),
+    "MAILGUN_SENDER_DOMAIN": os.environ.get("MAILGUN_SENDER_DOMAIN"),
+    "MAILGUN_API_URL": "https://api.eu.mailgun.net/v3",
+}
 
 # Phonenuber Field
 PHONENUMBER_DEFAULT_REGION = "BG"
