@@ -17,6 +17,8 @@
                             {{ field }}
                             {{ field.label }}
                         </label>
+                    {% elif field.name == "city" or field.name == "address" %}
+                        <div>{{ field }}</div>
                     {% else %}
                         {{ field }}
                     {% endif %}
@@ -26,4 +28,5 @@
             </form>
         </div>
     </div>
+    <script src={% static "javascript/checkoutAutosuggestions.js" %}></script>
 {% endblock %}

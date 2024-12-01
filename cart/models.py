@@ -6,21 +6,35 @@ import uuid
 
 
 class Order(models.Model):
+    DELIVERY_CHOICES = (
+        ("Офис на куриер", "Доставка до офис на куриер - Еконт"),
+        ("Адрес на получател", "Доставка до адрес на получател"),
+    )
     first_name = models.CharField(
         max_length=100, validators=[only_alpha], verbose_name="Име"
     )
     last_name = models.CharField(
         max_length=100, validators=[only_alpha], verbose_name="Фамилия"
     )
-    city = models.CharField(
-        max_length=100, validators=[only_alpha], verbose_name="Град"
-    )
-    address = models.CharField(max_length=100, verbose_name="Адрес")
     email = models.EmailField(verbose_name="Имейл")
     phone_number = PhoneNumberField(
         verbose_name="Телефонен номер",
         error_messages={"invalid": "Въведете валиден телефонен номер"},
     )
+    delivery_type = models.CharField(
+        max_length=18,
+        choices=DELIVERY_CHOICES,
+        default="Офис на куриер",
+        verbose_name="Начин на доставка",
+    )
+    city = models.CharField(
+        max_length=100, validators=[only_alpha], verbose_name="Населено място"
+    )
+    address = models.CharField(max_length=100, verbose_name="Адрес")
+    additional_information = models.TextField(
+        null=True, blank=True, verbose_name="Пояснения към поръчката"
+    )
+    is_completed = models.BooleanField(default=False, verbose_name="Завършена поръчка")
     number = models.UUIDField(
         blank=True, default=uuid.uuid4, verbose_name="Номер на поръчката"
     )

@@ -6,6 +6,11 @@ form {
   margin-top: 1em;
 }
 
+form > * {
+  width: 50%;
+  margin-inline: auto;
+}
+
 form label {
   display: flex;
   justify-content: center;
@@ -15,4 +20,39 @@ form label {
   padding-inline: 1em;
   margin-inline: auto;
   gap: 1em;
+}
+
+div:has(.autocomplete) {
+  position: relative;
+}
+
+.autocomplete {
+  width: 100%;
+}
+
+.autocomplete-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  z-index: 1;
+  background: white;
+}
+
+.autocomplete-suggestions li {
+  display: block;
+  cursor: pointer;
+  padding: 0.5em;
+}
+
+.autocomplete-suggestions li:hover {
+  color: var(--orange);
+}
+
+@media (max-width: 768px) {
+  form > * {
+    width: 100%;
+  }
 }

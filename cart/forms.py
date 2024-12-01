@@ -5,18 +5,22 @@ from .models import Order
 class BaseOrderForm(forms.ModelForm):
     class Meta:
         model = Order
-        exclude = ["user", "created_on", "number"]
+        exclude = ["user", "created_on", "is_completed", "number"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        for field in self.fields.values():
+        for name, field in self.fields.items():
             field.widget.attrs["placeholder"] = field.label
+
+            if name == "city" or name == "address":
+                field.widget.attrs["class"] = "autocomplete"
 
 
 class OrderForm(BaseOrderForm):
     agree_with_terms_of_use = forms.BooleanField(
-        required=True, label="Запознат съм и съм съгласен с правила и условия на сайта."
+        required=True,
+        label="Запознат съм и съм съгласен с правилата и условията на сайта.",
     )
 
     def clean_agree_with_terms_of_use(self):

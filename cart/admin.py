@@ -23,6 +23,19 @@ class OrderAdmin(admin.ModelAdmin):
     ]
     search_fields = ["number"]
     search_help_text = "Търсене по номер на поръчка"
+    readonly_fields = [
+        "first_name",
+        "last_name",
+        "email",
+        "phone_number",
+        "delivery_type",
+        "city",
+        "address",
+        "additional_information",
+        "total_price_text",
+        "number",
+        "created_on",
+    ]
     fieldsets = [
         (
             "Лична информация",
@@ -36,11 +49,13 @@ class OrderAdmin(admin.ModelAdmin):
             },
         ),
         (
-            "Адрес за доставка",
+            "Доставка",
             {
                 "fields": [
+                    "delivery_type",
                     "city",
                     "address",
+                    "additional_information",
                 ]
             },
         ),
@@ -49,6 +64,7 @@ class OrderAdmin(admin.ModelAdmin):
             {
                 "fields": [
                     "total_price_text",
+                    "is_completed",
                     "number",
                     "created_on",
                 ]
@@ -56,9 +72,6 @@ class OrderAdmin(admin.ModelAdmin):
         ),
     ]
     inlines = [OrderProductInline]
-
-    def has_change_permission(self, request, obj=None):
-        return False
 
     @staticmethod
     @admin.display(description="Обща цена")
