@@ -68,6 +68,13 @@ class CheckoutView(CreateView):
     template_name = "cart/checkout.html"
     success_url = reverse_lazy("home")
 
+    def dispatch(self, request, *args, **kwargs):
+        cart = self.request.session.get("cart", {})
+        if not cart:
+            return redirect("cart")
+
+        return super().dispatch(request, *args, **kwargs)
+
     def create_order(self, form, products_with_quantities):
         self.object = form.save()
 
