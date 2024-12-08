@@ -12,6 +12,8 @@ class BaseOrderForm(forms.ModelForm):
 
         for name, field in self.fields.items():
             field.widget.attrs["placeholder"] = field.label
+            if field.required:
+                field.widget.attrs["placeholder"] += "*"
 
             if name == "city" or name == "address":
                 field.widget.attrs["class"] = "autocomplete"

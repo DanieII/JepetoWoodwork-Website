@@ -15,7 +15,6 @@ class ProductSortForm(forms.Form):
         ("new_to_old", "Дата (ново към старо)"),
         ("old_to_new", "Дата (старо към ново)"),
     ]
-
     sort = forms.ChoiceField(choices=SORT_CHOICES, required=True)
 
 

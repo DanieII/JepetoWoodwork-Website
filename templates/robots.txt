@@ -1,0 +1,8 @@
+User-Agent: *
+Disallow: /admin/
+Disallow: /cart/
+
+User-agent: GPTBot
+Disallow: /
+
+Sitemap: https://roccowoodwork.com/sitemap.xml

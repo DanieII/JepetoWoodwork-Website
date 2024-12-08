@@ -1,14 +1,6 @@
 {% extends 'common/base.html' %}
 {% load static %}
-{% block meta_description %}
-    {% with category=request.resolver_match.kwargs.category %}
-        {% if category %}
-            Изберете {{ category }} за вашия дом или за подарък. Ръчно изработени продукти от дървесина.
-        {% else %}
-            Изберете ръчно изработени продукти за вашия дом или за подарък.
-        {% endif %}
-    {% endwith %}
-{% endblock %}
+{% load common_filters %}
 {% block title %}
     {% with category=request.resolver_match.kwargs.category %}
         {% if category %}
@@ -19,21 +11,26 @@
         | Rocco Woodwork
     {% endwith %}
 {% endblock %}
+{% block description %}
+    {% with category=request.resolver_match.kwargs.category %}
+        {% if category %}
+            Изберете {{ category }} за вашия дом или за подарък. Ръчно изработени продукти от дърво.
+        {% else %}
+            Изберете ръчно изработени продукти от дърво за вашия дом или за подарък. Дървена дъска за рязане, дървена дъска за сервиране, дървена купа.
+        {% endif %}
+    {% endwith %}
+{% endblock %}
 {% block styles %}
     <link rel="stylesheet" href="{% static 'css/products/products.css' %}">
 {% endblock %}
 {% block content %}
     <div class="container">
         <div class="top-section">
-            {% with page_category=request.resolver_match.kwargs.category %}
-                <h1>
-                    {% if page_category %}
-                        {{ page_category }}
-                    {% else %}
-                        Всички
-                    {% endif %}
-                </h1>
-            {% endwith %}
+            {% if request.resolver_match.kwargs.slug %}
+                <h1>{{ categories|get_item:request.resolver_match.kwargs.slug }}</h1>
+            {% else %}
+                <h1>Всички</h1>
+            {% endif %}
             <form>
                 <select id="id_sort" name="sort" class="button" onchange="this.form.submit()">
                     <option value="" disabled selected hidden>Подреждане</option>

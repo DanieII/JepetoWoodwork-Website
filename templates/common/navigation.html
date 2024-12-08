@@ -26,8 +26,8 @@
                 </p>
                 <div class="categories-nav">
                     <a href="{% url 'products' %}">Всички</a>
-                    {% for category in categories %}
-                        <a href="{% url 'products_category' category=category %}">{{ category }}</a>
+                    {% for category_slug, category_name in categories.items %}
+                        <a href="{% url 'products_category' slug=category_slug %}">{{ category_name }}</a>
                     {% endfor %}
                 </div>
             </li>
@@ -35,26 +35,7 @@
                 <a href="{% url 'contacts' %}">Контакти</a>
             </li>
         </ul>
-        <div class="logo-container">
-            <a href="{% url 'home' %}">
-                <div>
-                    {% with "logo" as class %}
-                        {% include "common/logo.html" %}
-                    {% endwith %}
-                    {% with "logo white" as class %}
-                        {% include "common/logo.html" %}
-                    {% endwith %}
-                </div>
-                <div class="short">
-                    {% with "logo" as class %}
-                        {% include "common/logo-short.html" %}
-                    {% endwith %}
-                    {% with "logo white" as class %}
-                        {% include "common/logo-short.html" %}
-                    {% endwith %}
-                </div>
-            </a>
-        </div>
+        <a class="logo-container" href="{% url 'home' %}">{% include "common/logo.html" %}</a>
         <ul class="icon-nav">
             <li>
                 <div class="search-toggle">

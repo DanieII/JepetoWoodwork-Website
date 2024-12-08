@@ -16,11 +16,8 @@ class OrderProductInline(admin.TabularInline):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = [
-        "total_price_text",
-        "created_on",
-        "number",
-    ]
+    list_display = ["total_price_text", "created_on", "is_completed", "number"]
+    list_filter = ["is_completed"]
     search_fields = ["number"]
     search_help_text = "Търсене по номер на поръчка"
     readonly_fields = [

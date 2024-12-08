@@ -1,20 +1,17 @@
 {% extends 'common/base.html' %}
 {% load static %}
-{% block meta_description %}{{ object.description }}{% endblock %}
-{% block meta_keywords %}
+{% block title %}{{ object.name }} | Rocco Woodwork{% endblock %}
+{% block description %}{{ object.description }}{% endblock %}
+{% block keywords %}
     {% with categories=object.categories.all|join:", " %}{{ object.name }}, {{ categories }}{% endwith %}
 {% endblock %}
-{% block meta %}
-    <meta name="twitter:title" content="{{ object.name }} - Rocco Woodwork">
-    <meta name="twitter:description" content="{{ object.description }}">
-    <meta name="twitter:image" content="{{ object.thumbnail_image_url }}">
-    <meta property="og:name" content="{{ object.name }}">
-    <meta property="og:description" content="{{ object.description }}">
+{% block open_graph %}
     <meta property="og:title" content="{{ object.name }}">
-    <meta property="og:image" content="{{ object.thumbnail_image_url }}">
+    <meta property="og:image"
+          content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{{ object.thumbnail_image_url }}">
+    <meta property="og:url"
+          content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{{ object.get_absolute_url }}">
 {% endblock %}
-{% block meta_image %}{{ object.thumbnail_image_url }}{% endblock %}
-{% block title %}{{ object.name }} | Rocco Woodwork{% endblock %}
 {% block styles %}
     <link rel="stylesheet" href="{% static "css/products/product-details.css" %}">
     <link rel="stylesheet"
@@ -38,17 +35,16 @@
                 <h1>{{ product.name }}</h1>
                 <p>{{ product.price|floatformat:2 }} лв.</p>
                 <p>
-                    В наличност:
                     {% if product.is_available %}
-                        Да
+                        В наличност
                     {% else %}
-                        Не
+                        Продаден
                     {% endif %}
                 </p>
                 <p class="categories">
                     Категории:
                     {% for category in product.categories.all %}
-                        <a href="{% url 'products_category' category=category.name %}">{{ category.name }}</a>
+                        <a href="{% url 'products_category' slug=category.slug %}">{{ category.name }}</a>
                         {% if not forloop.last %},{% endif %}
                     {% endfor %}
                 </p>

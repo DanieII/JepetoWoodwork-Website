@@ -7,4 +7,8 @@ def search_form(request):
 
 
 def categories(request):
-    return {"categories": [category.name for category in Category.objects.all()]}
+    return {
+        "categories": {
+            category.slug: category.name for category in Category.objects.all()
+        }
+    }

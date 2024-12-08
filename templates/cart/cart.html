@@ -19,9 +19,7 @@
                         </div>
                         <div class="product-info">
                             <div>
-                                <p>
-                                    <strong>{{ product.name }}</strong>
-                                </p>
+                                <p>{{ product.name }}</p>
                                 <a href="{% url 'remove_product' slug=product.slug %}" class="remove">Премахни</a>
                             </div>
                             <div class="quantity">

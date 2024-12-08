@@ -14,12 +14,6 @@ class BaseProductsView(ListView):
     paginate_by = 4
     extra_context = {"sort_form": ProductSortForm}
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(object_list=self.get_queryset())
-        context["categories"] = [category.name for category in Category.objects.all()]
-
-        return context
-
     def filter_by_search_field(self, queryset):
         search_query = self.request.GET.get("search_field") or self.request.POST.get(
             "search_field"
@@ -61,10 +55,10 @@ class ProductsView(BaseProductsView):
 
 class ProductsCategoryView(BaseProductsView):
     def get_queryset(self):
-        category = self.kwargs.get("category")
+        slug = self.kwargs.get("slug")
 
         products = super().get_queryset()
-        products = products.filter(categories__name=category)
+        products = products.filter(categories__slug=slug)
 
         products = self.perform_filtering(products)
 

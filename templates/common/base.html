@@ -2,27 +2,25 @@
 <!DOCTYPE html>
 <html lang="bg">
     <head>
+        <title>
+            {% block title %}Ръчно изработени дървени изделия | Rocco Woodwork{% endblock %}
+        </title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-capable" content="yes">
-        <title>
-            {% block title %}Rocco Woodwork | Дървени изделия ръчна изработка{% endblock %}
-        </title>
-        <meta name="description"
-              content="{% block meta_description %}Rocco Woodwork предлага дървени изделия, ръчна изработка, с уникален дизайн. Дъски за сервиране и рязане, купи, маси и проекти по поръчка.{% endblock %}">
+        <meta name="description" content="{% block description %}{% endblock %}">
         <meta name="keywords"
-              content="{% block meta_keywords %}дървени изделия, ръчна изработка, купи, дъски, дъски за рязане, дъски за сервиране, маси, подарък от дърво{% endblock %}">
-        <meta property="og:title" content="Rocco Woodwork">
+              content="{% block keywords %}дървени изделия, ръчна изработка, купи, дъски, дъски за рязане, дъски за сервиране, маси, подарък от дърво{% endblock %}">
         <meta property="og:site_name" content="Rocco Woodwork">
         <meta property="og:type" content="website">
-        <meta property="og:description"
-              content="Rocco Woodwork предлага дървени изделия, ръчна изработка, с уникален дизайн. Дъски за сервиране и рязане, купи, маси и проекти по поръчка.">
-        {% block meta %}{% endblock %}
-        <link rel="apple-touch-icon" sizes="180x180" href="{% static "/apple-touch-icon.png" %}">
-        <link rel="icon" type="image/png" sizes="32x32" href="{% static "/favicon-32x32.png" %}">
-        <link rel="icon" type="image/png" sizes="16x16" href="{% static "/favicon-16x16.png" %}">
-        <link rel="manifest" href="{% static "/site.webmanifest" %}"]>
+        {% block open_graph %}{% endblock %}
+        <link rel="icon" type="image/png" href="{% static "/favicon-96x96.png" %}" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href={% static "/favicon.svg" %} />
+        <link rel="shortcut icon" href={% static "/favicon.ico" %} />
+        <link rel="apple-touch-icon" sizes="180x180" href="{% static "/apple-touch-icon.png" %}" />
+        <meta name="apple-mobile-web-app-title" content="Rocco Woodwork" />
+        <link rel="manifest" href={% static "/site.webmanifest" %} />
         <link rel="stylesheet" href="{% static 'css/common/base.css' %}">
         {% block styles %}{% endblock %}
     </head>

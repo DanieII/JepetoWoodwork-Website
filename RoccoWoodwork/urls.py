@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.sitemaps.views import sitemap
-from django.contrib.auth import views as auth_views
+from django.views.generic import TemplateView
 from products.sitemaps import ProductCategorySitemap, ProductSitemap
 
 sitemaps = {
@@ -30,33 +30,19 @@ sitemaps = {
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("common.urls")),
-    path("products/", include("products.urls")),
-    path("cart/", include("cart.urls")),
+    path(
+        "robots.txt",
+        TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
+    ),
     path(
         "sitemap.xml",
         sitemap,
         {"sitemaps": sitemaps},
         name="django.contrib.sitemaps.views.sitemap",
     ),
-    path(
-        "password_reset/", auth_views.PasswordResetView.as_view(), name="password_reset"
-    ),
-    path(
-        "password_reset/done/",
-        auth_views.PasswordResetDoneView.as_view(),
-        name="password_reset_done",
-    ),
-    path(
-        "reset/<uidb64>/<token>/",
-        auth_views.PasswordResetConfirmView.as_view(),
-        name="password_reset_confirm",
-    ),
-    path(
-        "reset/done/",
-        auth_views.PasswordResetCompleteView.as_view(),
-        name="password_reset_complete",
-    ),
+    path("", include("common.urls")),
+    path("products/", include("products.urls")),
+    path("cart/", include("cart.urls")),
 ]
 
 if settings.DEBUG:

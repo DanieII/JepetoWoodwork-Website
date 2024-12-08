@@ -9,13 +9,13 @@ class ProductSitemap(Sitemap):
     def items(self):
         return Product.objects.all()
 
-    def lastmod(self, obj):
-        return obj.modified
+    def location(self, obj):
+        return obj.get_absolute_url()
 
 
 class ProductCategorySitemap(Sitemap):
-    changefreq = "montly"
-    priority = 1
+    changefreq = "weekly"
+    priority = 0.8
 
     def items(self):
         return Category.objects.all()

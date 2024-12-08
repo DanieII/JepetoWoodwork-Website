@@ -3,30 +3,29 @@ nav {
   top: 0;
   left: 0;
   width: 100%;
+  height: 6em;
   overflow: visible;
   z-index: 100;
   background-color: white;
   box-shadow: 0 0 1em rgb(0, 0, 0, 0.1);
   transition: background-color 0.2s;
-  padding-block: 0.5em;
 }
 
-nav .container,
-nav a {
+nav .container {
   display: flex;
 }
 
-.nav-btn,
-.logo-container .short {
+nav .container > * {
+  flex: 1;
+}
+
+.nav-btn {
   display: none;
 }
 
 nav li {
   display: block;
-}
-
-nav .container > * {
-  flex: 1;
+  font-weight: bold;
 }
 
 .nav-links {
@@ -35,16 +34,12 @@ nav .container > * {
   gap: 1em;
 }
 
-.nav-links li {
-  font-weight: bold;
-}
-
 .products-toggle {
   position: relative;
   cursor: pointer;
 }
 
-.products-toggle > p {
+.products-toggle p {
   display: flex;
   align-items: center;
 }
@@ -61,29 +56,23 @@ nav .container > * {
   display: none;
   position: absolute;
   flex-direction: column;
-  top: 3em;
+  top: 4em;
   left: -1em;
-  gap: 0.5em;
+  gap: 1em;
   padding: 1em;
   background: white;
   box-shadow: 0 1em 1em rgb(0, 0, 0, 0.1);
 }
 
-.categories-nav a:hover {
-  color: var(--orange);
-}
-
-.logo-container,
-.logo-container div {
+.logo-container {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .logo {
-  width: 50%;
-  height: auto;
-  margin-inline: auto;
+  width: auto;
+  height: 100%;
 }
 
 .icon-nav {
@@ -91,6 +80,10 @@ nav .container > * {
   gap: 1em;
   justify-content: flex-end;
   align-items: center;
+}
+
+.icon-nav a {
+  display: flex;
 }
 
 .cart {
@@ -102,13 +95,13 @@ nav .container > * {
   position: absolute;
   top: -0.5em;
   right: -0.5em;
-  font-size: 10px;
+  font-size: 0.6em;
   font-weight: bold;
-  width: 16px;
+  width: 1.5em;
   text-align: center;
   background: black;
   color: white;
-  border-radius: 12px;
+  border-radius: 100%;
 }
 
 .cart[value=""]::after {
@@ -172,11 +165,6 @@ nav.transparent {
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
 }
 
-nav:not(.transparent) .logo.white,
-nav.transparent .logo:not(.white) {
-  display: none !important;
-}
-
 nav.transparent li::after {
   background: white;
   color: black;
@@ -186,8 +174,9 @@ nav.transparent a {
   color: white;
 }
 
+nav.transparent svg text,
 nav.transparent .products-toggle svg {
-  fill: white;
+  fill: white !important;
 }
 
 @media (max-width: 768px) {
@@ -195,14 +184,6 @@ nav.transparent .products-toggle svg {
     position: static;
     padding-block: 0.5em 0;
     box-shadow: none;
-  }
-
-  .logo-container div:not(.short) {
-    display: none;
-  }
-
-  .logo-container .short {
-    display: flex;
   }
 
   .nav-btn {
@@ -221,11 +202,10 @@ nav.transparent .products-toggle svg {
 
   .nav-links {
     display: flex;
-    gap: 1.5em;
     flex-direction: column;
     align-items: start;
     position: absolute;
-    top: 4.8em;
+    top: 6em;
     left: -100%;
     background-color: white;
     padding: 0 1em 1em 1em;
@@ -236,9 +216,5 @@ nav.transparent .products-toggle svg {
 
   .nav-links.active {
     left: 0;
-  }
-
-  nav .search {
-    gap: 1em;
   }
 }

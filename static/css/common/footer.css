@@ -22,12 +22,9 @@ footer .container {
   transition: border-color 0.2s;
 }
 
-.footer-nav li:hover a {
-  color: var(--orange);
-}
-
 .footer-nav li:last-child {
   border: none;
+  padding-right: 0;
 }
 
 .footer-nav a {
@@ -41,6 +38,10 @@ footer .container {
 
 .footer-nav li {
   display: block;
+}
+
+footer p {
+  font-size: 0.9em !important;
 }
 
 @media (max-width: 768px) {

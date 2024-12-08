@@ -15,7 +15,7 @@ class Product(models.Model):
     description = models.TextField(null=True, blank=True, verbose_name="Описание")
     categories = models.ManyToManyField(to="Category", verbose_name="Категории")
     is_available = models.BooleanField(verbose_name="В наличност")
-    slug = models.SlugField(unique=True, null=True, blank=True)
+    slug = models.SlugField(unique=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -31,8 +31,6 @@ class Product(models.Model):
         return reverse("product_details", kwargs={"slug": self.slug})
 
     def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-
         if not self.slug:
             ascii_name = unidecode(self.name)
             self.slug = f"{slugify(ascii_name)}-{self.id}"
@@ -52,11 +50,22 @@ class ProductImage(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
+    slug = models.SlugField(unique=True, blank=True)
+    date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse("products_category", kwargs={"slug": self.slug})
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(unidecode(self.name))
+
+        super().save(*args, **kwargs)
+
     class Meta:
-        ordering = ["name"]
+        ordering = ["-date_added"]
         verbose_name = "Категория"
         verbose_name_plural = "Категории"
