@@ -1,3 +1,10 @@
+main,
+main > .container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
 .top-section {
   display: flex;
   justify-content: space-between;
@@ -7,7 +14,7 @@
 .products {
   display: flex;
   justify-content: space-between;
-  margin-top: 1em;
+  margin-block: 2em;
   flex-wrap: wrap;
   gap: 2em;
 }
@@ -28,8 +35,11 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-top: 0.5em;
   gap: 0.5em;
+}
+
+.product .info {
+  margin-block: 0.5em;
 }
 
 .product .info p {
@@ -49,7 +59,7 @@
   justify-content: center;
   align-items: center;
   gap: 1em;
-  margin-block: 2em 1em;
+  margin-top: auto;
 }
 
 .pagination-number {
@@ -72,7 +82,7 @@
     flex-direction: column;
   }
 
-  .top-section h1 {
+  h1 {
     text-align: center;
   }
 

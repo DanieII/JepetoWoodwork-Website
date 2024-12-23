@@ -1,12 +1,14 @@
 {% extends 'common/base.html' %}
-{% load static %}
+{% load static compress %}
 {% load product_filters %}
 {% block title %}Количка | Rocco Woodwork{% endblock %}
 {% block styles %}
-    <link rel="stylesheet" href="{% static 'css/cart/cart.css' %}">
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'css/cart/cart.css' %}">
+    {% endcompress %}
 {% endblock %}
 {% block content %}
-    <div class="container cart">
+    <div class="container">
         <h1>Количка</h1>
         {% if cart_products %}
             <div class="products">

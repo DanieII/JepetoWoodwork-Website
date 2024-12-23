@@ -1,9 +1,11 @@
 {% extends "common/base.html" %}
-{% load static %}
+{% load static compress %}
 {% block title %}Контакти | Rocco Woodwork{% endblock %}
 {% block description %}Свържете се с нас, чрез данните или формата за контакт.{% endblock %}
 {% block styles %}
-    <link rel="stylesheet" href="{% static "css/common/contacts.css" %}">
+    {% compress css %}
+        <link rel="stylesheet" href="{% static "css/common/contacts.css" %}">
+    {% endcompress %}
 {% endblock %}
 {% block content %}
     <div class="container">
@@ -11,7 +13,7 @@
         <div class="contacts">
             <div class="contact-information">
                 <p>
-                    <a href="tel:+359886638566">
+                    <a href="tel:+359888888888">
                         <svg aria-hidden="true"
                              xmlns="http://www.w3.org/2000/svg"
                              width="24"

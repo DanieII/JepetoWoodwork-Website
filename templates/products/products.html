@@ -1,5 +1,5 @@
 {% extends 'common/base.html' %}
-{% load static %}
+{% load static compress %}
 {% load common_filters %}
 {% block title %}
     {% with category=request.resolver_match.kwargs.category %}
@@ -21,7 +21,9 @@
     {% endwith %}
 {% endblock %}
 {% block styles %}
-    <link rel="stylesheet" href="{% static 'css/products/products.css' %}">
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'css/products/products.css' %}">
+    {% endcompress %}
 {% endblock %}
 {% block content %}
     <div class="container">

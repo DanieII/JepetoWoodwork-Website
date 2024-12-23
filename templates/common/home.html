@@ -1,5 +1,5 @@
 {% extends 'common/base.html' %}
-{% load static %}
+{% load static compress %}
 {% block description %}
     Rocco Woodwork предлага ръчно изработени дъски за сервиране, дъски за рязане, купи и дървени изделия с уникален дизайн от дърво.
 {% endblock %}
@@ -14,11 +14,13 @@
 {% endblock %}
 {% block styles %}
     <style>
-	.banner {
-	      background-image: url("static/images/hero-background.webp") 
-	}
+        .banner {
+            background-image: url({% static 'images/hero-background.webp' %}) 
+        }
     </style>
-    <link rel="stylesheet" href="{% static 'css/common/home.css' %}">
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'css/common/home.css' %}">
+    {% endcompress %}
 {% endblock %}
 {% block content %}
     <div class="banner">
@@ -58,5 +60,7 @@
         </div>
     </div>
     {% for product in object_list %}{% endfor %}
-    <script src="{% static "javascript/changeNavColor.js" %}"></script>
+    {% compress js %}
+        <script src="{% static "javascript/changeNavColor.js" %}"></script>
+    {% endcompress %}
 {% endblock %}

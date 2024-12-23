@@ -1,14 +1,15 @@
 {% extends "common/base.html" %}
-{% load static %}
-{% load product_filters %}
+{% load static compress product_filters %}
 {% block title %}Завършване на поръчка | Rocco Woodwork{% endblock %}
 {% block styles %}
-    <link rel="stylesheet" href="{% static 'css/cart/checkout.css' %}">
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'css/cart/checkout.css' %}">
+    {% endcompress %}
 {% endblock %}
 {% block content %}
     <div class="container">
         <h1>Завършване на поръчка</h1>
-        <div>
+        <div class="checkout">
             <form method="post" action="{% url 'checkout' %}" class="form-control">
                 {% csrf_token %}
                 {% for field in form %}
@@ -17,10 +18,8 @@
                             {{ field }}
                             {{ field.label }}
                         </label>
-                    {% elif field.name == "city" or field.name == "address" %}
-                        <div>{{ field }}</div>
                     {% else %}
-                        {{ field }}
+                        <div>{{ field }}</div>
                     {% endif %}
                     {% if field.errors %}{{ field.errors }}{% endif %}
                 {% endfor %}
@@ -28,5 +27,7 @@
             </form>
         </div>
     </div>
-    <script src={% static "javascript/checkoutAutosuggestions.js" %}></script>
+    {% compress js %}
+        <script src={% static "javascript/checkoutAutosuggestions.js" %}></script>
+    {% endcompress %}
 {% endblock %}

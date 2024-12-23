@@ -17,25 +17,16 @@ main {
   text-align: center;
 }
 
-.banner p {
-  font-size: 1.8em;
-  font-weight: bold;
-  letter-spacing: 0.05em;
-}
-
-h2 {
-  text-align: center;
-}
-
 .our-products {
   margin-top: 1em;
+  text-align: center;
 }
 
 .categories {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 2em;
+  gap: 1em;
   margin-top: 1em;
 }
 
@@ -43,7 +34,6 @@ h2 {
   flex-basis: 31%;
   width: 100%;
   position: relative;
-  text-align: center;
 }
 
 .category img {
@@ -63,22 +53,16 @@ h2 {
   transform: translate(-50%, -50%);
   color: white;
   font-weight: bold;
-  font-size: larger;
+  font-size: 1.2rem;
 }
 
 .custom-projects {
   text-align: center;
+  margin-top: 0.5em;
 }
 
-.custom-projects .info {
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
+.custom-projects .info p {
   margin-block: 1em;
-}
-
-.custom-projects .info .button {
-  margin-inline: auto;
 }
 
 @media (max-width: 768px) {

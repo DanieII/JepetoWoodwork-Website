@@ -5,7 +5,8 @@ h1 {
 .contacts {
   display: flex;
   justify-content: center;
-  margin: 1em auto;
+  margin-top: 2em;
+  margin-inline: auto;
 }
 
 .contacts > * {

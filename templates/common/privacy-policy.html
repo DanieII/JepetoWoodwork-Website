@@ -1,9 +1,11 @@
 {% extends "common/base.html" %}
-{% load static %}
+{% load static compress %}
 {% block title %}Политика за поверителност | RoccoWoodwork{% endblock %}
 {% block description %}Политика за поверителност на Rocco Woodwork.{% endblock %}
 {% block styles %}
-    <link rel="stylesheet" href="{% static "css/common/privacy-policy.css" %}">
+    {% compress css %}
+        <link rel="stylesheet" href="{% static "css/common/privacy-policy.css" %}">
+    {% endcompress %}
 {% endblock %}
 {% block content %}
     <div class="container">

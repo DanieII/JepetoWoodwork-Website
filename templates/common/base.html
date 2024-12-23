@@ -1,4 +1,4 @@
-{% load static %}
+{% load static compress %}
 <!DOCTYPE html>
 <html lang="bg">
     <head>
@@ -16,12 +16,23 @@
         <meta property="og:type" content="website">
         {% block open_graph %}{% endblock %}
         <link rel="icon" type="image/png" href="{% static "/favicon-96x96.png" %}" sizes="96x96" />
-        <link rel="icon" type="image/svg+xml" href={% static "/favicon.svg" %} />
-        <link rel="shortcut icon" href={% static "/favicon.ico" %} />
+        <link rel="icon" type="image/svg+xml" href="{% static "/favicon.svg" %}" />
+        <link rel="shortcut icon" href="{% static "/favicon.ico" %}" />
         <link rel="apple-touch-icon" sizes="180x180" href="{% static "/apple-touch-icon.png" %}" />
         <meta name="apple-mobile-web-app-title" content="Rocco Woodwork" />
         <link rel="manifest" href={% static "/site.webmanifest" %} />
-        <link rel="stylesheet" href="{% static 'css/common/base.css' %}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+              rel="stylesheet">
+        {% compress css %}
+            <link rel="stylesheet" href="{% static 'css/common/base.css' %}">
+            <link rel="stylesheet" href="{% static 'css/common/typography.css' %}">
+            <link rel="stylesheet" href="{% static 'css/common/form.css' %}">
+            <link rel="stylesheet" href="{% static 'css/common/button.css' %}">
+            <link rel="stylesheet" href="{% static 'css/common/navigation.css' %}">
+            <link rel="stylesheet" href="{% static 'css/common/footer.css' %}">
+        {% endcompress %}
         {% block styles %}{% endblock %}
     </head>
     <body>
@@ -37,9 +48,11 @@
                 {% endfor %}
             </ul>
         {% endif %}
-        <script src="{% static 'javascript/toggleNav.js' %}"></script>
-        <script src="{% static 'javascript/toggleNavCategories.js' %}"></script>
-        <script src="{% static 'javascript/hideMessages.js' %}"></script>
-        <script src="{% static 'javascript/toggleSearch.js' %}"></script>
+        {% compress js %}
+            <script src="{% static 'javascript/toggleNav.js' %}"></script>
+            <script src="{% static 'javascript/toggleNavCategories.js' %}"></script>
+            <script src="{% static 'javascript/hideMessages.js' %}"></script>
+            <script src="{% static 'javascript/toggleSearch.js' %}"></script>
+        {% endcompress %}
     </body>
 </html>

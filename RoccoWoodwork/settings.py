@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     # Third Party
     "phonenumber_field",
     "anymail",
+    "compressor",
     # Project
     "common",
     "products",
@@ -124,3 +125,13 @@ ANYMAIL = {
 
 # Phonenuber Field
 PHONENUMBER_DEFAULT_REGION = "BG"
+
+# Compression
+COMPRESS_ENABLED = True
+COMPRESS_OFFLINE = True
+STATICFILES_FINDERS = (
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    # other finders..
+    "compressor.finders.CompressorFinder",
+)

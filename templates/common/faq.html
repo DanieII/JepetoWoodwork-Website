@@ -1,9 +1,11 @@
 {% extends "common/base.html" %}
-{% load static %}
+{% load static compress %}
 {% block title %}Често задавани въпроси | Rocco Woodwork{% endblock %}
 {% block description %}Често задавани въпроси.{% endblock %}
 {% block styles %}
-    <link rel="stylesheet" href="{% static "css/common/faq.css" %}">
+    {% compress css %}
+        <link rel="stylesheet" href="{% static "css/common/faq.css" %}">
+    {% endcompress %}
 {% endblock %}
 {% block content %}
     <div class="container">

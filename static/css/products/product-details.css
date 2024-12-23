@@ -13,13 +13,13 @@
   flex-direction: column;
   justify-content: space-between;
   flex-basis: 35%;
-  gap: 1.5em;
 }
 
 .info {
   display: flex;
-  gap: 0.5em;
   flex-direction: column;
+  gap: 0.5em;
+  margin-block: 1em;
 }
 
 .categories a {

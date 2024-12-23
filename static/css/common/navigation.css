@@ -154,8 +154,16 @@ nav li {
   cursor: pointer;
 }
 
-.logo.white path {
-  fill: white;
+.logo:last-of-type {
+  display: none;
+}
+
+nav.transparent .logo:first-of-type {
+  display: none;
+}
+
+nav.transparent .logo:last-of-type {
+  display: block;
 }
 
 nav.transparent {

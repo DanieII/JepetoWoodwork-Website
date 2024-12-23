@@ -1,5 +1,5 @@
 {% extends 'common/base.html' %}
-{% load static %}
+{% load static compress %}
 {% block title %}{{ object.name }} | Rocco Woodwork{% endblock %}
 {% block description %}{{ object.description }}{% endblock %}
 {% block keywords %}
@@ -13,7 +13,9 @@
           content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{{ object.get_absolute_url }}">
 {% endblock %}
 {% block styles %}
-    <link rel="stylesheet" href="{% static "css/products/product-details.css" %}">
+    {% compress css %}
+        <link rel="stylesheet" href="{% static "css/products/product-details.css" %}">
+    {% endcompress %}
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 {% endblock %}
