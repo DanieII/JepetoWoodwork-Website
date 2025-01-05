@@ -34,7 +34,7 @@
                 <h1>Всички</h1>
             {% endif %}
             <form>
-                <select id="id_sort" name="sort" class="button" onchange="this.form.submit()">
+                <select id="id_sort" name="sort" onchange="this.form.submit()">
                     <option value="" disabled selected hidden>Подреждане</option>
                     {% for value, label in sort_form.fields.sort.choices %}
                         <option value="{{ value }}"

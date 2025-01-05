@@ -127,7 +127,7 @@ ANYMAIL = {
 PHONENUMBER_DEFAULT_REGION = "BG"
 
 # Compression
-COMPRESS_ENABLED = True
+COMPRESS_ENABLED = False
 COMPRESS_OFFLINE = True
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",

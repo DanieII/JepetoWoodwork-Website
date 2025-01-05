@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.views.generic.edit import FormMixin
 from django.shortcuts import redirect
 from .forms import ProductSortForm
-from .models import Product, Category
+from .models import Product
 from .forms import ProductAddToCartForm
 from cart.views import add_to_cart_view
 

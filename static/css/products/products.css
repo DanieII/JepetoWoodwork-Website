@@ -11,6 +11,18 @@ main > .container {
   gap: 1em;
 }
 
+.top-section form {
+  display: flex;
+}
+
+.top-section select {
+  border: none;
+  background: none;
+  margin-top: auto;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
 .products {
   display: flex;
   justify-content: space-between;
@@ -87,7 +99,7 @@ main > .container {
   }
 
   .top-section form {
-    margin-inline: auto;
+    margin-right: auto;
   }
 
   .product {

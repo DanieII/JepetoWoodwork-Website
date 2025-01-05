@@ -11,15 +11,24 @@ main {
   min-height: 55vh;
   background-size: cover;
   background-position: center;
+  background-position-y: 70%;
   padding-top: 6em;
   padding-inline: 1em;
   color: white;
   text-align: center;
 }
 
+.our-products,
+.custom-projects {
+  text-align: center;
+}
+
 .our-products {
   margin-top: 1em;
-  text-align: center;
+}
+
+.custom-projects {
+  margin-top: 2em;
 }
 
 .categories {
@@ -54,11 +63,6 @@ main {
   color: white;
   font-weight: bold;
   font-size: 1.2rem;
-}
-
-.custom-projects {
-  text-align: center;
-  margin-top: 0.5em;
 }
 
 .custom-projects .info p {

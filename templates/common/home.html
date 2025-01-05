@@ -8,14 +8,14 @@
 {% endblock %}
 {% block open_graph %}
     <meta property="og:title"
-          content="Ръчно изработени дървени изделия | Rocco Woodwork">
+          content="Ръчна изработка на уникални изделия от дърво | Rocco Woodwork">
     <meta property="og:description"
           content="Rocco Woodwork предлага дървени изделия, ръчна изработка, с уникален дизайн. Дъски за сервиране и рязане, купи, маси и проекти по поръчка.">
 {% endblock %}
 {% block styles %}
     <style>
         .banner {
-            background-image: url({% static 'images/hero-background.webp' %}) 
+            background-image: url({% static 'images/hero.webp' %}) 
         }
     </style>
     {% compress css %}
@@ -23,40 +23,39 @@
     {% endcompress %}
 {% endblock %}
 {% block content %}
-    <div class="banner">
-        <h1>Ръчно изработени дървени изделия</h1>
-        <a href="{% url 'products' %}" class="button">Разгледай</a>
-    </div>
-    <div class="container our-products">
-        <h2>Нашите продукти</h2>
-        <div class="categories">
-            <div class="category">
-                <a href={% url "products_category" slug="kupi" %}>
-                    <img src={% static "images/category-1.webp" %} alt="Купи">
-                    <p>Купи</p>
-                </a>
-            </div>
-            <div class="category">
-                <a href={% url "products_category" slug="kupi" %}>
-                    <img src={% static "images/category-1.webp" %} alt="Дъски за сервиране">
-                    <p>Дъски за сервиране</p>
-                </a>
-            </div>
-            <div class="category">
-                <a href={% url "products_category" slug="kupi" %}>
-                    <img src={% static "images/category-1.webp" %} alt="Маси">
-                    <p>Други</p>
-                </a>
+    <div class="banner"></div>
+    <div class="container">
+        <div class="our-products">
+            <h2>Нашите продукти</h2>
+            <div class="categories">
+                <div class="category">
+                    <a href={% url "products_category" slug="kupi" %}>
+                        <img src={% static "images/category-1.webp" %} alt="Купи">
+                        <p>Купи</p>
+                    </a>
+                </div>
+                <div class="category">
+                    <a href={% url "products_category" slug="dski-za-servirane" %}>
+                        <img src={% static "images/category-2.webp" %} alt="Дъски за сервиране">
+                        <p>Дъски за сервиране</p>
+                    </a>
+                </div>
+                <div class="category">
+                    <a href={% url "products_category" slug="drugi" %}>
+                        <img src={% static "images/category-3.webp" %} alt="Маси">
+                        <p>Други</p>
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container custom-projects">
-        <h2>Проекти по поръчка</h2>
-        <div class="info">
-            <p>
-                Rocco Woodwork предлага изработка на проекти по поръчка. Ако се нуждаете от персонализирано дървено изделие, ние сме готови да ви помогнем.
-            </p>
-            <a href={% url "contacts" %} class="button">Свържете се с нас</a>
+        <div class="custom-projects">
+            <h2>Проекти по поръчка</h2>
+            <div class="info">
+                <p>
+                    Rocco Woodwork предлага изработка на проекти по поръчка. Ако се нуждаете от персонализирано дървено изделие, ние сме готови да ви помогнем.
+                </p>
+                <a href={% url "contacts" %} class="button">Свържете се с нас</a>
+            </div>
         </div>
     </div>
     {% for product in object_list %}{% endfor %}
