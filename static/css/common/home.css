@@ -1,5 +1,5 @@
 main {
-  margin-top: 0;
+  margin: 0;
 }
 
 .banner {
@@ -12,23 +12,15 @@ main {
   background-size: cover;
   background-position: center;
   background-position-y: 70%;
-  padding-top: 6em;
+  padding-top: 5em;
   padding-inline: 1em;
   color: white;
   text-align: center;
 }
 
-.our-products,
-.custom-projects {
-  text-align: center;
-}
-
 .our-products {
-  margin-top: 1em;
-}
-
-.custom-projects {
-  margin-top: 2em;
+  text-align: center;
+  padding-block: 2em;
 }
 
 .categories {
@@ -36,7 +28,7 @@ main {
   justify-content: center;
   flex-wrap: wrap;
   gap: 1em;
-  margin-top: 1em;
+  padding-top: 1em;
 }
 
 .category {
@@ -65,8 +57,17 @@ main {
   font-size: 1.2rem;
 }
 
-.custom-projects .info p {
-  margin-block: 1em;
+.custom-projects {
+  text-align: center;
+  padding-block: 2em;
+}
+
+.custom-projects .info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+  padding-top: 1em;
 }
 
 @media (max-width: 768px) {

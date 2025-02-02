@@ -1,4 +1,9 @@
 {% extends "common/base.html" %}
-{% load static %}
+{% load static compress %}
 {% block title %}Страницата не е намерена | Rocco Woodwork{% endblock %}
+{% block styles %}
+    {% compress css %}
+        <link rel="stylesheet" href="{% static "css/common/error-page.css" %}">
+    {% endcompress %}
+{% endblock %}
 {% block content %}<h1>Страницата не е намерена</h1>{% endblock %}

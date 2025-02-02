@@ -1,3 +1,6 @@
 media/
 dev.yml
 .env
+.DS_Store
+.git
+__pycache__

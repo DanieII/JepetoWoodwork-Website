@@ -108,7 +108,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Static
 STATIC_ROOT = os.path.join(os.environ.get("STATIC_ROOT", BASE_DIR), "staticfiles")
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
 MEDIA_URL = "/media/"
@@ -127,8 +127,9 @@ ANYMAIL = {
 PHONENUMBER_DEFAULT_REGION = "BG"
 
 # Compression
-COMPRESS_ENABLED = False
+COMPRESS_ENABLED = True
 COMPRESS_OFFLINE = True
+COMPRESS_URL = STATIC_URL
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",

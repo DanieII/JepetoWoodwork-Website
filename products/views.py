@@ -1,9 +1,9 @@
 from django.views.generic import DetailView, ListView
 from django.urls import reverse
 from django.views.generic.edit import FormMixin
-from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404, redirect
 from .forms import ProductSortForm
-from .models import Product
+from .models import Category, Product
 from .forms import ProductAddToCartForm
 from cart.views import add_to_cart_view
 
@@ -56,10 +56,9 @@ class ProductsView(BaseProductsView):
 class ProductsCategoryView(BaseProductsView):
     def get_queryset(self):
         slug = self.kwargs.get("slug")
-
+        category = get_object_or_404(Category, slug=slug)
         products = super().get_queryset()
-        products = products.filter(categories__slug=slug)
-
+        products = products.filter(categories=category)
         products = self.perform_filtering(products)
 
         return products

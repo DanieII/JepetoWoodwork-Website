@@ -93,7 +93,6 @@ class CheckoutView(CreateView):
             products_with_quantities = get_products_with_quantities(cart)
             self.create_order(form, products_with_quantities)
             self.request.session["cart"] = {}
-
             send_email_to_admin(self.request, self.object)
             messages.success(self.request, "Поръчката е изпратена")
         except Exception as e:

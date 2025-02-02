@@ -3,11 +3,11 @@ nav {
   top: 0;
   left: 0;
   width: 100%;
-  height: 6em;
+  height: 5em;
   overflow: visible;
   z-index: 100;
   background-color: white;
-  box-shadow: 0 0 1em rgb(0, 0, 0, 0.1);
+  border-bottom: 1px solid #dfe3e8;
   transition: background-color 0.2s;
 }
 
@@ -56,12 +56,11 @@ nav li {
   display: none;
   position: absolute;
   flex-direction: column;
-  top: 4em;
-  left: -1em;
-  gap: 1em;
-  padding: 1em;
   background: white;
-  box-shadow: 0 1em 1em rgb(0, 0, 0, 0.1);
+}
+
+.categories-nav a {
+  padding: 1em;
 }
 
 .logo-container {
@@ -168,7 +167,7 @@ nav.transparent .logo:last-of-type {
 
 nav.transparent {
   background: transparent;
-  box-shadow: none;
+  border: none;
   color: white;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
 }
@@ -213,10 +212,10 @@ nav.transparent .products-toggle svg {
     flex-direction: column;
     align-items: start;
     position: absolute;
-    top: 6em;
+    top: 5em;
     left: -100%;
     background-color: white;
-    padding: 0 1em 1em 1em;
+    padding: 1em;
     height: calc(100vh - 3.5em);
     transition: left 0.2s;
     width: 50%;
