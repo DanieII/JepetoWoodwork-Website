@@ -31,6 +31,8 @@ class Product(models.Model):
         return reverse("product_details", kwargs={"slug": self.slug})
 
     def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
         if not self.slug:
             ascii_name = unidecode(self.name)
             self.slug = f"{slugify(ascii_name)}-{self.id}"
@@ -66,6 +68,6 @@ class Category(models.Model):
         super().save(*args, **kwargs)
 
     class Meta:
-        ordering = ["-date_added"]
+        ordering = ["date_added"]
         verbose_name = "Категория"
         verbose_name_plural = "Категории"
