@@ -26,27 +26,6 @@ h1 {
   gap: 1em;
 }
 
-div:has(.autocomplete) {
-  position: relative;
-}
-
-.autocomplete-suggestions {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  z-index: 1;
-  background: white;
-}
-
-.autocomplete-suggestions li {
-  display: block;
-  cursor: pointer;
-  padding: 0.5em;
-}
-
 @media (max-width: 768px) {
   .checkout form > * {
     width: 100%;

@@ -10,13 +10,10 @@ class BaseOrderForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        for name, field in self.fields.items():
+        for field in self.fields.values():
             field.widget.attrs["placeholder"] = field.label
             if field.required:
                 field.widget.attrs["placeholder"] += "*"
-
-            if name == "city" or name == "address":
-                field.widget.attrs["class"] = "autocomplete"
 
 
 class OrderForm(BaseOrderForm):
